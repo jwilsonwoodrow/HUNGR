@@ -2,6 +2,7 @@
   <div class="home">
     <h1>Home</h1>
     <p>You must be authenticated to see this</p>
+        <p>Email: {{currentUser.email}}</p>
     <p>User Name: {{currentUser.username}}</p>
     <p>User Id: {{currentUser.userId}}</p>
     <p>Role: {{currentUser.role}}</p>

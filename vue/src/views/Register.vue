@@ -5,6 +5,16 @@
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
+      <label for="email" class="sr-only">Email</label>
+      <input
+        type="text"
+        id="email"
+        class="form-control"
+        placeholder="Email"
+        v-model="user.email"
+        required
+        autofocus
+      />
       <label for="username" class="sr-only">Username</label>
       <input
         type="text"
@@ -48,6 +58,7 @@ export default {
   data() {
     return {
       user: {
+        email: '',
         username: '',
         password: '',
         confirmPassword: '',
@@ -78,6 +89,9 @@ export default {
             this.registrationErrors = true;
             if (response.status === 400) {
               this.registrationErrorMsg = 'Bad Request: Validation Errors';
+            }
+            if (response.status === 409) {
+              this.registrationErrorMsg = 'The email address is already in use';
             }
           });
       }

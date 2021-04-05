@@ -6,13 +6,23 @@
         class="alert alert-danger"
         role="alert"
         v-if="invalidCredentials"
-      >Invalid username and password!</div>
+      >Invalid username or password!</div>
       <div
         class="alert alert-success"
         role="alert"
         v-if="this.$route.query.registration"
       >Thank you for registering, please sign in.</div>
-      <label for="username" class="sr-only">Username</label>
+      <label for="email" class="sr-only">Email</label>
+      <input
+        type="text"
+        id="email"
+        class="form-control"
+        placeholder="Email"
+        v-model="user.email"
+        required
+        autofocus
+      />
+      <!-- <label for="username" class="sr-only">Username</label>
       <input
         type="text"
         id="username"
@@ -21,7 +31,7 @@
         v-model="user.username"
         required
         autofocus
-      />
+      /> -->
       <label for="password" class="sr-only">Password</label>
       <input
         type="password"
@@ -46,7 +56,8 @@ export default {
   data() {
     return {
       user: {
-        username: "",
+        email: "",
+        // username: "",
         password: ""
       },
       invalidCredentials: false

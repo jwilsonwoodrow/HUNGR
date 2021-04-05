@@ -42,6 +42,13 @@ namespace Capstone.Controllers
                 return User.Claims.FirstOrDefault(cl => cl.Type == ClaimTypes.Role)?.Value;
             }
         }
+        protected string Email
+        {
+            get
+            {
+                return Convert.ToString(User.FindFirst("email")?.Value ?? "");
+            }
+        }
         /**************************************************************************************************
          *  END OF Methods for getting the Logged-in user information
          *************************************************************************************************/

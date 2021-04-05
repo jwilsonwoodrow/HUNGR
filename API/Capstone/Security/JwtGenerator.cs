@@ -16,17 +16,18 @@ namespace Capstone.Security
             JwtSecret = secret;
         }
 
-        public string GenerateToken(int userId, string username)
+        public string GenerateToken(int userId, string username, string email)
         {
-            return GenerateToken(userId, username, string.Empty);
+            return GenerateToken(userId, username, email, string.Empty);
         }
 
-        public string GenerateToken(int userId, string username, string role)
+        public string GenerateToken(int userId, string username, string email, string role)
         {
             List<Claim> claims = new List<Claim>()
             {
                 new Claim("sub", userId.ToString()),
                 new Claim("name", username),
+                new Claim("email", email),
             };
 
             if (!string.IsNullOrWhiteSpace(role))

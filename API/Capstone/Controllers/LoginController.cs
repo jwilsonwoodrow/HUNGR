@@ -26,17 +26,17 @@ namespace Capstone.Controllers
             // Default to bad username/password message
             IActionResult result = Unauthorized(new { message = "Username or password is incorrect" });
 
-            // Get the user by username
-            User user = userDAO.GetUser(userParam.Username);
+            // Get the user by email
+            User user = userDAO.GetUser(userParam.Email);
 
             // If we found a user and the password hash matches
             if (user != null && passwordHasher.VerifyHashMatch(user.PasswordHash, userParam.Password, user.Salt))
             {
                 // Create an authentication token
-                string token = tokenGenerator.GenerateToken(user.UserId, user.Username, user.Role);
+                string token = tokenGenerator.GenerateToken(user.UserId, user.Username, user.Email, user.Role);
 
                 // Create a ReturnUser object to return to the client
-                LoginResponse retUser = new LoginResponse() { User = new ReturnUser() { UserId = user.UserId, Username = user.Username, Role = user.Role }, Token = token };
+                LoginResponse retUser = new LoginResponse() { User = new ReturnUser() { UserId = user.UserId, Username = user.Username, Email = user.Email, Role = user.Role }, Token = token };
 
                 // Switch to 200 OK
                 result = Ok(retUser);
@@ -50,16 +50,29 @@ namespace Capstone.Controllers
         {
             IActionResult result;
 
-            User existingUser = userDAO.GetUser(userParam.Username);
+            User existingUser = userDAO.GetUser(userParam.Email);
             if (existingUser != null)
             {
-                return Conflict(new { message = "Username already taken. Please choose a different username." });
+                if(existingUser.Email == userParam.Email)
+                {
+                    return Conflict(new { message = "Email already registered. Please login or register with a new email." });
+                }
+                if (existingUser.Username == userParam.Username)
+                {
+                    return Conflict(new { message = "Username taken. Please choose a different username." });
+                }
+                else
+                {
+                    return Conflict(new { message = "User already exists." });
+                }
+                
+
             }
 
-            User user = userDAO.AddUser(userParam.Username, userParam.Password, userParam.Role);
+            User user = userDAO.AddUser(userParam.Email, userParam.Username, userParam.Password, userParam.Role);
             if (user != null)
             {
-                result = Created(user.Username, null); //values aren't read on client
+                result = Created(user.Email, null); //values aren't read on client
             }
             else
             {

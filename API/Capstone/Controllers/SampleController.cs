@@ -29,7 +29,7 @@ namespace Capstone.Controllers
         [HttpGet("auth")]
         public ActionResult GetUserInfo()
         {
-            string result = $"Your user name is {UserName}, user id is {UserId}, and your role is {UserRole}.";
+            string result = $"Your email is {Email}, your user name is {UserName}, user id is {UserId}, and your role is {UserRole}.";
             return Ok(result);
         }
 
