@@ -27,7 +27,7 @@ namespace Capstone.Controllers
             IActionResult result = Unauthorized(new { message = "Username or password is incorrect" });
 
             // Get the user by email
-            User user = userDAO.GetUser(userParam.Email);
+            User user = userDAO.GetUserByEmail(userParam.Email);
 
             // If we found a user and the password hash matches
             if (user != null && passwordHasher.VerifyHashMatch(user.PasswordHash, userParam.Password, user.Salt))
@@ -50,23 +50,12 @@ namespace Capstone.Controllers
         {
             IActionResult result;
 
-            User existingUser = userDAO.GetUser(userParam.Email);
-            if (existingUser != null)
-            {
-                if(existingUser.Email == userParam.Email)
-                {
-                    return Conflict(new { message = "Email already registered. Please login or register with a new email." });
-                }
-                if (existingUser.Username == userParam.Username)
-                {
-                    return Conflict(new { message = "Username taken. Please choose a different username." });
-                }
-                else
-                {
-                    return Conflict(new { message = "User already exists." });
-                }
-                
+            User existingUserFromEmail = userDAO.GetUserByEmail(userParam.Email);
+            User existingUserFromUsername = userDAO.GetUserByUsername(userParam.Username);
 
+            if (existingUserFromEmail != null || existingUserFromUsername != null)
+            {
+                    return Conflict(new { message = "Email or Username already registered. Please login or register with new credentials." });
             }
 
             User user = userDAO.AddUser(userParam.Email, userParam.Username, userParam.Password, userParam.Role);

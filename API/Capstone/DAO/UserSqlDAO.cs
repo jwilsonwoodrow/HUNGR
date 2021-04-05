@@ -16,7 +16,7 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public User GetUser(string email)
+        public User GetUserByEmail(string email)
         {
             User returnUser = null;
 
@@ -44,7 +44,33 @@ namespace Capstone.DAO
             return returnUser;
         }
 
+        public User GetUserByUsername(string username)
+        {
+            User returnUser = null;
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT user_id, email, username, password_hash, salt, user_role FROM users WHERE username = @username", conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows && reader.Read())
+                    {
+                        returnUser = GetUserFromReader(reader);
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return returnUser;
+        }
         public User AddUser(string email, string username, string password, string role)
         {
             IPasswordHasher passwordHasher = new PasswordHasher();
@@ -70,7 +96,7 @@ namespace Capstone.DAO
                 throw;
             }
 
-            return GetUser(email);
+            return GetUserByEmail(email);
         }
 
         private User GetUserFromReader(SqlDataReader reader)
