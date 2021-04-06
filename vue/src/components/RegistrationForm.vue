@@ -1,5 +1,5 @@
 <template>
-  <div id="register" class="text-center">
+  <div id="register" class="body">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
@@ -160,6 +160,14 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (min-width: 768px) {
+  .body {
+    display: flex;
+  }
+  .space {
+    margin-top: 10px;
+  }
+}
 .alert-danger {
   color: red;
 }

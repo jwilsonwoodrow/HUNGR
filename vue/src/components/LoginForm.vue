@@ -1,7 +1,6 @@
 <template>
   <div id="login" class="text-center">
     <form class="form-signin" @submit.prevent="login">
-      <h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
       <div
         class="alert alert-danger"
         role="alert"
@@ -11,8 +10,8 @@
         class="alert alert-success"
         role="alert"
         v-if="this.$route.query.registration"
-      >Thank you for registering, please sign in.</div>
-      <label for="email" class="sr-only">Email</label>
+      ></div>
+      <label for="email" class="sr-only">Email: </label><br>
       <input
         type="text"
         id="email"
@@ -21,8 +20,8 @@
         v-model="user.email"
         required
         autofocus
-      />
-      <label for="password" class="sr-only">Password</label>
+      /><br>
+      <label for="password" class="sr-only">Password: </label><br>
       <input
         type="password"
         id="password"
@@ -30,12 +29,33 @@
         placeholder="Password"
         v-model="user.password"
         required
-      />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
-      <button type="submit">Sign in</button>
+      /><br><br>
+      <button type="submit">Sign in</button><br><br>
+      <router-link :to="{ name: 'register' }" class="need">Need an account?</router-link><br><br>
+
     </form>
   </div>
 </template>
+
+<style scoped>
+button {
+    background-color: black;
+  color: white;
+  border-radius: 25%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  padding: 10px;
+  border: 2px dashed;
+}
+#login {
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.need {
+  color: greenyellow;
+}
+</style>
 
 <script>
 import authService from "../services/AuthService";

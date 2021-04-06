@@ -1,15 +1,12 @@
 <template>
-  <div id="register" class="text-center">
+  <div id="register" class="body">
     <form class="form-register" @submit.prevent="register">
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <p class="password-details" v-show="displayPasswordDetails">
-        Password must be at least 8 characters in length and contain at least
-        one uppercase letter, one lowercase letter, and one number.
-      </p>
-      <label for="email" class="sr-only">Email</label>
+    <div class="form">
+      <label for="email" class="sr-only">Email</label><br>
       <input
         type="text"
         id="email"
@@ -19,7 +16,8 @@
         required
         autofocus
       />
-      <label for="username" class="sr-only">Username</label>
+      <div class="smallSpace"></div>
+      <label for="username" class="sr-only">Username</label><br>
       <input
         type="text"
         id="username"
@@ -28,8 +26,15 @@
         v-model="user.username"
         required
         autofocus
-      />
+      /> <div class="smallSpace"></div>
+
       <label for="password" class="sr-only">Password</label>
+
+            <h4><p class="password-details" v-show="displayPasswordDetails">
+        Password must be at least 8 characters in length and contain at least
+        one uppercase letter, one lowercase letter, and one number.
+      </p></h4>
+
       <input
         type="password"
         id="password"
@@ -37,7 +42,7 @@
         placeholder="Password"
         v-model="user.password"
         required
-      />
+      /> <div class="smallSpace"></div>
       <input
         type="password"
         id="confirmPassword"
@@ -45,14 +50,65 @@
         placeholder="Confirm Password"
         v-model="user.confirmPassword"
         required
-      />
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      /> <div class="smallSpace"></div>
+    </div>
+      <router-link :to="{ name: 'login' }" class="hyperlink">Have an account?</router-link><br><br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
     </form>
   </div>
 </template>
+
+<style scoped>
+@media only screen and (max-width: 600px) {
+  .body {
+    display: flex;
+    flex-wrap: wrap;
+    word-wrap: normal;
+  }
+  .space {
+    margin-top: 10px;
+  }
+}
+.body{
+  text-align: center;
+    background-color: darkred;
+  min-height: 100%;
+  min-width: 1024px;
+
+  /* Scale proportionately */
+  width: 100%;
+  height: auto;
+
+  /* Positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  }
+  button {
+      background-color: black;
+  color: white;
+  border-radius: 25%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  padding: 10px;
+  border: 2px dashed;
+  }
+  .form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center, space-evenly, space-between;
+  align-items: center;
+  margin-top: 90px;
+}
+.smallSpace {
+  height: 35px;
+}
+.hyperlink {
+  color: greenyellow;
+}
+</style>
 
 <script>
 import authService from "../services/AuthService";
