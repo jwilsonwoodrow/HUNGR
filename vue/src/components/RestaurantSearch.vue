@@ -1,15 +1,15 @@
 <template>
   <div>
+    <input type="search" placeholder="Type City or Zip" v-model="location" />
     <table>
       <tr>
-        <th><input type="search" placeholder="Type City or Zip" v-model="location" />
-</th>
         <th>Select Cuisine</th>
       </tr>
       <tr>
-        <td>{{ cuisine }}</td>
         <td>
-          <v-select class="dropdown-content"
+          <v-select 
+            class="dropdown-content"
+            v-model="selectedCuisine"
             :options=cuisines
             :value="cuisine"
             @input="(cuisine) => SelectCuisine(cuisine)"
@@ -120,7 +120,7 @@ export default {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {
+.dropdown-content tr:hover {
   background-color: red
 }
 
