@@ -46,7 +46,7 @@
         v-model="user.confirmPassword"
         required
       />
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      <router-link class="hyperlink" :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
@@ -223,8 +223,8 @@ export default {
   .space {
     margin-top: 10px;
   }
-}
+}*/
 .alert-danger {
   color: red;
-} */
+} 
 </style>
