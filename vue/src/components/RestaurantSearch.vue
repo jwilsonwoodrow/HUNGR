@@ -1,85 +1,52 @@
 <template>
   <div>
     <input type="search" placeholder="Type City or Zip" v-model="location" />
-    <table>
-      <tr>
-        <th>Select Cuisine</th>
-      </tr>
-      <tr>
-        <td>
-          <v-select 
-            class="dropdown-content"
-            v-model="selectedCuisine"
-            :options=cuisines
-            :value="cuisine"
-            @input="(cuisine) => SelectCuisine(cuisine)"
-          />
-        </td>
-      </tr>
-    </table>
-    <!-- <div class="dropdown">
-      <button class="dropbtn">Select Cuisine Type</button>
-      <div class="dropdown-content">
-        <p v-for="cuisine in cuisines" v-bind:key="cuisine" @click="SelectCuisine"> {{cuisine}}
-        </p>
-      </div>
-    </div>-->
+    <v-select
+      label="displayValue"
+      :options="cuisines"
+      :value="selectedCuisine"
+      @input= "cuisine => SelectCuisine(cuisine)" 
+    />
   </div>
 </template>
 
 <script>
-import apiService from "../services/apiService";
-import vSelect from 'vue-select'
+//import apiService from "../services/apiService";
+import vSelect from "vue-select";
 
 export default {
   name: "restaurant-search",
-  components: {vSelect},
+  components: { vSelect },
   data() {
     return {
       location: "",
       category: "",
       selectedCuisine: "",
-      cuisines: [
-        "Mexican",
-        "French",
-        "American",
-        "Chinese",
-        "Vietnamese",
-        "Italian",
-        "Korean",
-        "Japanese",
-        "Texmex",
-        "Breakfast & Brunch",
-        "Indian",
-        "Mediterranean",
-        "Polish",
-        "Greek",
-        "Middle-Eastern",
-        "Lebanese",
-        "Barbeque",
-        "Thai",
-        "Cupcakes",
-        "Dessert",
-        "Ethiopian",
-        "Jamacian",
-        "Caribbean",
-        "Coffee",
-        "Tea",
-        "Bar",
-        "Tavern",
-        "Pizza",
+      cuisines: [],
+      stuff: [
+        {
+          uuid: "58dc3c76c9205670b433e934",
+          email: "dennisingram@cinesanct.com",
+        },
+        {
+          uuid: "58dc3c76fb733629909f1ce8",
+          email: "louhendricks@zytrac.com",
+        },
+        {
+          uuid: "58dc3c762d5b19946660567e",
+          email: "cindyholcomb@tourmania.com",
+        },
       ],
     };
   },
   created() {
-    apiService.getBusinessByLocationAndOrCategory(this.$);
+    //apiService.getBusinessByLocationAndOrCategory(this.$);
+    this.cuisines = this.$store.state.cuisines;
   },
-  computed: {
-    options: () => this.cuisines,
-  },
+  computed: {},
   methods: {
     SelectCuisine(cuisine) {
-      this.selectedCuisines.push(cuisine);
+      this.SelectCuisine = cuisine;
     },
   },
 };
@@ -121,7 +88,7 @@ export default {
 
 /* Change color of dropdown links on hover */
 .dropdown-content tr:hover {
-  background-color: red
+  background-color: red;
 }
 
 /* Show the dropdown menu on hover */
