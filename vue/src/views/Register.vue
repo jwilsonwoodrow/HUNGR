@@ -6,7 +6,6 @@
 
 <script>
 import RegistrationForm from '@/components/RegistrationForm.vue';
-import authService from "../services/AuthService";
 
 export default {
   name: "register",

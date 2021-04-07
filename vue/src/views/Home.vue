@@ -1,7 +1,6 @@
 <template>
 <div class="home">
 <h1>LOGO</h1>
-
      <!-- 
     <p>You must be authenticated to see this</p>
         <p>Email: {{currentUser.email}}</p>
@@ -11,7 +10,7 @@
 <div class="space"></div><div class="space"></div><div class="space"></div>
 
 <section class="buttons">
-  <button class="select">select restaurants</button>
+  <button class="select" @click="GoToRestaurantList">select restaurants</button>
     <div class="space"></div>
   <button class="select">my collection</button>
     <div class="space"></div>
@@ -22,6 +21,24 @@
 
 </div>
 </template>
+
+
+
+<script>
+export default {
+  name: "home",
+  computed: {
+    currentUser() {
+      return this.$store.state.user;
+    },
+  },
+  methods: {
+    GoToRestaurantList(){
+      this.$router.push('/restaurants')
+    }
+  }
+};
+</script>
 
 <style scoped>
 @media only screen and (max-width: 600px) {
@@ -76,14 +93,3 @@
   margin-top: 100px;
 }
 </style>
-
-<script>
-export default {
-  name: "home",
-  computed: {
-    currentUser() {
-      return this.$store.state.user;
-    },
-  },
-};
-</script>

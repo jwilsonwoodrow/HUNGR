@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import ViewRestaurants from '../views/ViewRestaurants'
 
 Vue.use(Router)
 
@@ -52,6 +53,11 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+    {
+      path: "/restaurants",
+      name: 'restaurants',
+      component: ViewRestaurants
     },
   ]
 })

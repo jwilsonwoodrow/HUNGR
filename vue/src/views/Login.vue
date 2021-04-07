@@ -17,10 +17,9 @@
 
 <script>
 import LoginForm from "../components/LoginForm.vue";
-import RegistrationForm from "../components/RegistrationForm.vue";
 
 export default {
-  components: { LoginForm, RegistrationForm },
+  components: { LoginForm },
   data() {
     return {
       showLoginForm: false,
