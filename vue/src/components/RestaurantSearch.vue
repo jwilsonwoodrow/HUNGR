@@ -1,52 +1,70 @@
 <template>
   <div>
     <input type="search" placeholder="Type City or Zip" v-model="location" />
-    <v-select
-      label="displayValue"
-      :options="cuisines"
-      :value="selectedCuisine"
-      @input= "cuisine => SelectCuisine(cuisine)" 
-    />
+    <select v-model="selectedCuisine">
+      <option v-for="cuisine in cuisines" v-bind:key="cuisine">
+        {{ cuisine.displayValue }}
+      </option>
+    </select>
+    <!-- 
+      Potential Filtered search/drop down
+
+      <div class="dropdown">
+    <input type="text" v-model="searchText" />
+    <pre>{{ matches.displayValue }}</pre>  </div> -->
+
+    <button @click="getRestaurants()">Search</button>
+    <p v-for="restaurant in returnedRestaurants" v-bind:key="restaurant.name">
+      {{ restaurant.name }}
+    </p>
   </div>
 </template>
 
 <script>
-//import apiService from "../services/apiService";
-import vSelect from "vue-select";
+import apiService from "../services/apiService";
 
 export default {
   name: "restaurant-search",
-  components: { vSelect },
+  components: {},
   data() {
     return {
+      searchText: "",
       location: "",
       category: "",
       selectedCuisine: "",
       cuisines: [],
-      stuff: [
-        {
-          uuid: "58dc3c76c9205670b433e934",
-          email: "dennisingram@cinesanct.com",
-        },
-        {
-          uuid: "58dc3c76fb733629909f1ce8",
-          email: "louhendricks@zytrac.com",
-        },
-        {
-          uuid: "58dc3c762d5b19946660567e",
-          email: "cindyholcomb@tourmania.com",
-        },
-      ],
+      returnedRestaurants: [],
     };
   },
   created() {
     //apiService.getBusinessByLocationAndOrCategory(this.$);
     this.cuisines = this.$store.state.cuisines;
   },
-  computed: {},
+  computed: {
+    //potential filtered search
+    // matches () {
+    //   return Object.entries(this.cuisines).filter((cuisine) => {
+    //     var optionText = cuisine[0].toUpperCase()
+    //     return optionText.match(this.searchText.toUpperCase())
+    //   })
+    // }
+  },
   methods: {
-    SelectCuisine(cuisine) {
-      this.SelectCuisine = cuisine;
+    getRestaurants() {
+      if (this.selectedCuisine) {
+        apiService
+          .getBusinessByLocationAndOrCategory(
+            this.location,
+            this.selectedCuisine
+          )
+          .then((resp) => {
+            this.returnedRestaurants = resp.data;
+          });
+      } else {
+        apiService.getListOfBusinessesByLocation(this.location).then((resp) => {
+          this.returnedRestaurants = resp.data;
+        });
+      }
     },
   },
 };
