@@ -1,6 +1,10 @@
 <template>
   <div id="login" class="text-center">
+        <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
+    <div class="glass-container">
     <form class="form-signin" @submit.prevent="login">
+
+        <div class="image"><img src="https://www.linkpicture.com/q/logo2_9.png" width=140px height=140px class="logo"/></div>
       <div
         class="alert alert-danger"
         role="alert"
@@ -10,8 +14,8 @@
         class="alert alert-success"
         role="alert"
         v-if="this.$route.query.registration"
-      ></div>
-      <label for="email" class="sr-only">Email: </label><br>
+      ></div><br>
+      <label for="email" class="sr-only">Email</label><br>
       <input
         type="text"
         id="email"
@@ -21,7 +25,7 @@
         required
         autofocus
       /><br>
-      <label for="password" class="sr-only">Password: </label><br>
+      <label for="password" class="sr-only">Password</label><br>
       <input
         type="password"
         id="password"
@@ -34,26 +38,71 @@
       <router-link :to="{ name: 'register' }" class="need">Need an account?</router-link><br><br>
 
     </form>
+    </div>
   </div>
 </template>
 
 <style scoped>
-button {
-    background-color: black;
-  color: white;
-  border-radius: 25%;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  padding: 10px;
-  border: 2px dashed;
-}
+    .backgroundLogo{
+      min-height: 100%;
+      min-width: 1024px;
+      width: 100%;
+      height: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background-size: cover;
+    }
+    button {
+      font-family: 'Montserrat', sans-serif;
+      background: transparent;
+      background-image: url("https://www.linkpicture.com/q/button-1_1.png");
+      background-size: 100px 50px;
+      font-weight:10;
+      width: 100px;
+      height: 50px;
+      font-size: 100%;
+      color: white;
+      border: 0;
+      padding: 0;
+    }    button:focus {
+        outline: none;
+        box-shadow: none;
+    }
 #login {
-    display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+      display: block;
+    margin-left: auto;
+     margin-right: auto;
+     text-align: center;
 }
+.glass-container {
+    width: 300px;
+    height: 560px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255,0,0, 0.131);
+    box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+    border: 4px rgba(0, 0, 0, 0.3) solid;
+    border-bottom: 4px rgba(40,40,40,0.35) solid;
+    border-right: 4px rgba(40,40,40,0.35) solid;
+}
+  .image{
+    border: 3px solid rgb(252,248,200);
+    border-radius: 50%;
+    padding: 30px;
+    background-color: rgba(124,10,2,255);
+  }
+  
+
 .need {
-  color: greenyellow;
+  color: rgb(255, 234, 47);
 }
 </style>
 

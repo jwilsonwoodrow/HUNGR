@@ -1,14 +1,17 @@
 <template>
   <div id="register" class="body">
+    <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
+    <div class="glass-container">
     <form class="form-register" @submit.prevent="register">
+       <div class="image"><img src="https://www.linkpicture.com/q/logo2_9.png" width=140px height=140px class="logo"/></div>
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <p class="password-details" v-show="displayPasswordDetails">
+      <!--<p class="password-details" v-show="displayPasswordDetails">
         Password fields must match. Password must be at least 8 characters in length and contain at least
         one uppercase letter, one lowercase letter, and one number.
-      </p>
+      </p>* -->
       <label for="email" class="sr-only">Email</label>
       <input
         type="text"
@@ -46,11 +49,12 @@
         v-model="user.confirmPassword"
         required
       />
-      <router-link class="hyperlink" :to="{ name: 'login' }">Have an account?</router-link>
+      <router-link class="hyperlink need" :to="{ name: 'login' }"><p class="need">Have an account?</p></router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
     </form>
+    </div>
   </div>
 </template>
 
@@ -167,54 +171,86 @@ export default {
 </script>
 
 <style scoped>
-
-@media only screen and (max-width: 600px) {
-  .body {
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500&display=swap');
+/* @media only screen and (max-width: 600px) { */
+ .body {
     display: flex;
-    flex-wrap: wrap;
-    word-wrap: normal;
-  }
+      height: 100vh;
+      width: 100vw;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      font-family: 'Anton', sans-serif;
+}
   .space {
     margin-top: 10px;
   }
-}
-.body{
-  text-align: center;
-    background-color: darkred;
-  min-height: 100%;
-  min-width: 1024px;
-
-  /* Scale proportionately */
-  width: 100%;
-  height: auto;
-
-  /* Positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  }
-  button {
-      background-color: black;
-  color: white;
-  border-radius: 25%;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  padding: 10px;
-  border: 2px dashed;
-  }
+    button {
+      font-family: 'Montserrat', sans-serif;
+      background: transparent;
+      background-image: url("https://www.linkpicture.com/q/button-1_1.png");
+      background-size: 100px 50px;
+      font-weight:10;
+      width: 100px;
+      height: 50px;
+      font-size: 70%;
+      color: white;
+      border: 0;
+      padding: 0;
+    }    button:focus {
+        outline: none;
+        box-shadow: none;
+    }
   form{
   display: flex;
   flex-direction: column;
   justify-content: center, space-evenly, space-between;
   align-items: center;
-  margin-top: 90px;
+}
+.need {
+  color: rgb(255, 234, 47);
 }
 .smallSpace {
   height: 35px;
 }
 .hyperlink {
-  color: greenyellow;
+  color:  rgb(255, 234, 47);
 }
+.glass-container{
+  margin-left: 28px;
+    width: 300px;
+    height: 700px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(255,0,0, 0.131);
+    box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+    border: 4px rgba(0, 0, 0, 0.3) solid;
+    border-bottom: 4px rgba(40,40,40,0.35) solid;
+    border-right: 4px rgba(40,40,40,0.35) solid;
+}
+  .image{
+    border: 3px solid rgb(252,248,200);
+    border-radius: 50%;
+    padding: 30px;
+    background-color: rgba(124,10,2,255);
+  }
+    .backgroundLogo{
+      min-height: 100%;
+      min-width: 1024px;
+      width: 100%;
+      height: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-size: cover;
+    }
 
 /* @media only screen and (min-width: 768px) {
   .body {
