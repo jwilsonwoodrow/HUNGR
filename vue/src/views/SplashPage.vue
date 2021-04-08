@@ -1,15 +1,28 @@
 <template>
   <div class="main">
-    <login-form></login-form>
+    <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
+      <div class="glass-container">
+        <div class="image"><img src="https://www.linkpicture.com/q/logo2_9.png" width=140px height=140px class="logo"/></div>
+        <div class="blurb"><em>Food to match your mood.</em></div>
+      <button class="button loginShowButton" @click="goToLogin"><p>Login</p></button>
+      <button class="button ShowButton" @click="goToRegistration">Register</button>
+    </div>
   </div>
 </template>
 <script>
-import LoginForm from '../components/LoginForm.vue';
 export default {
-  components: {LoginForm },
+  components: { },
   data() {
     return {
     };
+  },
+  methods: {
+    goToLogin() {
+       this.$router.push("/login");
+    },
+    goToRegistration() {
+      this.$router.push("/register");
+    },
   },
 };
 </script>
@@ -32,12 +45,20 @@ export default {
     }
     button {
       font-family: 'Montserrat', sans-serif;
+      background: transparent;
+      background-image: url("https://www.linkpicture.com/q/button-1_1.png");
+      background-size: 100px 50px;
       font-weight:10;
-      background-image: url('https://i.ibb.co/0K6R2px/button.png');
       width: 100px;
       height: 50px;
       font-size: 100%;
       color: white;
+      border: 0;
+      padding: 0;
+    }
+    button:focus {
+        outline: none;
+        box-shadow: none;
     }
     .backgroundLogo{
       min-height: 100%;
@@ -68,11 +89,11 @@ export default {
     border-bottom: 4px rgba(40,40,40,0.35) solid;
     border-right: 4px rgba(40,40,40,0.35) solid;
 }
-.logo {
-  border: 3px solid rgb(252,248,200);
-  border-radius: 50%;
-  padding: 30px;
-  background-color: rgba(124,10,2,255);
+  .image{
+    border: 3px solid rgb(252,248,200);
+    border-radius: 50%;
+    padding: 30px;
+    background-color: rgba(124,10,2,255);
   }
   .blurb {
     color:  rgb(252,248,200);

@@ -6,6 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import ViewRestaurants from '../views/ViewRestaurants'
+import SplashPage from '../views/SplashPage'
 
 Vue.use(Router)
 
@@ -23,7 +24,7 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
       meta: {
@@ -59,6 +60,14 @@ const router = new Router({
       name: 'restaurants',
       component: ViewRestaurants
     },
+    {
+      path: "/",
+      name: 'splash',
+      component: SplashPage,
+      meta: {
+        requiresAuth: false
+      }
+    },
   ]
 })
 
@@ -68,7 +77,7 @@ router.beforeEach((to, from, next) => {
 
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
-    next("/login");
+    next("/");
   } else {
     // Else let them go to their next destination
     next();

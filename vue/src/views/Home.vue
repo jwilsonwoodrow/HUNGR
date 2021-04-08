@@ -16,7 +16,7 @@
     <div class="space"></div>
   <button class="select">invite</button>
     <div class="space"></div>
-  <button class="logout">logout</button>
+  <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''"><button class="logout">Logout</button></router-link>
 </section>
 
 </div>
