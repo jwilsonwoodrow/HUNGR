@@ -1,36 +1,51 @@
 import axios from 'axios';
 
+//let apiKey = 'eaVrnAmbrpSFr42hRsFbG7_Ip2Vaawgjy31hbv_eEU1FK-2yftcNtIp3lDDXfhz_jiodk8M0Tam8kwbAHRI2NIyq804Qw69aarkeS-cQt4JFS_5cgewRD7j_HrZtYHYx'
 const http = axios.create({
-    baseURL: 'https://api.yelp.com/v3/businesses',
-
-  });
+    //baseURL: 'https://api.yelp.com/v3/businesses',
+    baseURL: 'https://localhost:44315/'
+});
 
 export default {
 
-    resourceURL: "/search?location={{location}}&term=restaurants",
-    
+    //resourceURL: "/search?location={{location}}&term=restaurants",
+    resourceURL: 'restaurant?location={{location}}',
+
     //Gives all other data?
     getListOfBusinessesByLocation(location) {
-       return http.get(`/search?location=${location}&term=restaurants`);
+        return http.get(`restaurant?location=${location}&term=restaurants`, {
+            // headers: {
+            //     'Authorization': `Bearer ${apiKey}`
+            // }
+        });
 
     },
+    // HAVE TO CREATE NEW CONTROLLER for this
     //Returns hours of operation (in military time)
     getBusinessByID(id) {
-        return http.get(`${id}`);
+        return http.get(`${id}`, {
+            // headers: {
+            //     'Authorization': `Bearer ${apiKey}`
+            // }
+        });
     },
 
     //search location AND category if you want
     getBusinessByLocationAndOrCategory(location, category) {
-        let url = this.resourceURL.replace('{{location}}', location); 
-        if(category){
-            url += `&categories=${category}`;
+        let url = this.resourceURL.replace('{{location}}', location);
+        if (category) {
+            url += `&categories=${category}`, {
+                // headers: {
+                //     'Authorization': `Bearer ${apiKey}`
+                // }
+            };
         }
-       return http.get(url);
+        return http.get(url);
 
     },
 
-     
-     
+
+
 }
 
 
