@@ -1,9 +1,10 @@
 <template>
   <div id="register" class="body">
     <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
+    <div id="registerForm">
     <div class="glass-container">
     <form class="form-register" @submit.prevent="register">
-       <div class="image"><img src="https://www.linkpicture.com/q/logo7_1.png" width=140px height=140px class="logo"/></div>
+       <div class="image"><router-link v-bind:to="{name:'splash'}"><img src="https://www.linkpicture.com/q/logo5_2.png" width=auto height=145px class="logo"/></router-link></div>
       <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
@@ -54,6 +55,7 @@
         Create Account
       </button>
     </form>
+    </div>
     </div>
   </div>
 </template>
@@ -174,6 +176,16 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500&display=swap');
 /* @media only screen and (max-width: 600px) { */
+  #registerForm{
+    /* display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center; */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -350px 0 0 -180px;
+  }
  .body {
 display: flex;
     height: 100vh;

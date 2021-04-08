@@ -4,7 +4,7 @@
     <div class="glass-container">
     <form class="form-signin" @submit.prevent="login">
 
-        <div class="image"><img src="https://www.linkpicture.com/q/logo7_1.png" width=140px height=140px class="logo"/></div>
+        <div class="image"><router-link v-bind:to="{name:'splash'}"><img src="https://www.linkpicture.com/q/logo5_2.png" width=auto height=145px class="logo"/></router-link></div>
       <div
         class="alert alert-danger"
         role="alert"

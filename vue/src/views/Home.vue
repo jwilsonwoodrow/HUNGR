@@ -1,16 +1,17 @@
 <template>
-<div id="home">
+<div>
   <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
+  <div id="home">
     <div class="glass-container">
-
-<section class="buttons">
-  <div class="image"><img src="https://www.linkpicture.com/q/logo7_1.png" width=140px height=140px class="logo"/></div><br>
-  <button class="select" @click="GoToRestaurantList">restaurants</button><br>
-  <button class="select" >collection</button><br>
-  <button class="select">invite</button><br>
-  <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''"><button class="logout">Logout</button></router-link>
-</section>
-</div>
+      <section class="buttons">
+        <div class="image"><img src="https://www.linkpicture.com/q/logo5_2.png" width=auto height=145px class="logo"/></div><br>
+          <button class="select" @click="GoToRestaurantList">restaurants</button><br>
+          <button class="select" >collection</button><br>
+          <button class="select">invite</button><br>
+          <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''"><button class="logout">Logout</button></router-link>
+      </section>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -31,10 +32,11 @@ export default {
 </script>
 
 <style scoped>
-#home {
-      display: inline-block;
-    margin: auto;
-     text-align: center;
+#home{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -300px 0 0 -150px;
     font-family: 'Anton', sans-serif;
 }
 .glass-container{
@@ -42,7 +44,7 @@ export default {
     height: 600px;
     color: white;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -72,7 +74,8 @@ export default {
       color: white;
       border: 0;
       padding: 0;
-    }    button:focus {
+    }    
+    button:focus {
         outline: none;
         box-shadow: none;
     }
@@ -97,11 +100,11 @@ export default {
  background-color: white;
  border-color: darkred;
  color: darkred;
- font-size: 16px;
+ font-size: 10px;
  font-weight: bold;
  border-radius: 12%;
  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
- padding: 10px;
+ padding: 7px;
 }
 
 </style>

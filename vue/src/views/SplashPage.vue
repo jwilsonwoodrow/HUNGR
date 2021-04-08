@@ -1,11 +1,13 @@
 <template>
   <div class="main">
     <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
+    <div id="splash">
       <div class="glass-container">
-        <div class="image"><img src="https://www.linkpicture.com/q/logo7_1.png" width=140px height=140px class="logo"/></div>
+        <div class="image"><img src="https://www.linkpicture.com/q/logo5_2.png" width=auto height=145px class="logo"/></div>
         <div class="blurb"><em>Food to match your mood.</em></div>
       <button class="button loginShowButton" @click="goToLogin"><p class="logtext">Login</p></button>
       <button class="button ShowButton" @click="goToRegistration">Register</button>
+    </div>
     </div>
   </div>
 </template>
@@ -34,6 +36,16 @@ export default {
 /* @media only screen
   and (device-width: 360px) 
   and (device-height: 640px) { */
+    #splash {
+      /* display: block;
+      margin-left: auto;
+     margin-right: auto;
+     text-align: center; */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -250px 0 0 -180px;
+    }
     .main {
       display: flex;
       height: 100vh;
