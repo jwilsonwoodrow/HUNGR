@@ -1,11 +1,12 @@
 <template>
-<div class="home">
+<div id="home">
   <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
     <div class="glass-container">
-        <div class="image"><img src="https://www.linkpicture.com/q/logo2_9.png" width=140px height=140px class="logo"/></div>
+
 <section class="buttons">
-  <button class="select" @click="GoToRestaurantList">select restaurants</button><br>
-  <button class="select" >my collection</button><br>
+  <div class="image"><img src="https://www.linkpicture.com/q/logo7_1.png" width=140px height=140px class="logo"/></div><br>
+  <button class="select" @click="GoToRestaurantList">restaurants</button><br>
+  <button class="select" >collection</button><br>
   <button class="select">invite</button><br>
   <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''"><button class="logout">Logout</button></router-link>
 </section>
@@ -30,10 +31,15 @@ export default {
 </script>
 
 <style scoped>
+#home {
+      display: inline-block;
+    margin: auto;
+     text-align: center;
+    font-family: 'Anton', sans-serif;
+}
 .glass-container{
-  margin-left: 28px;
     width: 300px;
-    height: 700px;
+    height: 600px;
     color: white;
     display: flex;
     flex-direction: column;
@@ -47,25 +53,6 @@ export default {
     border: 4px rgba(0, 0, 0, 0.3) solid;
     border-bottom: 4px rgba(40,40,40,0.35) solid;
     border-right: 4px rgba(40,40,40,0.35) solid;
-}
-  .space {
-    margin-top: 10px;
-  }
-.home {
-  text-align: center;
-    background-color: darkred;
-  min-height: 100%;
-  min-width: 1024px;
-
-  /* Scale proportionately */
-  width: 100%;
-  height: auto;
-
-  /* Positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
 }
 .buttons {
   display: flex;
@@ -81,7 +68,7 @@ export default {
       font-weight:10;
       width: 100px;
       height: 50px;
-      font-size: 100%;
+      font-size: 70%;
       color: white;
       border: 0;
       padding: 0;
@@ -116,7 +103,5 @@ export default {
  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
  padding: 10px;
 }
-.space {
-  margin-top: 100px;
-}
+
 </style>

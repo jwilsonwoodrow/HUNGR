@@ -2,9 +2,9 @@
   <div class="main">
     <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
       <div class="glass-container">
-        <div class="image"><img src="https://www.linkpicture.com/q/logo2_9.png" width=140px height=140px class="logo"/></div>
+        <div class="image"><img src="https://www.linkpicture.com/q/logo7_1.png" width=140px height=140px class="logo"/></div>
         <div class="blurb"><em>Food to match your mood.</em></div>
-      <button class="button loginShowButton" @click="goToLogin"><p>Login</p></button>
+      <button class="button loginShowButton" @click="goToLogin"><p class="logtext">Login</p></button>
       <button class="button ShowButton" @click="goToRegistration">Register</button>
     </div>
   </div>
@@ -70,6 +70,9 @@ export default {
       left: 0;
       z-index: -1;
       background-size: cover;
+    }
+    .logtext {
+      margin-top: 12%;
     }
 .glass-container{
   margin-left: 28px;
