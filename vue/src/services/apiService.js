@@ -13,11 +13,7 @@ export default {
 
     //Gives all other data?
     getListOfBusinessesByLocation(location) {
-        return http.get(`restaurant?location=${location}&term=restaurants`, {
-            // headers: {
-            //     'Authorization': `Bearer ${apiKey}`
-            // }
-        });
+        return http.get(`restaurant?location=${location}&term=restaurants`);
 
     },
     // HAVE TO CREATE NEW CONTROLLER for this
@@ -31,16 +27,9 @@ export default {
     },
 
     //search location AND category if you want
-    getBusinessByLocationAndOrCategory(location, category) {
-        let url = this.resourceURL.replace('{{location}}', location);
-        if (category) {
-            url += `&categories=${category}`, {
-                // headers: {
-                //     'Authorization': `Bearer ${apiKey}`
-                // }
-            };
-        }
-        return http.get(url);
+    getBusinessByLocationAndCategory(location, category) {
+        return http.get(`restaurant?location=${location}&term=restaurants`, {
+
 
     },
 
