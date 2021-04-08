@@ -2,7 +2,8 @@
   <div>
     <input type="search" placeholder="Type City or Zip" v-model="location" />
     <select v-model="selectedCuisine">
-      <option v-for="cuisine in cuisines" v-bind:key="cuisine">
+      <option disabled>Select One</option>
+      <option v-for="cuisine in cuisines" v-bind:key="cuisine.id">
         {{ cuisine.displayValue }}
       </option>
     </select>
@@ -14,9 +15,6 @@
     <pre>{{ matches.displayValue }}</pre>  </div> -->
 
     <button @click="getRestaurants()">Search</button>
-    <p v-for="restaurant in returnedRestaurants" v-bind:key="restaurant.name">
-      {{ restaurant.name }}
-    </p>
   </div>
 </template>
 
@@ -37,7 +35,6 @@ export default {
     };
   },
   created() {
-    //apiService.getBusinessByLocationAndOrCategory(this.$);
     this.cuisines = this.$store.state.cuisines;
   },
   computed: {
@@ -59,10 +56,19 @@ export default {
           )
           .then((resp) => {
             this.returnedRestaurants = resp.data;
+            this.$store.commit(
+              "STORE_RETURNED_RESTAURANTS",
+              this.returnedRestaurants
+            );
           });
       } else {
         apiService.getListOfBusinessesByLocation(this.location).then((resp) => {
-          this.returnedRestaurants = resp.data;
+          console.log(resp.data.businesses)
+          //this.returnedRestaurants = resp.data.businesses;
+          this.$store.commit(
+            "STORE_RETURNED_RESTAURANTS",
+            resp.data.businesses
+          );
         });
       }
     },

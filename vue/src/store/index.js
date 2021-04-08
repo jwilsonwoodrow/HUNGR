@@ -20,7 +20,15 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    cuisines: {
+    returnedRestaurants: [],
+    cuisines: [
+      {
+        id: 1,
+        displayValue: "Afghan",
+        searchValue: "afghani",
+      },
+    ],
+    cuisines1: { //bonus: put this in the database
       1: {
         displayValue: "Afghan",
         searchValue: "afghani",
@@ -651,6 +659,7 @@ export default new Vuex.Store({
       },
     },
   },
+  store: {},
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
@@ -667,6 +676,9 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
-    }
+    },
+    STORE_RETURNED_RESTAURANTS(state, restaurants) {
+      state.returnedRestaurants = restaurants;
+    },
   }
 })
