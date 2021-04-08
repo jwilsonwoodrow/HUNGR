@@ -1,15 +1,17 @@
 <template>
-<div class="home">
+<div>
   <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
+  <div id="home">
     <div class="glass-container">
-        <div class="image"><img src="https://www.linkpicture.com/q/logo2_9.png" width=140px height=140px class="logo"/></div>
-<section class="buttons">
-  <button class="select" @click="GoToRestaurantList">select restaurants</button><br>
-  <button class="select" >my collection</button><br>
-  <button class="select">invite</button><br>
-  <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''"><button class="logout">Logout</button></router-link>
-</section>
-</div>
+      <section class="buttons">
+        <div class="image"><img src="https://www.linkpicture.com/q/logo5_2.png" width=auto height=145px class="logo"/></div><br>
+          <button class="select" @click="GoToRestaurantList">restaurants</button><br>
+          <button class="select" >collection</button><br>
+          <button class="select">invite</button><br>
+          <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''"><button class="logout">Logout</button></router-link>
+      </section>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -30,13 +32,19 @@ export default {
 </script>
 
 <style scoped>
+#home{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -300px 0 0 -150px;
+    font-family: 'Anton', sans-serif;
+}
 .glass-container{
-  margin-left: 28px;
     width: 300px;
-    height: 700px;
+    height: 600px;
     color: white;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -47,25 +55,6 @@ export default {
     border: 4px rgba(0, 0, 0, 0.3) solid;
     border-bottom: 4px rgba(40,40,40,0.35) solid;
     border-right: 4px rgba(40,40,40,0.35) solid;
-}
-  .space {
-    margin-top: 10px;
-  }
-.home {
-  text-align: center;
-    background-color: darkred;
-  min-height: 100%;
-  min-width: 1024px;
-
-  /* Scale proportionately */
-  width: 100%;
-  height: auto;
-
-  /* Positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
 }
 .buttons {
   display: flex;
@@ -81,11 +70,12 @@ export default {
       font-weight:10;
       width: 100px;
       height: 50px;
-      font-size: 100%;
+      font-size: 70%;
       color: white;
       border: 0;
       padding: 0;
-    }    button:focus {
+    }    
+    button:focus {
         outline: none;
         box-shadow: none;
     }
@@ -110,13 +100,11 @@ export default {
  background-color: white;
  border-color: darkred;
  color: darkred;
- font-size: 16px;
+ font-size: 10px;
  font-weight: bold;
  border-radius: 12%;
  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
- padding: 10px;
+ padding: 7px;
 }
-.space {
-  margin-top: 100px;
-}
+
 </style>
