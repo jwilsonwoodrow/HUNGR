@@ -28,16 +28,19 @@ namespace Capstone.Controllers
             return Ok(response.Data);
         }
 
-        [HttpGet]
-        public IActionResult getListOfRestaurantsLocationAndType(string location, string category)
-        {
-            RestClient client = new RestClient("https://api.yelp.com/v3/businesses");
+        //[HttpGet]
+        //public IActionResult getListOfRestaurantsLocationAndType(string location, string category)
+        //{
+        //    RestClient client = new RestClient("https://api.yelp.com/v3/businesses");
 
-            client.Authenticator = new JwtAuthenticator("eaVrnAmbrpSFr42hRsFbG7_Ip2Vaawgjy31hbv_eEU1FK-2yftcNtIp3lDDXfhz_jiodk8M0Tam8kwbAHRI2NIyq804Qw69aarkeS-cQt4JFS_5cgewRD7j_HrZtYHYx");
+        //    client.Authenticator = new JwtAuthenticator("eaVrnAmbrpSFr42hRsFbG7_Ip2Vaawgjy31hbv_eEU1FK-2yftcNtIp3lDDXfhz_jiodk8M0Tam8kwbAHRI2NIyq804Qw69aarkeS-cQt4JFS_5cgewRD7j_HrZtYHYx");
 
-            RestRequest request = new RestRequest($"/search?location={location}&term=restaurants");
+        //    RestRequest request = new RestRequest($"/search?location={location}&term=restaurants&categories={category}");
 
-            IRestResponse<Object> response = client.Get<Object>(request);
-        }
+        //    IRestResponse<Object> response = client.Get<Object>(request);
+
+        //    return Ok(response.Data);
+
+        //}
     };
 }

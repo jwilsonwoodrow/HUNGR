@@ -14,26 +14,19 @@ export default {
     //Gives all other data?
     getListOfBusinessesByLocation(location) {
         return http.get(`restaurant?location=${location}&term=restaurants`);
-
     },
     // HAVE TO CREATE NEW CONTROLLER for this
     //Returns hours of operation (in military time)
     getBusinessByID(id) {
         return http.get(`${id}`, {
-            // headers: {
-            //     'Authorization': `Bearer ${apiKey}`
-            // }
         });
     },
 
     //search location AND category if you want
     getBusinessByLocationAndCategory(location, category) {
-        return http.get(`restaurant?location=${location}&term=restaurants`, {
-
+        return http.get(`restaurant?location=${location}&term=restaurants&categories=${category}`)
 
     },
-
-
 
 }
 

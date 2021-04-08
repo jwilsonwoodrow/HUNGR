@@ -50,7 +50,7 @@ export default {
     getRestaurants() {
       if (this.selectedCuisine) {
         apiService
-          .getBusinessByLocationAndOrCategory(
+          .getBusinessByLocationAndCategory(
             this.location,
             this.selectedCuisine
           )

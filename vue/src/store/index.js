@@ -533,7 +533,7 @@ export default new Vuex.Store({
           searchValue: "raw_food",
         },
         {
-          id: 101,
+          id: 103,
           displayValue: "Malaysian",
           searchValue: "malaysian",
         },
@@ -598,7 +598,7 @@ export default new Vuex.Store({
           searchValue: "nicaraguan",
         },
         {
-          id: 115,
+          id: 116,
           displayValue: "Noodles",
           searchValue: "noodles",
         },
@@ -682,7 +682,7 @@ export default new Vuex.Store({
           displayValue: "Seafood",
           searchValue: "seafood",
         },
-        133: {
+        {
           id: 133,
           displayValue: "Singaporean",
           searchValue: "singaporean",
