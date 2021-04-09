@@ -22,23 +22,27 @@
               <img
                 v-bind:src="restaurant.image_url"
                 alt="No Image Available"
-                width="250"
-                height="300"
+                width="200"
+                height="190"
               />
             </td>
 
-            <td>
-              {{ restaurant.name }}<br />{{ restaurant.categories[0].title }}
+            <td class="name-category">
+              {{ restaurant.name }}  <br /> <br />{{ restaurant.categories[0].title }}
             </td>
 
-            <td>
-              <br />{{ restaurant.location.address1 }}<br />{{
+            <td class="address">
+              {{ restaurant.location.address1 }}<br />{{
                 restaurant.location.city
               }}, {{ restaurant.location.state }}
               {{ restaurant.location.zip_code }}<br />
             </td>
+            <td>  
+              <ul>  
             <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
             <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
+            </ul>
+            </td>
             <a
               v-bind:href="'tel:' + restaurant.phone"
               v-show="!restaurant.is_closed"
@@ -129,9 +133,9 @@ select {
   font-family: "Montserrat", sans-serif;
   background: transparent;
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
-  background-size: 225px 60px;
+  background-size: 50px 60px;
   font-weight: 10;
-  width: 225px;
+  width: 50px;
   height: 60px;
   font-size: 85%;
   color: rgb(253, 243, 155);
@@ -159,12 +163,32 @@ button:focus {
   z-index: -1;
   background-size: cover;
 }
-.display-text {
+
+.is-closed {
   vertical-align: middle;
   font-family: "Montserrat", sans-serif;
   color: rgb(253, 243, 155);
+  font-size: 130%;
   padding-left: 20px;
 }
+
+.name-category {
+  vertical-align: top;
+  font-family: "Montserrat", sans-serif;
+  color: rgb(253, 243, 155);
+  font-size: 150%;
+  padding-left: 10px;
+}
+
+.address {
+   vertical-align: top;
+  font-family: "Montserrat", sans-serif;
+  color: rgb(253, 243, 155);
+  font-size: 150%;
+  padding-left: 10px;
+  width: 19px;
+}
+
 .glass-container {
   overflow: auto;
   width: 700px; /* or can do fit-content here?? */
@@ -184,9 +208,8 @@ button:focus {
   border-bottom: 4px rgba(40, 40, 40, 0.35) solid;
   border-right: 4px rgba(40, 40, 40, 0.35) solid;
 }
-.display-text {
-  font-size: 150%;
-}
+
+
 .restaurant-list {
   z-index: 0;
 }
