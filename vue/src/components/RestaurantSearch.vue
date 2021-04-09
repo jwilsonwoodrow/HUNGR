@@ -31,7 +31,6 @@ export default {
       category: "",
       selectedCuisine: "",
       cuisines: [],
-      returnedRestaurants: [],
     };
   },
   created() {
