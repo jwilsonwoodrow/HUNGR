@@ -46,6 +46,9 @@ export default {
       left: 50%;
       margin: -250px 0 0 -180px;
     }
+    #nav {
+      display: none;
+    }
     .main {
       display: flex;
       height: 100vh;
