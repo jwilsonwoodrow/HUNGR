@@ -63,11 +63,11 @@ export default {
           });
       } else {
         apiService.getListOfBusinessesByLocation(this.location).then((resp) => {
-          console.log(resp.data.businesses)
+          //console.log(resp.data.businesses)
           //this.returnedRestaurants = resp.data.businesses;
           this.$store.commit(
             "STORE_RETURNED_RESTAURANTS",
-            resp.data.businesses
+            resp.data
           );
         });
       }

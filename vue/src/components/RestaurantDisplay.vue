@@ -20,7 +20,10 @@
           />
         </td>
         <td>
-          {{ restaurant.name }}{{ restaurant.display_phone }}
+          {{ restaurant.name }}<br>{{ restaurant.display_phone }}<br>{{ restaurant.location.address1}}<br>{{ restaurant.location.city}}, {{ restaurant.location.state}} {{ restaurant.location.zip_code}}<br>{{ restaurant.is_closed}}
+        </td>
+        <td>
+          <button @click="getRestaurantHours(restaurant.id)"> </button>
         </td>
       </tr>
     </div>
@@ -33,8 +36,60 @@ export default {
   components: {},
   data() {
     return {
-      //restaurantList: [],
+      hoursOfOperation: [
+        {
+          dayID: 6,
+          dayOfWeek: "Sunday",
+          openTime: 0,
+          closeTime: 0
+        },
+        {
+          dayID: 0,
+          dayOfWeek: "Monday",
+          openTime: 0,
+          closeTime: 0
+        },
+        {
+          dayID: 1,
+          dayOfWeek: "Tuesday",
+          openTime: 0,
+          closeTime: 0
+        },
+        {
+          dayID: 2,
+          dayOfWeek: "Wednesday",
+          openTime: 0,
+          closeTime: 0
+        },
+        {
+          dayID: 3,
+          dayOfWeek: "Thursday",
+          openTime: 0,
+          closeTime: 0
+        },
+        {
+          dayID: 4,
+          dayOfWeek: "Friday",
+          openTime: 0,
+          closeTime: 0
+        },
+        {
+          dayID: 5,
+          dayOfWeek: "Saturday",
+          openTime: 0,
+          closeTime: 0
+        },
+        
+      ]
     };
+  },
+  methods: {
+    getRestaurantHours(restaurantId){
+      apiService.getBusinessByID(restaurantId)
+        .then(response => {
+          response.
+        })
+    }
   },
   created() {
     //this.restaurantList = this.$store.returnedRestaurants

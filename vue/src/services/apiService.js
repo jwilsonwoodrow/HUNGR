@@ -14,8 +14,7 @@ export default {
     // HAVE TO CREATE NEW CONTROLLER for this
     //Returns hours of operation (in military time)
     getBusinessByID(id) {
-        return http.get(`${id}`, {
-        });
+        return http.get(`${id}`);
     },
 
     //search location AND category if you want
