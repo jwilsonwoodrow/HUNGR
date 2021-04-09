@@ -13,12 +13,14 @@ namespace Capstone.Controllers
     public class RestaurantController : Controller
     {
         [HttpGet]
-        public IActionResult getListOfRestaurantsLocationOnly(string location)
+        public IActionResult getListOfRestaurantsLocationOnly(string location, string categories)
         {
             RestClient client = new RestClient("https://api.yelp.com/v3/businesses");
 
             client.Authenticator = new JwtAuthenticator("eaVrnAmbrpSFr42hRsFbG7_Ip2Vaawgjy31hbv_eEU1FK-2yftcNtIp3lDDXfhz_jiodk8M0Tam8kwbAHRI2NIyq804Qw69aarkeS-cQt4JFS_5cgewRD7j_HrZtYHYx");
 
+            if (categories == null)
+            {
             RestRequest request = new RestRequest($"/search?location={location}&term=restaurants");
 
             IRestResponse<Object> response = client.Get<Object>(request);
@@ -26,6 +28,17 @@ namespace Capstone.Controllers
 
 
             return Ok(response.Data);
+            }
+            else
+            {
+                RestRequest request = new RestRequest($"/search?location={location}&term=restaurants&categories={categories}");
+
+                IRestResponse<Object> response = client.Get<Object>(request);
+                // yelp returns a json, need to create a model that matches json object
+
+
+                return Ok(response.Data);
+            }
         }
 
         //[HttpGet(/category)]

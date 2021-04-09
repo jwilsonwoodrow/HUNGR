@@ -3,7 +3,7 @@
     <input type="search" placeholder="Type City or Zip" v-model="location" />
     <select v-model="selectedCuisine">
       <option disabled>Select One</option>
-      <option v-for="cuisine in cuisines" v-bind:key="cuisine.id">
+      <option v-for="cuisine in cuisines" v-bind:key="cuisine.id" v-bind:value="cuisine.searchValue">
         {{ cuisine.displayValue }}
       </option>
     </select>

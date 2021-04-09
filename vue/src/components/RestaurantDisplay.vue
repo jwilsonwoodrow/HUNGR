@@ -2,7 +2,7 @@
   <div>
     <div
       class="restaurant-list"
-      v-for="restaurant in $store.state.returnedRestaurants"
+      v-for="restaurant in $store.state.returnedRestaurants.businesses"
       v-bind:key="restaurant.id"
       v-show="$store.state.returnedRestaurants"
     >

@@ -19,11 +19,9 @@ export default {
     },
 
     //search location AND category if you want
-    getBusinessByLocationAndCategory(location, category) {  //how do we give this its own route in the restaurant controller?
-        return http.get(`restaurant?location=${location}&term=restaurants&categories=${category}`)  
-
+    getBusinessByLocationAndCategory(location, categories) {  //how do we give this its own route in the restaurant controller?
+        return http.get(`restaurant?location=${location}&categories=${categories}`)  
     },
-
 }
 
 
