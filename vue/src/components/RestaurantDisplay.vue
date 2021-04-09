@@ -6,8 +6,23 @@
       v-bind:key="restaurant.id"
       v-show="$store.state.returnedRestaurants"
     >
-    <img v-bind:src = restaurant.image_url alt="" width="250" height="250" />
-    <p> {{ restaurant.name }}{{ restaurant.display_phone }}</p>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>
+          <img
+            v-bind:src="restaurant.image_url"
+            alt=""
+            width="250"
+            height="250"
+          />
+        </td>
+        <td>
+          {{ restaurant.name }}{{ restaurant.display_phone }}
+        </td>
+      </tr>
     </div>
   </div>
 </template>

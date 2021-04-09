@@ -28,7 +28,7 @@ namespace Capstone.Controllers
             return Ok(response.Data);
         }
 
-        //[HttpGet]
+        //[HttpGet(/category)]
         //public IActionResult getListOfRestaurantsLocationAndType(string location, string category)
         //{
         //    RestClient client = new RestClient("https://api.yelp.com/v3/businesses");
