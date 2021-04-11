@@ -18,8 +18,16 @@
               <button
                 class="save-restaurant-button"
                 @click="SaveRestaurant(restaurant)"
+                v-show="!ExistsInCollection(restaurant)"
               >
                 SAVE TO COLLECTION
+              </button>
+              <button
+                class="save-restaurant-button"
+                @click="UnsaveRestaurant(restaurant)"
+                v-show="ExistsInCollection(restaurant)"
+              >
+                REMOVE FROM COLLECTION
               </button>
             </th>
             <th></th>
@@ -109,10 +117,20 @@ export default {
         console.log(response.data);
       });
     },
+    ExistsInCollection(restaurant) {
+      for (let i = 0; i < this.$store.state.savedRestaurants.length; i++) {
+        if (restaurant === this.$store.state.savedRestaurants[i]) {
+          return true;
+        } else return false;
+      }
+    },
     SaveRestaurant: function (restaurant) {
       console.log(restaurant);
       this.$store.commit("SAVE_RESTAURANT", restaurant);
     },
+    UnsaveRestaurant(restaurant){
+      this.$store.commit("UNSAVE_RESTAURANT", restaurant)
+    }
   },
   computed: {},
   updated() {
