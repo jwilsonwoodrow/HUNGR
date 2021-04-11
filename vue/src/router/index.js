@@ -7,6 +7,8 @@ import Register from '../views/Register.vue'
 import store from '../store/index'
 import ViewRestaurants from '../views/ViewRestaurants'
 import SplashPage from '../views/SplashPage'
+import Invite from '../views/Invite'
+
 
 Vue.use(Router)
 
@@ -66,6 +68,15 @@ const router = new Router({
       component: SplashPage,
       meta: {
         requiresAuth: false
+      }
+    },
+    
+    {
+      path: '/invite',
+      name: 'invite',
+      component: Invite,
+      meta: {
+        requiresAuth: true
       }
     },
   ]
