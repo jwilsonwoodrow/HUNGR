@@ -8,6 +8,8 @@ import store from '../store/index'
 import ViewRestaurants from '../views/ViewRestaurants'
 import SplashPage from '../views/SplashPage'
 import Invite from '../views/Invite'
+import Collection from '../views/Collection'
+import InviteConfirmation from '../views/InviteConfirmation'
 
 
 Vue.use(Router)
@@ -75,6 +77,22 @@ const router = new Router({
       path: '/invite',
       name: 'invite',
       component: Invite,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/collection',
+      name: 'collection',
+      component: Collection,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/inviteconfirmation',
+      name: 'inviteconfirmationn',
+      component: InviteConfirmation,
       meta: {
         requiresAuth: true
       }
