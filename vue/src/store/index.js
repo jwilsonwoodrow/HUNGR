@@ -18,6 +18,7 @@ if (currentToken != null) {
 
 export default new Vuex.Store({
   state: {
+    savedRestaurants: [],
     token: currentToken || '',
     user: currentUser || {},
     returnedRestaurants: [],
@@ -829,6 +830,10 @@ export default new Vuex.Store({
     },
     STORE_RETURNED_RESTAURANTS(state, restaurants) {
       state.returnedRestaurants = restaurants;
+    },
+    SAVE_RESTAURANT(state, restaurant){
+      state.savedRestaurants.push(restaurant);
+      console.log(state.savedRestaurants);
     },
   }
 })
