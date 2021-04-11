@@ -19,7 +19,7 @@
                 class="save-restaurant-button"
                 @click="SaveRestaurant(restaurant)"
               >
-                SAVE
+                SAVE TO COLLECTION
               </button>
             </th>
             <th></th>
@@ -147,7 +147,7 @@ select {
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
   background-size: 50px 60px;
   font-weight: 10;
-  width: 50px;
+  width: 100px;
   height: 60px;
   font-size: 85%;
   color: rgb(253, 243, 155);

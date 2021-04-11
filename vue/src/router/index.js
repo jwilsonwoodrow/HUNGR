@@ -10,6 +10,7 @@ import SplashPage from '../views/SplashPage'
 import Invite from '../views/Invite'
 import Collection from '../views/Collection'
 import InviteConfirmation from '../views/InviteConfirmation'
+import InviteeView from '../views/InviteeView'
 
 
 Vue.use(Router)
@@ -91,12 +92,20 @@ const router = new Router({
     },
     {
       path: '/inviteconfirmation',
-      name: 'inviteconfirmationn',
+      name: 'invite-confirmationn',
       component: InviteConfirmation,
       meta: {
         requiresAuth: true
       }
     },
+    {
+      path: '/invite/:inviteName',
+      name: 'invitee-view',
+      component: InviteeView,
+      meta: {
+        requiresAuth: false
+      }
+    }
   ]
 })
 

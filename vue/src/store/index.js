@@ -835,5 +835,9 @@ export default new Vuex.Store({
       state.savedRestaurants.push(restaurant);
       console.log(state.savedRestaurants);
     },
+    CLEAR_SAVED_RESTAURANTS(state){
+      state.savedRestaurants = [];
+      console.log(state.savedRestaurants)
+    }
   }
 })
