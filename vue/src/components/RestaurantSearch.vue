@@ -3,7 +3,11 @@
     <input type="search" placeholder="Type City or Zip" v-model="location" />
     <select v-model="selectedCuisine">
       <option disabled>Select One</option>
-      <option v-for="cuisine in cuisines" v-bind:key="cuisine.id" v-bind:value="cuisine.searchValue">
+      <option
+        v-for="cuisine in cuisines"
+        v-bind:key="cuisine.id"
+        v-bind:value="cuisine.searchValue"
+      >
         {{ cuisine.displayValue }}
       </option>
     </select>
@@ -14,7 +18,7 @@
     <input type="text" v-model="searchText" />
     <pre>{{ matches.displayValue }}</pre>  </div> -->
 
-    <button @click="getRestaurants()">Search</button>
+    <button class="search-button" @click="getRestaurants()">Search</button>
   </div>
 </template>
 
@@ -50,10 +54,7 @@ export default {
     getRestaurants() {
       if (this.selectedCuisine) {
         apiService
-          .getBusinessByLocationAndCategory(
-            this.location,
-            this.selectedCuisine
-          )
+          .getBusinessByLocationAndCategory(this.location, this.selectedCuisine)
           .then((resp) => {
             this.returnedRestaurants = resp.data;
             this.$store.commit(
@@ -64,10 +65,10 @@ export default {
       } else {
         apiService.getListOfBusinessesByLocation(this.location).then((resp) => {
           //console.log(resp.data.businesses)
-          //this.returnedRestaurants = resp.data.businesses;
+          this.returnedRestaurants = resp.data;
           this.$store.commit(
             "STORE_RETURNED_RESTAURANTS",
-            resp.data
+            this.returnedRestaurants
           );
         });
       }
@@ -85,7 +86,19 @@ export default {
   font-size: 16px;
   border: none;
 }
-
+.search-button {
+  font-family: "Montserrat", sans-serif;
+  background: transparent;
+  background-image: url("https://www.linkpicture.com/q/button-1_1.png");
+  background-size: 75px 40px;
+  font-weight: 10;
+  width: 75px;
+  height: 40px;
+  font-size: 85%;
+  color: rgb(253, 243, 155);
+  border: 0;
+  padding: 0;
+}
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;

@@ -1,101 +1,221 @@
 <template>
-  <div>
-    <div
-      class="restaurant-list"
-      v-for="restaurant in $store.state.returnedRestaurants.businesses"
-      v-bind:key="restaurant.id"
-      v-show="$store.state.returnedRestaurants"
-    >
-      <tr>
-        <th></th>
-        <th></th>
-      </tr>
-      <tr>
-        <td>
-          <img
-            v-bind:src="restaurant.image_url"
-            alt=""
-            width="250"
-            height="250"
-          />
-        </td>
-        <td>
-          {{ restaurant.name }}<br>{{ restaurant.display_phone }}<br>{{ restaurant.location.address1}}<br>{{ restaurant.location.city}}, {{ restaurant.location.state}} {{ restaurant.location.zip_code}}<br>{{ restaurant.is_closed}}
-        </td>
-        <td>
-          <button @click="getRestaurantHours(restaurant.id)"> </button>
-        </td>
-      </tr>
+  <div id="main">
+    <img
+      class="backgroundLogo"
+      src="https://www.linkpicture.com/q/bg4.png"
+    /><br />
+    <div class="glass-container">
+      <div v-if="$store.state.returnedRestaurants.businesses">
+        <div
+          class="restaurant-list"
+          v-for="(restaurant, index) in $store.state.returnedRestaurants
+            .businesses"
+          v-bind:key="restaurant.id"
+          v-show="$store.state.returnedRestaurants"
+        >
+          <tr>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr>
+            <td>
+              <img
+                v-bind:src="restaurant.image_url"
+                alt="No Image Available"
+                width="200"
+                height="190"
+              />
+            </td>
+
+            <td class="name-category">
+              {{ restaurant.name }}  <br /> <br />{{ restaurant.categories[0].title }}
+            </td>
+
+            <td class="address">
+              {{ restaurant.location.address1 }}<br />{{
+                restaurant.location.city
+              }}, {{ restaurant.location.state }}
+              {{ restaurant.location.zip_code }}<br />
+            </td>
+            <td>  
+              <ul>  
+            <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
+            <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
+            </ul>
+            </td>
+            <a
+              v-bind:href="'tel:' + restaurant.phone"
+              v-show="!restaurant.is_closed"
+            >
+              Call Now</a
+            >
+            <td>
+              <button
+                class="details-button"
+                @click="getRestaurantDetails(restaurant.id, index)"
+              ></button>
+              <div
+                class="details-dropdown"
+                v-show="displayDetails[index]"
+              ></div>
+            </td>
+          </tr>
+        </div>
+      </div>
+      <div
+        class="no-returned-restaurants"
+        v-if="$store.state.returnedRestaurants.businesses === null"
+      >
+        No Results In Your Area
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import apiService from "../services/apiService";
 export default {
   name: "restaurant-display",
   components: {},
   data() {
     return {
+      displayDetails: [], //array of booleans, one for each displayed restaurant so that they can be toggled individually
+      rawDataDetails: [],
       hoursOfOperation: [
         {
-          dayID: 6,
-          dayOfWeek: "Sunday",
-          openTime: 0,
-          closeTime: 0
-        },
-        {
           dayID: 0,
-          dayOfWeek: "Monday",
+          dayOfWeek: "",
           openTime: 0,
-          closeTime: 0
+          closeTime: 0,
         },
-        {
-          dayID: 1,
-          dayOfWeek: "Tuesday",
-          openTime: 0,
-          closeTime: 0
-        },
-        {
-          dayID: 2,
-          dayOfWeek: "Wednesday",
-          openTime: 0,
-          closeTime: 0
-        },
-        {
-          dayID: 3,
-          dayOfWeek: "Thursday",
-          openTime: 0,
-          closeTime: 0
-        },
-        {
-          dayID: 4,
-          dayOfWeek: "Friday",
-          openTime: 0,
-          closeTime: 0
-        },
-        {
-          dayID: 5,
-          dayOfWeek: "Saturday",
-          openTime: 0,
-          closeTime: 0
-        },
-        
-      ]
+      ],
     };
   },
   methods: {
-    getRestaurantHours(restaurantId){
-      apiService.getBusinessByID(restaurantId)
-        .then(response => {
-          response.
-        })
-    }
+    getRestaurantDetails(restaurantId, index) {
+      if (this.displayDetails[index] === true) {
+        this.displayDetails[index] = false;
+      } else this.displayDetails[index] = true;
+      apiService.getBusinessByID(restaurantId).then((response) => {
+        console.log(response.data);
+      });
+    },
   },
-  created() {
-    //this.restaurantList = this.$store.returnedRestaurants
+  computed: {},
+  updated() {
+    console.log(this.$store.state.returnedRestaurants.businesses.length);
+    for (
+      let i = 0;
+      i < this.$store.state.returnedRestaurants.businesses.length;
+      i++
+    ) {
+      this.displayDetails[i] = false;
+    }
   },
 };
 </script>
 
 <style>
+
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+input {
+  font-family: "Montserrat", sans-serif;
+  background-color: rgb(253, 243, 155);
+}
+select {
+  background-color: rgb(253, 243, 155);
+  font-family: "Montserrat", sans-serif;
+}
+.details-button {
+  font-family: "Montserrat", sans-serif;
+  background: transparent;
+  background-image: url("https://www.linkpicture.com/q/button-1_1.png");
+  background-size: 50px 60px;
+  font-weight: 10;
+  width: 50px;
+  height: 60px;
+  font-size: 85%;
+  color: rgb(253, 243, 155);
+  border: 0;
+  padding: 0;
+}
+button:focus {
+  outline: none;
+  box-shadow: none;
+}
+#main {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+}
+.backgroundLogo {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-size: cover;
+}
+
+.is-closed {
+  vertical-align: middle;
+  font-family: "Montserrat", sans-serif;
+  color: rgb(253, 243, 155);
+  font-size: 130%;
+  padding-left: 20px;
+}
+
+.name-category {
+  vertical-align: top;
+  font-family: "Montserrat", sans-serif;
+  color: rgb(253, 243, 155);
+  font-size: 150%;
+  padding-left: 10px;
+}
+
+.address {
+   vertical-align: top;
+  font-family: "Montserrat", sans-serif;
+  color: rgb(253, 243, 155);
+  font-size: 150%;
+  padding-left: 10px;
+  width: 19px;
+}
+
+.glass-container {
+  overflow: auto;
+  width: 700px; /* or can do fit-content here?? */
+  height: fit-content;
+  color: white;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: left;
+  gap: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 0, 0, 0.131);
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+  border: 4px rgba(0, 0, 0, 0.3) solid;
+  border-bottom: 4px rgba(40, 40, 40, 0.35) solid;
+  border-right: 4px rgba(40, 40, 40, 0.35) solid;
+}
+
+
+.restaurant-list {
+  z-index: 0;
+}
+.img {
+  margin-left: 8px;
+}
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500&display=swap");
 </style>

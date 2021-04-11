@@ -5,7 +5,7 @@ const http = axios.create({
 });
 
 export default {
-    resourceURL: 'restaurant?location={{location}}',
+    //resourceURL: 'restaurant?location={{location}}',
 
     //Gives all other data?
     getListOfBusinessesByLocation(location) {
@@ -14,7 +14,7 @@ export default {
     // HAVE TO CREATE NEW CONTROLLER for this
     //Returns hours of operation (in military time)
     getBusinessByID(id) {
-        return http.get(`${id}`);
+        return http.get(`restaurantDetails?id=${id}`);
     },
 
     //search location AND category if you want

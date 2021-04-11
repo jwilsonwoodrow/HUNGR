@@ -1,5 +1,6 @@
 <template>
   <div>
+     <button class="select" @click="$router.push('/home')"><strong> go back </strong></button><br>
     <restaurant-search />
     <restaurant-display />
   </div>
