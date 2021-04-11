@@ -14,7 +14,14 @@
           v-show="$store.state.returnedRestaurants"
         >
           <tr>
-            <th></th>
+            <th>
+              <button
+                class="save-restaurant-button"
+                @click="SaveRestaurant(restaurant)"
+              >
+                SAVE
+              </button>
+            </th>
             <th></th>
           </tr>
           <tr>
@@ -26,22 +33,25 @@
                 height="190"
               />
             </td>
-
             <td class="name-category">
-              {{ restaurant.name }}  <br /> <br />{{ restaurant.categories[0].title }}
+              {{ restaurant.name }} <br />
+              <br />{{ restaurant.categories[0].title }}
             </td>
-
             <td class="address">
               {{ restaurant.location.address1 }}<br />{{
                 restaurant.location.city
               }}, {{ restaurant.location.state }}
               {{ restaurant.location.zip_code }}<br />
             </td>
-            <td>  
-              <ul>  
-            <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
-            <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
-            </ul>
+            <td>
+              <ul>
+                <div class="is-closed" v-show="!restaurant.is_closed">
+                  Open Now
+                </div>
+                <div class="is-closed" v-show="restaurant.is_closed">
+                  Closed
+                </div>
+              </ul>
             </td>
             <a
               v-bind:href="'tel:' + restaurant.phone"
@@ -71,7 +81,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import apiService from "../services/apiService";
 export default {
@@ -92,13 +101,17 @@ export default {
     };
   },
   methods: {
-    getRestaurantDetails(restaurantId, index) {
+    getRestaurantDetails: function (restaurantId, index) {
       if (this.displayDetails[index] === true) {
         this.displayDetails[index] = false;
       } else this.displayDetails[index] = true;
       apiService.getBusinessByID(restaurantId).then((response) => {
         console.log(response.data);
       });
+    },
+    SaveRestaurant: function (restaurant) {
+      console.log(restaurant);
+      this.$store.commit("SAVE_RESTAURANT", restaurant);
     },
   },
   computed: {},
@@ -114,9 +127,7 @@ export default {
   },
 };
 </script>
-
 <style>
-
 button:focus {
   outline: none;
   box-shadow: none;
@@ -129,7 +140,8 @@ select {
   background-color: rgb(253, 243, 155);
   font-family: "Montserrat", sans-serif;
 }
-.details-button {
+.details-button,
+.save-restaurant-button {
   font-family: "Montserrat", sans-serif;
   background: transparent;
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
@@ -163,7 +175,6 @@ button:focus {
   z-index: -1;
   background-size: cover;
 }
-
 .is-closed {
   vertical-align: middle;
   font-family: "Montserrat", sans-serif;
@@ -171,7 +182,6 @@ button:focus {
   font-size: 130%;
   padding-left: 20px;
 }
-
 .name-category {
   vertical-align: top;
   font-family: "Montserrat", sans-serif;
@@ -179,16 +189,14 @@ button:focus {
   font-size: 150%;
   padding-left: 10px;
 }
-
 .address {
-   vertical-align: top;
+  vertical-align: top;
   font-family: "Montserrat", sans-serif;
   color: rgb(253, 243, 155);
   font-size: 150%;
   padding-left: 10px;
   width: 19px;
 }
-
 .glass-container {
   overflow: auto;
   width: 700px; /* or can do fit-content here?? */
@@ -208,8 +216,6 @@ button:focus {
   border-bottom: 4px rgba(40, 40, 40, 0.35) solid;
   border-right: 4px rgba(40, 40, 40, 0.35) solid;
 }
-
-
 .restaurant-list {
   z-index: 0;
 }
