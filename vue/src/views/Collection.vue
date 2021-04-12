@@ -1,8 +1,7 @@
 <template>
   <div>
-      <button class="select" @click="$router.push('/home')"><strong> go back </strong></button><br>
-      <button class="clear-collection" @click="ClearCollection"><strong>Clear Collection </strong></button>
-      <section class="list">List of Saved Restaurants:</section>
+      <button class="select" @click="$router.push('/home')"><strong> go back </strong></button>
+      <button class="clear-collection" v-show="!$store.state.savedRestaurants.length === 0"  @click="ClearCollection"><strong>Clear Collection </strong></button>
       <br>
       <collection-display/>
       <br>

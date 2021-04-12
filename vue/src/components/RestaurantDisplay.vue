@@ -32,10 +32,8 @@
             }}, {{ restaurant.location.state }} {{ restaurant.location.zip_code
             }}<br />
           </div>
-          <ul>
-            <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
-            <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
-          </ul>
+          <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
+          <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
           <a
             v-bind:href="'tel:' + restaurant.phone"
             v-show="!restaurant.is_closed"
@@ -56,13 +54,15 @@
           >
             REMOVE FROM EVENT LIST
           </button>
+          <br>
+          <br>
         </div>
       </div>
       <div
         class="no-returned-restaurants"
         v-if="$store.state.returnedRestaurants.businesses.length === 0"
       >
-        No Results In Your Area
+        No Results In Your Area :(
       </div>
     </div>
   </div>

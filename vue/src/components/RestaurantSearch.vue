@@ -1,8 +1,38 @@
 <template>
   <div class="body">
-    <input type="search" placeholder="Type City or Zip" v-model="location" />
-    <select v-model="selectedCuisine">
-      <option value="" selected="selected" disabled >Select Cuisine Type</option>
+    <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
+    <input
+      type="search"
+      placeholder="Type City or Zip"
+      v-model="location"
+      class="location-input"
+    />
+    <div class="dropdown">
+      <input
+        ref="dropdowninput"
+        v-if="Object.keys(selectedCuisine).length === 0"
+        v-model.trim="searchText"
+        class="dropdown-input"
+        type="text"
+        placeholder="Search for Cuisine Type (Optional)"
+      />
+      <div v-else @click="resetItem" class="dropdown-selected">
+        {{ selectedCuisine.displayValue }}
+      </div>
+      <div class="dropdown-list" v-show="searchText">
+        <div
+          @click="selectItem(cuisine)"
+          v-show="itemVisible(cuisine)"
+          v-for="cuisine in cuisines"
+          :key="cuisine.id"
+          class="dropdown-item"
+        >
+          {{ cuisine.displayValue }}
+        </div>
+      </div>
+    </div>
+    <!-- <select v-model="selectedCuisine">
+      <option value="" selected="selected" disabled>Select Cuisine Type</option>
       <option
         v-for="cuisine in cuisines"
         v-bind:key="cuisine.id"
@@ -10,7 +40,7 @@
       >
         {{ cuisine.displayValue }}
       </option>
-    </select>
+    </select> -->
     <!-- 
       Potential Filtered search/drop down
 
@@ -41,20 +71,12 @@ export default {
   created() {
     this.cuisines = this.$store.state.cuisines;
   },
-  computed: {
-    //potential filtered search
-    // matches () {
-    //   return Object.entries(this.cuisines).filter((cuisine) => {
-    //     var optionText = cuisine[0].toUpperCase()
-    //     return optionText.match(this.searchText.toUpperCase())
-    //   })
-    // }
-  },
+  computed: {},
   methods: {
     getRestaurants() {
       if (this.selectedCuisine) {
         apiService
-          .getBusinessByLocationAndCategory(this.location, this.selectedCuisine)
+          .getBusinessByLocationAndCategory(this.location, this.selectedCuisine.searchValue)
           .then((resp) => {
             this.returnedRestaurants = resp.data;
             this.$store.commit(
@@ -73,14 +95,40 @@ export default {
         });
       }
     },
+    itemVisible(cuisine) {
+      let currentName = cuisine.displayValue.toLowerCase();
+      let currentInput = this.searchText.toLowerCase();
+      return currentName.includes(currentInput);
+    },
+    selectItem(cuisine) {
+      this.selectedCuisine = cuisine;
+      this.searchText = "";
+      this.$emit("on-item-selected", cuisine);
+    },
+    resetItem() {
+      this.selectedCuisine = "";
+      this.$nextTick(() => this.$refs.dropdowninput.focus());
+      this.$emit("on-item-reset");
+    },
   },
 };
 </script>
 
 <style scoped>
+.backgroundLogo {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-size: cover;
+}
 /* Dropdown Button */
 .dropbtn {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -101,41 +149,59 @@ export default {
   margin: 0 auto;
   justify-content: center;
 }
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
   position: relative;
-  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
+.dropdown-input,
+.location-input,
+.dropdown-selected {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  background: #edf2f7;
+  line-height: 1.5em;
+  outline: none;
+  border-radius: 8px;
+}
+.dropdown-input:focus,
+.dropdown-selected:hover {
+  background: #fff;
+  border-color: #e2e8f0;
+}
+.dropdown-selected {
+  font-weight: bold;
+  cursor: pointer;
+}
+.dropdown-list {
   position: absolute;
-  background-color: #F1F1F1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  width: 100%;
+  max-height: 500px;
+  margin-top: 4px;
+  overflow-y: auto;
+  background: #ffffff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
 }
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+.dropdown-item {
+  display: flex;
+  width: 100%;
+  padding: 11px 16px;
+  cursor: pointer;
 }
-/* Change color of dropdown links on hover */
-.dropdown-content tr:hover {
-  background-color: red;
+.dropdown-item:hover {
+  background: #edf2f7;
 }
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-  background-color: #3E8E41;
+.dropdown-item-flag {
+  max-width: 24px;
+  max-height: 18px;
+  margin: auto 12px auto 0px;
 }
 .body {
-padding-left: 75%;
-display: inline-block;
+  padding-left: 75%;
+  display: inline-block;
 }
 </style>
