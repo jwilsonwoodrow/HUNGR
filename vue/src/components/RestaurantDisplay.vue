@@ -4,6 +4,8 @@
       class="backgroundLogo"
       src="https://www.linkpicture.com/q/bg4.png"
     /><br />
+
+    <!--  -->
     <div class="glass-container">
       <div v-if="$store.state.returnedRestaurants.businesses">
         <div
@@ -13,71 +15,47 @@
           v-bind:key="restaurant.id"
           v-show="$store.state.returnedRestaurants"
         >
-          <tr>
-            <th>
-              <button
-                class="save-restaurant-button"
-                @click="SaveRestaurant(restaurant)"
-                v-show="!ExistsInCollection(restaurant)"
-              >
-                SAVE TO COLLECTION
-              </button>
-              <button
-                class="save-restaurant-button"
-                @click="UnsaveRestaurant(restaurant)"
-                v-show="ExistsInCollection(restaurant)"
-              >
-                REMOVE FROM COLLECTION
-              </button>
-            </th>
-            <th></th>
-          </tr>
-          <tr>
-            <td>
-              <img
-                v-bind:src="restaurant.image_url"
-                alt="No Image Available"
-                width="200"
-                height="190"
-              />
-            </td>
-            <td class="name-category">
-              {{ restaurant.name }} <br />
-              <br />{{ restaurant.categories[0].title }}
-            </td>
-            <td class="address">
-              {{ restaurant.location.address1 }}<br />{{
-                restaurant.location.city
-              }}, {{ restaurant.location.state }}
-              {{ restaurant.location.zip_code }}<br />
-            </td>
-            <td>
-              <ul>
-                <div class="is-closed" v-show="!restaurant.is_closed">
-                  Open Now
-                </div>
-                <div class="is-closed" v-show="restaurant.is_closed">
-                  Closed
-                </div>
-              </ul>
-            </td>
-            <a
-              v-bind:href="'tel:' + restaurant.phone"
-              v-show="!restaurant.is_closed"
-            >
-              Call Now</a
-            >
-            <td>
-              <button
-                class="details-button"
-                @click="getRestaurantDetails(restaurant.id, index)"
-              ></button>
-              <div
-                class="details-dropdown"
-                v-show="displayDetails[index]"
-              ></div>
-            </td>
-          </tr>
+          <img
+            v-bind:src="restaurant.image_url"
+            alt="No Image Available"
+            width="200"
+            height="190"
+          />
+          <div class="name-category">
+            <strong>{{ restaurant.name }}</strong> -
+            {{ restaurant.categories[0].title }}
+          </div>
+          <br />
+          <div class="address">
+            {{ restaurant.location.address1 }}<br />{{
+              restaurant.location.city
+            }}, {{ restaurant.location.state }} {{ restaurant.location.zip_code
+            }}<br />
+          </div>
+          <ul>
+            <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
+            <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
+          </ul>
+          <a
+            v-bind:href="'tel:' + restaurant.phone"
+            v-show="!restaurant.is_closed"
+          >
+            Call Now</a
+          ><br />
+          <button
+            class="save-restaurant-button"
+            @click="SaveRestaurant(restaurant)"
+            v-show="!ExistsInCollection(restaurant)"
+          >
+            SAVE TO EVENT LIST
+          </button>
+          <button
+            class="save-restaurant-button"
+            @click="UnsaveRestaurant(restaurant)"
+            v-show="ExistsInCollection(restaurant)"
+          >
+            REMOVE FROM EVENT LIST
+          </button>
         </div>
       </div>
       <div
@@ -89,6 +67,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import apiService from "../services/apiService";
 export default {
@@ -117,10 +96,11 @@ export default {
       this.$store.commit("UNSAVE_RESTAURANT", restaurant);
     },
     ExistsInCollection: function (restaurant) {
-        if (this.$store.state.savedRestaurants.includes(restaurant)) {
-          return true;
-        } else {return false;}
-
+      if (this.$store.state.savedRestaurants.includes(restaurant)) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
   updated() {
@@ -135,6 +115,7 @@ export default {
   },
 };
 </script>
+
 <style>
 button:focus {
   outline: none;
@@ -183,29 +164,8 @@ button:focus {
   z-index: -1;
   background-size: cover;
 }
-.is-closed {
-  vertical-align: middle;
-  font-family: "Montserrat", sans-serif;
-  color: rgb(253, 243, 155);
-  font-size: 130%;
-  padding-left: 20px;
-}
-.name-category {
-  vertical-align: top;
-  font-family: "Montserrat", sans-serif;
-  color: rgb(253, 243, 155);
-  font-size: 150%;
-  padding-left: 10px;
-}
-.address {
-  vertical-align: top;
-  font-family: "Montserrat", sans-serif;
-  color: rgb(253, 243, 155);
-  font-size: 150%;
-  padding-left: 10px;
-  width: 19px;
-}
 .glass-container {
+  text-align: center;
   overflow: auto;
   width: 700px; /* or can do fit-content here?? */
   height: fit-content;
