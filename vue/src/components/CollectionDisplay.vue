@@ -2,8 +2,9 @@
   <div>
     <div class="empty-collection" v-show="$store.state.savedRestaurants.length === 0">
       <p>
-        Collection is currently empty, use the Save button to add restaurants.
+         This event current has no restaurant selections. Please browse restaurants and use the [Add To Collection] button to add them as options.
       </p>
+      <router-link to="/restaurants">Click here to search restaurants</router-link>
     </div>
     <div
       class="collection-list"

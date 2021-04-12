@@ -82,7 +82,7 @@
       </div>
       <div
         class="no-returned-restaurants"
-        v-if="$store.state.returnedRestaurants.businesses === null"
+        v-if="$store.state.returnedRestaurants.businesses.length === 0"
       >
         No Results In Your Area
       </div>
@@ -97,17 +97,9 @@ export default {
   data() {
     return {
       displayDetails: [], //array of booleans, one for each displayed restaurant so that they can be toggled individually
-      rawDataDetails: [],
-      hoursOfOperation: [
-        {
-          dayID: 0,
-          dayOfWeek: "",
-          openTime: 0,
-          closeTime: 0,
-        },
-      ],
     };
   },
+  computed: {},
   methods: {
     getRestaurantDetails: function (restaurantId, index) {
       if (this.displayDetails[index] === true) {
@@ -117,22 +109,20 @@ export default {
         console.log(response.data);
       });
     },
-    ExistsInCollection(restaurant) {
-      for (let i = 0; i < this.$store.state.savedRestaurants.length; i++) {
-        if (restaurant === this.$store.state.savedRestaurants[i]) {
-          return true;
-        } else return false;
-      }
-    },
     SaveRestaurant: function (restaurant) {
       console.log(restaurant);
       this.$store.commit("SAVE_RESTAURANT", restaurant);
     },
-    UnsaveRestaurant(restaurant){
-      this.$store.commit("UNSAVE_RESTAURANT", restaurant)
-    }
+    UnsaveRestaurant(restaurant) {
+      this.$store.commit("UNSAVE_RESTAURANT", restaurant);
+    },
+    ExistsInCollection: function (restaurant) {
+        if (this.$store.state.savedRestaurants.includes(restaurant)) {
+          return true;
+        } else {return false;}
+
+    },
   },
-  computed: {},
   updated() {
     console.log(this.$store.state.returnedRestaurants.businesses.length);
     for (

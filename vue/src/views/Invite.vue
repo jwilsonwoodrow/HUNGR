@@ -1,6 +1,7 @@
 <template>
 <div>
   <button class="select" @click="$router.push('/home')"><strong> go back </strong></button><br>
+    <event-title-select></event-title-select>
     <date-select></date-select>
     <time-select></time-select>
     <collection-display></collection-display>
@@ -12,13 +13,12 @@
 <script>
 import CollectionDisplay from '../components/CollectionDisplay.vue'
 import DateSelect from '../components/DateSelect.vue'
-import RestaurantDisplay from '../components/RestaurantDisplay.vue'
-import RestaurantSearch from '../components/RestaurantSearch.vue' 
+import EventTitleSelect from '../components/EventTitleSelect.vue'
 import TimeSelect from '../components/TimeSelect.vue'
 
 export default {
   name: "invite",
-  components: {RestaurantSearch, RestaurantDisplay, DateSelect, TimeSelect, CollectionDisplay}
+  components: {DateSelect, TimeSelect, CollectionDisplay, EventTitleSelect}
   }
 </script>
 
