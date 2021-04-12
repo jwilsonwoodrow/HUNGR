@@ -18,8 +18,16 @@
               <button
                 class="save-restaurant-button"
                 @click="SaveRestaurant(restaurant)"
+                v-show="!ExistsInCollection(restaurant)"
               >
-                SAVE
+                SAVE TO COLLECTION
+              </button>
+              <button
+                class="save-restaurant-button"
+                @click="UnsaveRestaurant(restaurant)"
+                v-show="ExistsInCollection(restaurant)"
+              >
+                REMOVE FROM COLLECTION
               </button>
             </th>
             <th></th>
@@ -109,10 +117,20 @@ export default {
         console.log(response.data);
       });
     },
+    ExistsInCollection(restaurant) {
+      for (let i = 0; i < this.$store.state.savedRestaurants.length; i++) {
+        if (restaurant === this.$store.state.savedRestaurants[i]) {
+          return true;
+        } else return false;
+      }
+    },
     SaveRestaurant: function (restaurant) {
       console.log(restaurant);
       this.$store.commit("SAVE_RESTAURANT", restaurant);
     },
+    UnsaveRestaurant(restaurant){
+      this.$store.commit("UNSAVE_RESTAURANT", restaurant)
+    }
   },
   computed: {},
   updated() {
@@ -147,7 +165,7 @@ select {
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
   background-size: 50px 60px;
   font-weight: 10;
-  width: 50px;
+  width: 100px;
   height: 60px;
   font-size: 85%;
   color: rgb(253, 243, 155);

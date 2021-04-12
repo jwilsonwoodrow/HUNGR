@@ -22,12 +22,14 @@ export default {
   and (device-width: 360px) 
   and (device-height: 640px) { */
     .main {
-      display: flex;
+      /* display: flex;
       height: 100vh;
       width: 100vw;
       flex-direction: column;
       justify-content: center;
-      align-content: center;
+      align-content: center; */
+      position: absolute;
+      margin: auto;
       font-family: 'Anton', sans-serif;
     }
     button {
@@ -51,15 +53,14 @@ export default {
       background-size: cover;
     }
 .glass-container{
-  margin-left: 28px;
     width: 300px;
-    height: 500px;
+    height: 560px;
     color: white;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
+    align-items: center; */
+
     border-radius: 10px;
     backdrop-filter: blur(5px);
     background-color: rgba(255,0,0, 0.131);

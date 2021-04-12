@@ -6,8 +6,7 @@
       <section class="buttons">
         <div class="image"><img src="https://www.linkpicture.com/q/logo5_2.png" width=auto height=145px class="logo"/></div><br>
           <button class="select" @click="GoToRestaurantList"> <strong> RESTAURANTS </strong> </button><br>
-          <button class="select" @click="$router.push('/collection')"> <strong> COLLECTION </strong> </button><br>
-          <button class="select" @click="$router.push('/invite')"><strong> INVITE </strong></button><br>
+          <button class="select" @click="$router.push('/collection')"> <strong> CREATE EVENT </strong> </button><br>
           <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''"><button class="logout">Logout</button></router-link>
       </section>
     </div>
@@ -77,7 +76,7 @@ export default {
       width: 140px;
       height: 50px;
 
-      font-size: 90%;
+      font-size: 70%;
        color: rgb(253, 243, 155);
       border: 0;
       padding: 0;
