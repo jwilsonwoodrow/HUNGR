@@ -2,11 +2,11 @@
   <form action="https://example.com">
   <label>
     What day do you want to meet?
-    <input type="date" name="date">
+    <input type="datetime-local" name="date">
   </label><br>
   <label>
       RSVP by?
-      <input type='date' name='rsvp'>
+      <input type='datetime-local' name='rsvp'>
    </label>
 </form>
 </template>
