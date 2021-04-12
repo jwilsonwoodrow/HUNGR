@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    name: 'event-title-select'
+  name: "event-title-select",
 };
 </script>
 

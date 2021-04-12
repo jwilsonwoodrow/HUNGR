@@ -1,12 +1,19 @@
 <template>
   <div>
     <h4>Current Restaurant Options:</h4>
-    <div class="empty-collection" v-show="$store.state.savedRestaurants.length === 0">
+    <div
+      class="empty-collection"
+      v-show="$store.state.savedRestaurants.length === 0"
+    >
       <p>
-         This event currently has no restaurant selections. Please browse restaurants and use the [Add To Collection] button to add them as options.
+        This event currently has no restaurant selections. Please browse
+        restaurants and use the [Add To Collection] button to add them as
+        options.
       </p>
-      <router-link to="/restaurants">Click here to search restaurants</router-link>
-      <br>
+      <router-link to="/restaurants"
+        >Click here to search restaurants</router-link
+      >
+      <br />
     </div>
     <div
       class="collection-list"

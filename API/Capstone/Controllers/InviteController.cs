@@ -16,7 +16,7 @@ namespace Capstone.Controllers
             inviteDAO = _inviteDAO;
         }
 
-        [HttpGet("{inviteTitle}/invite")]
+        [HttpGet("{inviteTitle}/invite")] //use id instead of name
         public ActionResult<Invite> GetInvite(string title)
         {
            Invite invite = inviteDAO.GetInviteByTitle(title);

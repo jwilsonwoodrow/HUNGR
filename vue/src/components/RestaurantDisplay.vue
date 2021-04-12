@@ -54,8 +54,8 @@
           >
             REMOVE FROM EVENT LIST
           </button>
-          <br>
-          <br>
+          <br />
+          <br />
         </div>
       </div>
       <div
@@ -155,7 +155,7 @@ button:focus {
 }
 .backgroundLogo {
   min-height: 100%;
-  min-width: 1024px;
+  min-width: 400px;
   width: 100%;
   height: auto;
   position: fixed;
@@ -167,7 +167,7 @@ button:focus {
 .glass-container {
   text-align: center;
   overflow: auto;
-  width: 700px; /* or can do fit-content here?? */
+  max-width: 100%; /* or can do fit-content here?? */
   height: fit-content;
   color: white;
   display: flex;

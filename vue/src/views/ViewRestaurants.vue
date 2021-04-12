@@ -1,13 +1,15 @@
 <template>
   <div>
-     <button class="select" @click="$router.push('/home')"><strong> go back </strong></button><br>
+    <button class="select" @click="$router.push('/home')">
+      <strong> go back </strong></button
+    ><br />
     <restaurant-search />
     <restaurant-display />
   </div>
 </template>
 
 <script>
-import RestaurantDisplay from '../components/RestaurantDisplay.vue';
+import RestaurantDisplay from "../components/RestaurantDisplay.vue";
 import RestaurantSearch from "../components/RestaurantSearch.vue";
 
 export default {
