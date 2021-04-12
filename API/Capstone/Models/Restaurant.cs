@@ -23,4 +23,9 @@ namespace Capstone.Models
         public int NumOfLikes { get; set; }
         public int NumOfDislikes { get; set; }
     }
+    public class UserRestaurants
+    {
+        public string Email { get; set; }
+        public string RestaurantName { get; set; }
+    }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.DAO
 {
-    public class RestaurantSqlDAO : IRestaurantSqlDAO
+    public class RestaurantSqlDAO : IRestaurantDAO
     {
         private readonly string connectionString;
 
@@ -43,6 +43,33 @@ namespace Capstone.DAO
 
             return returnRestaurant;
         }
+        public List<Restaurant> GetCollectionByUserEmail(string email)
+        {
+            List<Restaurant> collection = new List<Restaurant>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number FROM saved_restaurants sr JOIN user_restaurants ur ON ur.restaurant_id = sr.restaurant_id JOIN users u ON u.user_id = ur.user_id WHERE u.email = @email", conn);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows && reader.Read())
+                    {
+                        collection.Add(GetRestaurantFromReader(reader));
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return collection;
+        }
         public Restaurant GetRestaurantByYelpId(string yelpId)
         {
             Restaurant returnRestaurant = null;
@@ -70,7 +97,7 @@ namespace Capstone.DAO
 
             return returnRestaurant;
         }
-        public Restaurant AddRestaurant(int restId, string yelpId, string name, string address, string city, string state, string zip, string category, string phoneNum)
+        public Restaurant AddRestaurant(string yelpId, string name, string address, string city, string state, string zip, string category, string phoneNum)
         {
 
             try
@@ -79,8 +106,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO saved_restaurants (restaurant_id, yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number) VALUES (@restId, @yelpId, @name, @address, @city, @state, @zip, @category, @phoneNum)", conn);
-                    cmd.Parameters.AddWithValue("@restId", restId);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO saved_restaurants (yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number) VALUES (@yelpId, @name, @address, @city, @state, @zip, @category, @phoneNum)", conn);
                     cmd.Parameters.AddWithValue("@yelpId", yelpId);
                     cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@address", address);
@@ -99,6 +125,29 @@ namespace Capstone.DAO
 
             return GetRestaurantByYelpId(yelpId);
         }
+        public List<Restaurant> AddRestaurantToCollection(string email, string restaurantName)
+        {
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO user_restaurants(user_id, restaurant_id) VALUES((select user_id from users where email = @email), (select restaurant_id from saved_restaurants where restaurant_name = @restaurantName));", conn);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@restaurantName", restaurantName);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return GetCollectionByUserEmail(email);
+        }
+
 
         private Restaurant GetRestaurantFromReader(SqlDataReader reader)
         {

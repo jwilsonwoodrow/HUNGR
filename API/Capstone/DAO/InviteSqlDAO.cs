@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.DAO
 {
-    public class InviteSqlDAO
+    public class InviteSqlDAO : IInviteDAO
     {
 
         private readonly string connectionString;

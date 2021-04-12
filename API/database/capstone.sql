@@ -63,6 +63,12 @@ CREATE TABLE invite_attendees (
 	CONSTRAINT FK_invite_attendee_id FOREIGN KEY (invite_id) references invites(invite_id),
 	CONSTRAINT FK_invite_attendee FOREIGN KEY (attendee_id) references attendees(attendee_id),
 )
+CREATE TABLE user_restaurants (
+	user_id int NOT NULL,
+	restaurant_id int NOT NULL,
+	CONSTRAINT FK_restaurant_user_id FOREIGN KEY (user_id) references users(user_id),
+	CONSTRAINT FK_user_restaurant_id FOREIGN KEY (restaurant_id) references saved_restaurants(restaurant_id),
+)
 CREATE TABLE restaurant_likes_dislikes (
 	restaurant_id int NOT NULL,
 	num_of_likes int NULL,
@@ -83,7 +89,9 @@ INSERT INTO attendees(attendee_name, attendee_email)
 	('Mike', 'mike@gmail.com');
 
 INSERT INTO saved_restaurants(yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number) 
-	VALUES ('QBNbyEzqc7VnCMo5JTos4w', 'BurgerIM', '11419 Euclid Ave', 'Cleveland', 'OH', '44106', 'Burgers', '(216) 795-5999');
+	VALUES ('QBNbyEzqc7VnCMo5JTos4w', 'BurgerIM', '11419 Euclid Ave', 'Cleveland', 'OH', '44106', 'Burgers', '(216) 795-5999'),
+	('6qxE-dfIP73khQHu4ZCZow', 'Table Six Kitchen + Bar', '6113 Whipple Ave NW', 'North Canton', 'OH', '44720', 'American (New)', '(330) 305-1666'),
+	('gbX5yBcJWYVoALKtsIoteg', 'Sylvesters North End Grille', '4305 Portage St NW', 'North Canton', 'OH', '44720', 'Italian', '(330) 497-1533');
 
 INSERT INTO invite_restaurants(invite_id, restaurant_id) 
 	VALUES ((select invite_id from invites where user_id = 2 and invite_title = 'Birthday'), (select restaurant_id from saved_restaurants where restaurant_name = 'BurgerIM'));
@@ -93,6 +101,10 @@ INSERT INTO invite_attendees(attendee_id, invite_id)
 
 INSERT INTO restaurant_likes_dislikes(restaurant_id, num_of_likes, num_of_dislikes) 
 	VALUES ((select restaurant_id from saved_restaurants where restaurant_name = 'BurgerIM'), 3, 0);
-	
+
+INSERT INTO user_restaurants(user_id, restaurant_id) 
+	VALUES ((select user_id from users where email = 'admin@gmail.com'), (select restaurant_id from saved_restaurants where restaurant_name = 'BurgerIM')),
+	((select user_id from users where email = 'admin@gmail.com'), (select restaurant_id from saved_restaurants where restaurant_name = 'Table Six Kitchen + Bar')),
+	((select user_id from users where email = 'user@gmail.com'), (select restaurant_id from saved_restaurants where restaurant_name = 'Sylvesters North End Grille'));	
 
 GO

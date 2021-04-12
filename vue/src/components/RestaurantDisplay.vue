@@ -118,7 +118,7 @@ export default {
 
 <style scoped>
 button:focus {
-  outline: none;
+  outline: 3;
   box-shadow: none;
 }
 input {
