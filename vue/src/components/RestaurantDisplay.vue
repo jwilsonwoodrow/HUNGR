@@ -116,7 +116,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 button:focus {
   outline: none;
   box-shadow: none;

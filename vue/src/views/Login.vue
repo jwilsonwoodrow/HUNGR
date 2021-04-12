@@ -4,12 +4,11 @@
   </div>
 </template>
 <script>
-import LoginForm from '../components/LoginForm.vue';
+import LoginForm from "../components/LoginForm.vue";
 export default {
-  components: {LoginForm },
+  components: { LoginForm },
   data() {
-    return {
-    };
+    return {};
   },
 };
 </script>
@@ -22,15 +21,16 @@ export default {
   and (device-width: 360px) 
   and (device-height: 640px) { */
     .main {
-      /* display: flex;
-      height: 100vh;
-      width: 100vw;
-      flex-direction: column;
+      margin:auto;
+      display: grid;
+      height: 50vh;
+      width: 50vw;
+      padding-right: 40vh;
+      padding-top: 20px;
       justify-content: center;
-      align-content: center; */
-      position: absolute;
-      margin: auto;
+      align-content: center;
       font-family: 'Anton', sans-serif;
+      position: relative;
     }
     button {
       font-family: 'Montserrat', sans-serif;
@@ -53,14 +53,12 @@ export default {
       background-size: cover;
     }
 .glass-container{
-    width: 300px;
-    height: 560px;
+    width: 60%;
+    height: 75%;
+    padding: 30px;
     color: white;
-    /* display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center; */
-
+    align-items: center;
     border-radius: 10px;
     backdrop-filter: blur(5px);
     background-color: rgba(255,0,0, 0.131);

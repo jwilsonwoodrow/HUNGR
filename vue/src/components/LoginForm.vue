@@ -84,7 +84,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     border-radius: 10px;
     backdrop-filter: blur(5px);
     background-color: rgba(255,0,0, 0.131);
@@ -99,8 +98,6 @@
     padding: 30px;
     background-color: rgba(124,10,2,255);
   }
-  
-
 .need {
   color: rgb(255, 234, 47);
 }

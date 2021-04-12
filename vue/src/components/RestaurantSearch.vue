@@ -77,7 +77,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* Dropdown Button */
 .dropbtn {
   background-color: #4CAF50;
