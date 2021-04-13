@@ -76,21 +76,22 @@ namespace Capstone.DAO
 
             return returnInvite;
         }
-        public Invite AddInvite(string inviteTitle, int userId, DateTime expiryDate, DateTime eventDate)
+        public int AddInvite(string inviteTitle, int userId, DateTime expiryDate, DateTime eventDate)
         {
             string format = "yyyy-MM-dd HH:mm:ss";
+            int identity = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO invites (invite_title, user_id, expiry_date, event_date) VALUES (@inviteTitle, @userid, @expiryDate, @eventDate)", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO invites (invite_title, user_id, expiry_date, event_date) VALUES (@inviteTitle, @userid, @expiryDate, @eventDate); SELECT @@IDENTITY", conn);
                     cmd.Parameters.AddWithValue("@inviteTitle", inviteTitle);
                     cmd.Parameters.AddWithValue("@userId", userId);
                     cmd.Parameters.AddWithValue("@expiryDate", expiryDate.ToString(format));
                     cmd.Parameters.AddWithValue("@eventDate", eventDate.ToString(format));
-                    cmd.ExecuteNonQuery();
+                    identity = Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (SqlException)
@@ -98,11 +99,11 @@ namespace Capstone.DAO
                 throw;
             }
 
-            return GetInviteById(inviteId);
+            return identity;
         }
-        public List<UserInvite> AddRestaurantToInvite(int userId, string inviteTitle, int restaurantId)
+        public int AddRestaurantToInvite(int userId, string inviteTitle, int restaurantId)
         {
-
+            int identity = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -111,11 +112,11 @@ namespace Capstone.DAO
 
                     SqlCommand cmd = new SqlCommand("INSERT INTO invite_restaurants(invite_id, restaurant_id)," +
                         "VALUES ((select invite_id from invites where user_id = @userId and invite_title = @inviteTitle), " +
-                        "(select restaurant_id from saved_restaurants where restaurant_id = @restaurantId));", conn);
+                        "(select restaurant_id from saved_restaurants where restaurant_id = @restaurantId)); SELECT @@IDENTITY", conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
                     cmd.Parameters.AddWithValue("@inviteTitle", inviteTitle);
                     cmd.Parameters.AddWithValue("@restaurantId", restaurantId);
-                    cmd.ExecuteNonQuery();
+                    identity = Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (SqlException)
@@ -123,7 +124,7 @@ namespace Capstone.DAO
                 throw;
             }
 
-            return GetInvitesByUserId(userId);
+            return identity;
         }
 
         private Invite GetInviteFromReader(SqlDataReader reader)

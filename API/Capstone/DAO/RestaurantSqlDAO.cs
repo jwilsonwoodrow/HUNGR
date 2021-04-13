@@ -102,9 +102,9 @@ namespace Capstone.DAO
 
             return returnRestaurant;
         }
-        public Restaurant AddRestaurant(string yelpId, string name, string address, string city, string state, string zip, string category, string phoneNum)
+        public int AddRestaurant(string yelpId, string name, string address, string city, string state, string zip, string category, string phoneNum)
         {
-
+            int identity = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -120,7 +120,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@zip", zip);
                     cmd.Parameters.AddWithValue("@category", category);
                     cmd.Parameters.AddWithValue("@phoneNum", phoneNum);
-                    cmd.ExecuteNonQuery();
+                    identity = Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
             catch (SqlException)
@@ -128,7 +128,7 @@ namespace Capstone.DAO
                 throw;
             }
 
-            return GetRestaurantByYelpId(yelpId);
+            return identity;
         }
 
         private Restaurant GetRestaurantFromReader(SqlDataReader reader)
