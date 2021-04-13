@@ -2,6 +2,6 @@
 {
     public interface IGenerateInviteDAO
     {
-        int AddInviteIdToRestaurantId(int inviteId, int restaurantId);
+        bool AddInviteIdToRestaurantId(int inviteId, int restaurantId);
     }
 }

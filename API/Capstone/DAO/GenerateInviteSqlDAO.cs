@@ -17,9 +17,9 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public int AddInviteIdToRestaurantId(int inviteId, int restaurantId)
+        public bool AddInviteIdToRestaurantId(int inviteId, int restaurantId)
         {
-            int identity = 0;
+            int rowsAffected = 0;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -30,15 +30,25 @@ namespace Capstone.DAO
                         "VALUES(@inviteId, @restaurantId); SELECT @@IDENTITY", conn);
                     cmd.Parameters.AddWithValue("@inviteId", inviteId);
                     cmd.Parameters.AddWithValue("@restaurantId", restaurantId);
-                    identity = Convert.ToInt32(cmd.ExecuteScalar());
+                    rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        return true;
+
+                    }
+                    else return false;
                 }
             }
             catch (SqlException)
             {
                 throw;
             }
+                if (rowsAffected > 0)
+                {
+                    return true;
 
-            return identity;
+                }
+                else return false;
         }
 
         private InviteIdRestaurantId GetInviteIdRestaurantIdFromReader(SqlDataReader reader)

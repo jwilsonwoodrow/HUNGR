@@ -43,7 +43,7 @@ export default {
     },
 
     RelateEventRestaurant(inviteId, restaurantIds){
-        return axios.post(`/invites/${inviteId}/restaurants`, restaurantIds)
+        return axios.post(`/invite/${inviteId}/restaurants`, restaurantIds)
     }
     // need invite id, title, current user id, rsvp datetime, event datetime
 }
