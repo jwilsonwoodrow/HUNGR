@@ -19,8 +19,19 @@ export default {
 
     //search location AND category if you want
     getBusinessByLocationAndCategory(location, categories) {  //how do we give this its own route in the restaurant controller?
-        return http.get(`restaurant?location=${location}&categories=${categories}`)  
+        return http.get(`restaurant?location=${location}&categories=${categories}`)
     },
+
+    SaveToCollection(restaurant) {
+        return http.post()
+    },
+
+    RemoveFromCollection(restaurant) { },
+
+    CreateEvent(invite) {
+        return axios.post(`/invites/save`, invite);
+     }
+    // need invite id, title, current user id, rsvp datetime, event datetime
 }
 
 
