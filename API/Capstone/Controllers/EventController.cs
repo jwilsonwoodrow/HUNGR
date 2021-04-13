@@ -12,10 +12,10 @@ namespace Capstone.Controllers
         private readonly IInviteDAO inviteDAO;
         private readonly IRestaurantDAO restaurantDAO;
 
-        public InviteController(IInviteDAO _inviteDAO)
-        {
-            inviteDAO = _inviteDAO;
-        }
+        //public InviteController(IInviteDAO _inviteDAO)
+        //{
+        //    inviteDAO = _inviteDAO;
+        //}
 
         [HttpGet("{inviteTitle}/invite")]
         public ActionResult<Invite> GetInvite(string title)
