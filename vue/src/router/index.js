@@ -11,6 +11,7 @@ import Invite from '../views/Invite'
 import Collection from '../views/Collection'
 import InviteConfirmation from '../views/InviteConfirmation'
 import InviteeView from '../views/InviteeView'
+import ViewEvents from '../views/ViewEvents'
 
 
 Vue.use(Router)
@@ -105,6 +106,15 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+    {
+      path: '/events',
+      name: 'events',
+      component: ViewEvents,
+      meta: {
+        requiresAuth: true
+      }
+
     }
   ]
 })

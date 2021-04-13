@@ -1,18 +1,11 @@
 <template>
   <div>
-    <form action="https://example.com">
-      s
-    </form>
-    <form action="https://example.com">
-      <label>
-        What day do you want to meet?
-        <input type="datetime-local" name="date" /> </label
-      ><br />
-      <label>
-        RSVP by?
-        <input type="datetime-local" name="rsvp" />
-      </label>
-    </form>
+    <label> What is the name of your Event? </label>
+    <input type="text" name="EventName" />
+    <label> What day do you want to meet?</label>
+    <input type="datetime-local" name="date" /> <br />
+    <label> RSVP by? </label>
+    <input type="datetime-local" name="rsvp" />
   </div>
 </template>
 

@@ -19,6 +19,9 @@
           <button class="select" @click="$router.push('/collection')">
             <strong> CREATE EVENT </strong></button
           ><br />
+          <button class="select" @click="$router.push('/events')">
+            <strong> VIEW EVENTS </strong></button
+          ><br />
           <router-link
             v-bind:to="{ name: 'logout' }"
             v-if="$store.state.token != ''"
@@ -59,7 +62,7 @@ export default {
   font-family: "Anton", sans-serif;
 }
 .glass-container {
-  min-width: 300px ;
+  min-width: 300px;
   height: 610px;
   color: white;
   display: flex;

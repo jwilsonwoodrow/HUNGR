@@ -45,8 +45,11 @@ export default {
 
     RelateEventRestaurant(inviteId, restaurantIds){
         return axios.post(`/invite/${inviteId}/restaurants`, restaurantIds)
+    },
+
+    GetEventTitles(){
+        return axios.get(`/invites`)
     }
-    // need invite id, title, current user id, rsvp datetime, event datetime
 }
 
 

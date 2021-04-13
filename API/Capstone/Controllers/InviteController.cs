@@ -35,9 +35,9 @@ namespace Capstone.Controllers
                 return NotFound();
             }
         }
-        [HttpGet("/{userId}/invites")]
+        [HttpGet]
         [Authorize]
-        public IActionResult GetInviteTitlesByUserId(int userId)
+        public IActionResult GetInviteTitlesByUserId()
         {
             List<string> listOfInviteTitles = inviteDAO.GetInvitesByUserId(this.UserId);
 

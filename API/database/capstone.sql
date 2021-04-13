@@ -94,3 +94,6 @@ INSERT INTO user_invite(user_id, invite_id)
 	((select user_id from users where email = 'user@gmail.com'), (select invite_id from invites where invite_title = 'Anniversary' and user_id = (select user_id from users where email = 'user@gmail.com')));	
 
 GO
+
+
+select * from invites

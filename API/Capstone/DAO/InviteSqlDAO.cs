@@ -26,16 +26,13 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("Select i.invite_title" +
-                        "FROM invites i" +
-                        "JOIN user_invite ur ON ur.invite_id = i.invite_id" +
-                        "where ur.user_id = @userId", conn);
+                    SqlCommand cmd = new SqlCommand("Select invite_title FROM invites where user_id = @userId", conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows && reader.Read())
                     {
-                        listOfInvites.Add(Convert.ToString(reader["i.invite_title"]));
+                        listOfInvites.Add(Convert.ToString(reader["invite_title"]));
                     }
                 }
             }

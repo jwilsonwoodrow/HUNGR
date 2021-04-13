@@ -1,21 +1,26 @@
 <template>
-  <!-- display list of all events with current user's id --> 
+  <!-- display list of all events with current user's id -->
   <!-- clicking on list of object will go to invite details -->
-  <div></div>
+  <div>
+    <p>hello</p>
+
+  </div>
 </template>
 
 <script>
-import apiService from '../services/apiService';
+import apiService from "../services/apiService";
 export default {
-  data(){
-    return{
+  name: "events",
+  data() {
+    return {
       eventTitles: [],
-    }
-
+    };
   },
-  created: {
-    this.eventTitles = apiService.GetEventTitlesById()
-  }
+  created() {
+    apiService.GetEventTitles().then((response) => {
+      this.eventTitles = response.data;
+    })
+  },
 };
 </script>
 
