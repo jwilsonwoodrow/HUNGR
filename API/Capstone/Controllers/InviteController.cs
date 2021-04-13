@@ -45,17 +45,15 @@ namespace Capstone.Controllers
         {
             IActionResult result;
 
-            Invite invite = inviteDAO.AddInvite(inviteForm.InviteTitle, this.UserId, inviteForm.ExpiryDate, inviteForm.EventDate);
-            if (invite != null)
+            try
             {
-                result = Created(invite.InviteTitle, null);
+                inviteForm.InviteId = inviteDAO.AddInvite(inviteForm.InviteTitle, this.UserId, inviteForm.ExpiryDate, inviteForm.EventDate);
+                return Created("", inviteForm);
             }
-            else
+            catch
             {
-                result = BadRequest(new { message = "An error occurred and the invite was not created." });
+                return BadRequest(new { message = "An error occurred and the invite was not created." });
             }
-
-            return result;
         }
 
         [HttpPost("/restaurants")]
@@ -64,16 +62,16 @@ namespace Capstone.Controllers
         {
             IActionResult result;
 
-            Restaurant newRestaurant = new Restaurant();
+            List<int> identities = new List<int>();
 
             foreach(Restaurant restaurant in restaurants)
             {
-                newRestaurant = restaurantDAO.AddRestaurant(restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber);
+                identities.Add(restaurantDAO.AddRestaurant(restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber));
             }
             
-            if (newRestaurant != null)
+            if (identities != null)
             {
-                result = Created(newRestaurant.RestaurantName, null);
+                result = Ok(identities);
             }
             else
             {
@@ -83,9 +81,9 @@ namespace Capstone.Controllers
             return result;
         }
 
-        //[HttpPost("/restaurants")]
+        //[HttpPost("/generateInvite")]
         //[Authorize]
-        //public IActionResult SaveRestaurant(Restaurant restaurant)
+        //public IActionResult GenerateInvite()
         //{
         //    IActionResult result;
 
