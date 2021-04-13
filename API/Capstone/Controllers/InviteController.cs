@@ -56,5 +56,24 @@ namespace Capstone.Controllers
 
             return result;
         }
+
+        [HttpPost("/restaurants")]
+        [Authorize]
+        public IActionResult SaveRestaurant(Restaurant restaurant)
+        {
+            IActionResult result;
+
+            Restaurant newRestaurant = restaurantDAO.AddRestaurant(restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber);
+            if (newRestaurant != null)
+            {
+                result = Created(newRestaurant.RestaurantName, null);
+            }
+            else
+            {
+                result = BadRequest(new { message = "An error occurred and the restaurant was not saved." });
+            }
+
+            return result;
+        }
     }
 }
