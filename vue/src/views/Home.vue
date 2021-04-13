@@ -29,7 +29,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "home",
@@ -51,7 +50,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 #home {
   position: absolute;
@@ -61,8 +59,8 @@ export default {
   font-family: "Anton", sans-serif;
 }
 .glass-container {
-  width: 300px;
-  height: 600px;
+  min-width: 300px ;
+  height: 610px;
   color: white;
   display: flex;
   /* flex-direction: column; */
@@ -91,8 +89,7 @@ export default {
   font-weight: 10;
   width: 140px;
   height: 50px;
-
-  font-size: 70%;
+  font-size: 87%;
   color: rgb(253, 243, 155);
   border: 0;
   padding: 0;
@@ -103,7 +100,6 @@ button:focus {
 }
 .backgroundLogo {
   min-height: 100%;
-  min-width: 1024px;
   width: 100%;
   height: auto;
   position: fixed;

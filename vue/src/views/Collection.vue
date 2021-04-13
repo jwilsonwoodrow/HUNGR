@@ -2,23 +2,19 @@
   <div>
     <button class="select" @click="$router.push('/home')">
       <strong> go back </strong>
-    </button>
+    </button> <br/>
     <button
       class="clear-collection"
       v-show="!$store.state.savedRestaurants == ''"
       @click="ClearCollection"
-    >
+    >    
       <strong>Clear Collection </strong>
     </button>
     <br />
     <collection-display />
     <br />
-    <button class="select" @click="$router.push('/invite')">
-      <strong> Create Invite </strong></button
-    ><br />
   </div>
 </template>
-
 <script>
 import CollectionDisplay from "../components/CollectionDisplay.vue";
 export default {
@@ -30,6 +26,16 @@ export default {
   },
 };
 </script>
-
-<style>
+<style scoped>
+.backgroundLogo {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  background-size: cover;
+}
 </style>
