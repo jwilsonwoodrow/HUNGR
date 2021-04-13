@@ -51,12 +51,26 @@ export default {
   // components: { DateSelect, CollectionDisplay, EventTitleSelect },
   methods: {
     SaveEvent() {
-      apiService.CreateEvent(this.invite);
+      apiService.CreateEvent(this.invite).then((response) => {
+        if(response.status === 200){
+          this.inviteID = response.data;
+          apiService.CreateRestaurant(this.$store.state.savedRestaurants).then((response) =>{
+            if(response.status === 200){
+              let restaurantIDs = response.data
+              let invite_restaurants = {
+                inviteId: this.inviteID,
+                restaurantIds: restaurantIDs
+              }
+              apiService.RelateEventRestaurant(invite_restaurants)
+            }
+          });
+        }
+      });
     },
   },
 };
 </script>
 
-<style scope,
-    CollectionDisplayd>
+<style scoped,
+    CollectionDisplay>
 </style>
