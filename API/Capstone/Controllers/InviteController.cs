@@ -3,6 +3,7 @@ using Capstone.DAO;
 using Capstone.Models;
 using Capstone.Security;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
 
 namespace Capstone.Controllers
 {
@@ -59,11 +60,17 @@ namespace Capstone.Controllers
 
         [HttpPost("/restaurants")]
         [Authorize]
-        public IActionResult SaveRestaurant(Restaurant restaurant)
+        public IActionResult SaveRestaurant(List<Restaurant> restaurants)
         {
             IActionResult result;
 
-            Restaurant newRestaurant = restaurantDAO.AddRestaurant(restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber);
+            Restaurant newRestaurant = new Restaurant();
+
+            foreach(Restaurant restaurant in restaurants)
+            {
+                newRestaurant = restaurantDAO.AddRestaurant(restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber);
+            }
+            
             if (newRestaurant != null)
             {
                 result = Created(newRestaurant.RestaurantName, null);
@@ -75,5 +82,24 @@ namespace Capstone.Controllers
 
             return result;
         }
+
+        //[HttpPost("/restaurants")]
+        //[Authorize]
+        //public IActionResult SaveRestaurant(Restaurant restaurant)
+        //{
+        //    IActionResult result;
+
+        //    Restaurant newRestaurant = restaurantDAO.AddRestaurant(restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber);
+        //    if (newRestaurant != null)
+        //    {
+        //        result = Created(newRestaurant.RestaurantName, null);
+        //    }
+        //    else
+        //    {
+        //        result = BadRequest(new { message = "An error occurred and the restaurant was not saved." });
+        //    }
+
+        //    return result;
+        //}
     }
 }
