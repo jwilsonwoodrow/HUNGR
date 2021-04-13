@@ -7,5 +7,7 @@ namespace Capstone.Models
 {
     public class InviteIdRestaurantId
     {
+        public int InviteId { get; set; }
+        public int RestaurantId { get; set; }
     }
 }
