@@ -36,7 +36,8 @@ export default {
             currentRestaurant.restaurantState = restaurant.location.state;
             currentRestaurant.restaurantZip = restaurant.location.zip_code;
             currentRestaurant.category = restaurant.categories[0].title;
-            currentRestaurant.phoneNumber = restaurant.display_phone
+            currentRestaurant.phoneNumber = restaurant.display_phone;
+            currentRestaurant.imageUrl = restaurant.image_url;
             exportRestaurants.push(currentRestaurant);
         });
         return axios.post(`/restaurants`, exportRestaurants)

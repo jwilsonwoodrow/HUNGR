@@ -5,7 +5,18 @@
 </template>
 
 <script>
-export default {};
+import apiService from '../services/apiService';
+export default {
+  data(){
+    return{
+      eventTitles: [],
+    }
+
+  },
+  created: {
+    this.eventTitles = apiService.GetEventTitlesById()
+  }
+};
 </script>
 
 <style>
