@@ -24,7 +24,7 @@ export default {
     CreateEvent(invite) {
         return axios.post(`/invites/save`, invite);
     },
-    CreateRestaurant(restaurants) {
+    CreateRestaurants(restaurants) {
         // Restaurant AddRestaurant(string yelpId, string name, string address, string city, string state, string zip, string category, string phoneNum);
         let exportRestaurants = [];
         restaurants.forEach(restaurant => {
