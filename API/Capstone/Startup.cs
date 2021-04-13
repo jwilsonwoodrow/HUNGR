@@ -64,6 +64,7 @@ namespace Capstone
             services.AddSingleton<IPasswordHasher>(ph => new PasswordHasher());
             services.AddTransient<IUserDAO>(m => new UserSqlDAO(connectionString));
             services.AddTransient<IInviteDAO>(m => new InviteSqlDAO(connectionString));
+            services.AddTransient<IGenerateInviteDAO>(m => new GenerateInviteSqlDAO(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
