@@ -1,9 +1,55 @@
 <template>
+  <div>
+    <button class="select" @click="$router.push('/home')">
+      <strong> go back </strong>
+    </button> <br/>
+    <button
+      class="clear-collection"
+      v-show="!$store.state.savedRestaurants == ''"
+      @click="ClearCollection"
+    >    
+      <strong>Clear Collection </strong>
+    </button>
+    <br />
+    <collection-display />
+    <br />
+  </div>
+</template>
+<script>
+import CollectionDisplay from "../components/CollectionDisplay.vue";
+export default {
+  components: { CollectionDisplay },
+  methods: {
+    ClearCollection() {
+      this.$store.commit("CLEAR_SAVED_RESTAURANTS");
+    },
+  },
+};
+</script>
+<style scoped>
+.backgroundLogo {
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  background-size: cover;
+}
+</style>
+
+
+
+
+
+4:03
+<template>
   <div id="login" class="text-center">
         <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png"/>
     <div class="glass-container">
     <form class="form-signin" @submit.prevent="login">
-
         <div class="image"><router-link v-bind:to="{name:'splash'}"><img src="https://www.linkpicture.com/q/logo5_2.png" width=auto height=145px class="logo"/></router-link></div>
       <div
         class="alert alert-danger"
@@ -34,14 +80,12 @@
         v-model="user.password"
         required
       /><br><br>
-      <button type="submit">Sign in</button><br><br>
+      <button type="submit"> <strong> Sign in </strong> </button><br><br>
       <router-link :to="{ name: 'register' }" class="need">Need an account?</router-link><br><br>
-
     </form>
     </div>
   </div>
 </template>
-
 <style scoped>
     .backgroundLogo{
       min-height: 100%;
@@ -54,6 +98,9 @@
       z-index: -1;
       background-size: cover;
     }
+#password, #email {
+  border-color: rgb(252,248,200);
+}
     button {
       font-family: 'Montserrat', sans-serif;
       background: transparent;
@@ -102,10 +149,8 @@
   color: rgb(255, 234, 47);
 }
 </style>
-
 <script>
 import authService from "../services/AuthService";
-
 export default {
   name: "login",
   components: {},
@@ -132,7 +177,6 @@ export default {
         })
         .catch(error => {
           const response = error.response;
-
           if (response.status === 401) {
             this.invalidCredentials = true;
           }

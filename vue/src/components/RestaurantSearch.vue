@@ -6,7 +6,7 @@
       placeholder="Type City or Zip"
       v-model="location"
       class="location-input"
-    />
+    /><br />
     <div class="dropdown">
       <input
         ref="dropdowninput"
@@ -14,7 +14,7 @@
         v-model.trim="searchText"
         class="dropdown-input"
         type="text"
-        placeholder="Search for Cuisine Type (Optional)"
+        placeholder="Search for Cuisine Type"
       />
       <div v-else @click="resetItem" class="dropdown-selected">
         {{ selectedCuisine.displayValue }}
@@ -43,18 +43,14 @@
     </select> -->
     <!-- 
       Potential Filtered search/drop down
-
       <div class="dropdown">
     <input type="text" v-model="searchText" />
     <pre>{{ matches.displayValue }}</pre>  </div> -->
-
     <button class="search-button" @click="getRestaurants()">Search</button>
   </div>
 </template>
-
 <script>
 import apiService from "../services/apiService";
-
 export default {
   name: "restaurant-search",
   components: {},
@@ -76,7 +72,10 @@ export default {
     getRestaurants() {
       if (this.selectedCuisine) {
         apiService
-          .getBusinessByLocationAndCategory(this.location, this.selectedCuisine.searchValue)
+          .getBusinessByLocationAndCategory(
+            this.location,
+            this.selectedCuisine.searchValue
+          )
           .then((resp) => {
             this.returnedRestaurants = resp.data;
             this.$store.commit(
@@ -113,7 +112,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .backgroundLogo {
   min-height: 100%;
@@ -135,6 +133,7 @@ export default {
   border: none;
 }
 .search-button {
+  display: inline-block;
   font-family: "Montserrat", sans-serif;
   background: transparent;
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
@@ -146,38 +145,30 @@ export default {
   color: rgb(253, 243, 155);
   border: 0;
   padding: 0;
-  margin: 0 auto;
+  margin-left: 60px;
   justify-content: center;
 }
 .dropdown {
-  position: relative;
-  width: 100%;
+  /* position: relative; */
+  width: 85%;
   max-width: 400px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-right: 22.5%;
 }
 .dropdown-input,
 .location-input,
 .dropdown-selected {
-  width: 100%;
+  width: 82%;
   padding: 10px 16px;
   border: 1px solid transparent;
-  background: #edf2f7;
+  background: rgb(252, 248, 200);
   line-height: 1.5em;
   outline: none;
   border-radius: 8px;
 }
-.dropdown-input:focus,
-.dropdown-selected:hover {
-  background: #fff;
-  border-color: #e2e8f0;
-}
-.dropdown-selected {
-  font-weight: bold;
-  cursor: pointer;
-}
 .dropdown-list {
   position: absolute;
-  width: 100%;
+  width: 55%;
   max-height: 500px;
   margin-top: 4px;
   overflow-y: auto;
@@ -185,6 +176,24 @@ export default {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
+  z-index: 1;
+}
+.dropdown-item,
+.dropdown-list {
+  background: rgb(252, 248, 200);
+}
+.location-input {
+  margin-bottom: 5px;
+}
+.dropdown-input:focus,
+.dropdown-selected:hover {
+  background: rgb(252, 248, 200);
+  border-color: #e2e8f0;
+}
+.dropdown-selected {
+  font-weight: bold;
+  cursor: pointer;
+  background: rgb(252, 248, 200);
 }
 .dropdown-item {
   display: flex;
@@ -201,7 +210,7 @@ export default {
   margin: auto 12px auto 0px;
 }
 .body {
-  padding-left: 75%;
+  padding-left: 25%;
   display: inline-block;
 }
 </style>
