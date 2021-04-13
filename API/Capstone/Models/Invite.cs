@@ -7,22 +7,23 @@ namespace Capstone.Models
 {
     public class Invite
     {
+        public int UserId { get; set; }
         public int InviteId { get; set; }
         public string InviteTitle { get; set; }
-        public int UserId { get; set; }
         public DateTime ExpiryDate { get; set; }
         public DateTime EventDate { get; set; }
 
     }
-
-    public class InviteAttendees
+    public class UserInvite
     {
-        public int InviteId { get; set; }
-        public int AttendeeId { get; set; }
-    }
-    public class InviteRestaurants
-    {
-        public int InviteId { get; set; }
-        public int RestaurantId { get; set; }
+        public string InviteTitle { get; set; }
+        public string YelpRestaurantId { get; set; }
+        public string RestaurantName { get; set; }
+        public string RestaurantStreetAddress { get; set; }
+        public string RestaurantCity { get; set; }
+        public string RestaurantState { get; set; }
+        public string RestaurantZip { get; set; }
+        public string Category { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

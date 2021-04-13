@@ -23,9 +23,15 @@ namespace Capstone.Models
         public int NumOfLikes { get; set; }
         public int NumOfDislikes { get; set; }
     }
-    public class UserRestaurants
+    public class InviteRestaurant
     {
-        public string Email { get; set; }
+        public string YelpRestaurantId { get; set; }
         public string RestaurantName { get; set; }
+        public string RestaurantStreetAddress { get; set; }
+        public string RestaurantCity { get; set; }
+        public string RestaurantState { get; set; }
+        public string RestaurantZip { get; set; }
+        public string Category { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

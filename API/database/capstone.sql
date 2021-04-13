@@ -24,12 +24,6 @@ CREATE TABLE users (
 	user_role varchar(50) NOT NULL
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 )
-CREATE TABLE attendees (
-	attendee_id int IDENTITY(1,1) NOT NULL,
-	attendee_name varchar(200) NOT NULL,
-	attendee_email varchar(200) NOT NULL,
-	CONSTRAINT PK_attendee_id PRIMARY KEY (attendee_id)
-)
 CREATE TABLE saved_restaurants (
 	restaurant_id int IDENTITY(1,1) NOT NULL,
 	yelp_restaurant_id varchar(200) NOT NULL,
@@ -45,7 +39,6 @@ CREATE TABLE saved_restaurants (
 CREATE TABLE invites (
 	invite_id int IDENTITY(1,1) NOT NULL,
 	invite_title varchar(200) NOT NULL,
-	user_id int NOT NULL,
 	expiry_date datetime NOT NULL,
 	event_date datetime NOT NULL,
 	CONSTRAINT PK_invites PRIMARY KEY (invite_id),
@@ -57,17 +50,11 @@ CREATE TABLE invite_restaurants (
 	CONSTRAINT FK_invite_restaurant_id FOREIGN KEY (invite_id) references invites(invite_id),
 	CONSTRAINT FK_invite_restaurant FOREIGN KEY (restaurant_id) references saved_restaurants(restaurant_id),
 )
-CREATE TABLE invite_attendees (
-	attendee_id int NOT NULL,
-	invite_id int NOT NULL,
-	CONSTRAINT FK_invite_attendee_id FOREIGN KEY (invite_id) references invites(invite_id),
-	CONSTRAINT FK_invite_attendee FOREIGN KEY (attendee_id) references attendees(attendee_id),
-)
-CREATE TABLE user_restaurants (
+CREATE TABLE user_invite (
 	user_id int NOT NULL,
-	restaurant_id int NOT NULL,
+	invite_id int NOT NULL,
 	CONSTRAINT FK_restaurant_user_id FOREIGN KEY (user_id) references users(user_id),
-	CONSTRAINT FK_user_restaurant_id FOREIGN KEY (restaurant_id) references saved_restaurants(restaurant_id),
+	CONSTRAINT FK_user_invite_id FOREIGN KEY (invite_id) references invites(invite_id),
 )
 CREATE TABLE restaurant_likes_dislikes (
 	restaurant_id int NOT NULL,
@@ -81,12 +68,9 @@ INSERT INTO users (email, username, password_hash, salt, user_role) VALUES ('use
 INSERT INTO users (email, username, password_hash, salt, user_role) VALUES ('admin@gmail.com', 'admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
 
 INSERT INTO invites(user_id, invite_title, expiry_date, event_date)
-	VALUES ((select user_id from users where username = 'admin'), 'Birthday','2021-04-25 12:00:00', '2021-04-30 12:00:00');
-
-INSERT INTO attendees(attendee_name, attendee_email) 
-	VALUES ('Lucinda', 'lucinda@gmail.com'),
-	('Jason', 'jason@gmail.com'),
-	('Mike', 'mike@gmail.com');
+	VALUES ((select user_id from users where username = 'admin'), 'Birthday','2021-04-25 12:00:00', '2021-04-30 12:00:00'),
+	((select user_id from users where username = 'admin'), 'Lunch','2021-04-15 12:00:00', '2021-04-20 12:00:00'),
+	((select user_id from users where username = 'user'), 'Anniversary','2021-04-20 12:00:00', '2021-04-25 12:00:00');
 
 INSERT INTO saved_restaurants(yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number) 
 	VALUES ('QBNbyEzqc7VnCMo5JTos4w', 'BurgerIM', '11419 Euclid Ave', 'Cleveland', 'OH', '44106', 'Burgers', '(216) 795-5999'),
@@ -94,17 +78,17 @@ INSERT INTO saved_restaurants(yelp_restaurant_id, restaurant_name, restaurant_ad
 	('gbX5yBcJWYVoALKtsIoteg', 'Sylvesters North End Grille', '4305 Portage St NW', 'North Canton', 'OH', '44720', 'Italian', '(330) 497-1533');
 
 INSERT INTO invite_restaurants(invite_id, restaurant_id) 
-	VALUES ((select invite_id from invites where user_id = 2 and invite_title = 'Birthday'), (select restaurant_id from saved_restaurants where restaurant_name = 'BurgerIM'));
-
-INSERT INTO invite_attendees(attendee_id, invite_id) 
-	VALUES ((select attendee_id from attendees where attendee_email ='lucinda@gmail.com'), (select invite_id from invites where user_id = 2 and invite_title = 'Birthday'));
+	VALUES ((select invite_id from invites where user_id = 2 and invite_title = 'Birthday'), (select restaurant_id from saved_restaurants where restaurant_name = 'BurgerIM')),
+	((select invite_id from invites where user_id = 2 and invite_title = 'Birthday'), (select restaurant_id from saved_restaurants where restaurant_name = 'Table Six Kitchen + Bar')),
+	((select invite_id from invites where user_id = 2 and invite_title = 'Lunch'), (select restaurant_id from saved_restaurants where restaurant_name = 'Table Six Kitchen + Bar')),
+	((select invite_id from invites where user_id = 1 and invite_title = 'Anniversary'), (select restaurant_id from saved_restaurants where restaurant_name = 'Sylvesters North End Grille'));
 
 INSERT INTO restaurant_likes_dislikes(restaurant_id, num_of_likes, num_of_dislikes) 
 	VALUES ((select restaurant_id from saved_restaurants where restaurant_name = 'BurgerIM'), 3, 0);
 
-INSERT INTO user_restaurants(user_id, restaurant_id) 
-	VALUES ((select user_id from users where email = 'admin@gmail.com'), (select restaurant_id from saved_restaurants where restaurant_name = 'BurgerIM')),
-	((select user_id from users where email = 'admin@gmail.com'), (select restaurant_id from saved_restaurants where restaurant_name = 'Table Six Kitchen + Bar')),
-	((select user_id from users where email = 'user@gmail.com'), (select restaurant_id from saved_restaurants where restaurant_name = 'Sylvesters North End Grille'));	
+INSERT INTO user_invite(user_id, invite_id) 
+	VALUES ((select user_id from users where email = 'admin@gmail.com'), (select invite_id from invites where invite_title = 'Birthday' and user_id = (select user_id from users where email = 'admin@gmail.com'))),
+	((select user_id from users where email = 'admin@gmail.com'), (select invite_id from invites where invite_title = 'Lunch' and user_id = (select user_id from users where email = 'admin@gmail.com'))),
+	((select user_id from users where email = 'user@gmail.com'), (select invite_id from invites where invite_title = 'Anniversary' and user_id = (select user_id from users where email = 'user@gmail.com')));	
 
 GO

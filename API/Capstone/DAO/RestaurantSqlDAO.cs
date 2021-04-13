@@ -16,7 +16,7 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public Restaurant GetRestaurantByName(string name)
+        public Restaurant GetRestaurantById(int id)
         {
             Restaurant returnRestaurant = null;
 
@@ -26,8 +26,8 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT restaurant_id, yelp_restaurant_id, restaurant_name, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number FROM saved_restaurants WHERE restaurant_name = @name", conn);
-                    cmd.Parameters.AddWithValue("@name", name);
+                    SqlCommand cmd = new SqlCommand("SELECT restaurant_id, yelp_restaurant_id, restaurant_name, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number FROM saved_restaurants WHERE restaurant_id = @id", conn);
+                    cmd.Parameters.AddWithValue("@id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows && reader.Read())
@@ -43,9 +43,9 @@ namespace Capstone.DAO
 
             return returnRestaurant;
         }
-        public List<Restaurant> GetCollectionByUserEmail(string email)
+        public List<InviteRestaurant> GetRestaurantsByInviteId(int inviteId)
         {
-            List<Restaurant> collection = new List<Restaurant>();
+            List<InviteRestaurant> restaurants = new List<InviteRestaurant>();
 
             try
             {
@@ -53,13 +53,18 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number FROM saved_restaurants sr JOIN user_restaurants ur ON ur.restaurant_id = sr.restaurant_id JOIN users u ON u.user_id = ur.user_id WHERE u.email = @email", conn);
-                    cmd.Parameters.AddWithValue("@email", email);
+                    SqlCommand cmd = new SqlCommand("Select sr.yelp_restaurant_id, sr.restaurant_name, sr.restaurant_address, sr.restaurant_city, " +
+                        "sr.restaurant_state, sr.restaurant_zip_code, sr.category, sr.phone_number" +
+                        "FROM saved_restaurants sr" +
+                        "JOIN invite_restaurants ir ON ir.restaurant_id = sr.restaurant_id" +
+                        "JOIN invites i ON i.invite_id = ir.invite_id" +
+                        "where i.invite_id = @inviteId", conn);
+                    cmd.Parameters.AddWithValue("@inviteId", inviteId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.HasRows && reader.Read())
                     {
-                        collection.Add(GetRestaurantFromReader(reader));
+                        restaurants.Add(GetInviteRestaurantFromReader(reader));
                     }
                 }
             }
@@ -68,7 +73,7 @@ namespace Capstone.DAO
                 throw;
             }
 
-            return collection;
+            return restaurants;
         }
         public Restaurant GetRestaurantByYelpId(string yelpId)
         {
@@ -125,29 +130,6 @@ namespace Capstone.DAO
 
             return GetRestaurantByYelpId(yelpId);
         }
-        public List<Restaurant> AddRestaurantToCollection(string email, string restaurantName)
-        {
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand("INSERT INTO user_restaurants(user_id, restaurant_id) VALUES((select user_id from users where email = @email), (select restaurant_id from saved_restaurants where restaurant_name = @restaurantName));", conn);
-                    cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@restaurantName", restaurantName);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-            catch (SqlException)
-            {
-                throw;
-            }
-
-            return GetCollectionByUserEmail(email);
-        }
-
 
         private Restaurant GetRestaurantFromReader(SqlDataReader reader)
         {
@@ -165,6 +147,23 @@ namespace Capstone.DAO
             };
 
             return restaurant;
+        }
+
+        private InviteRestaurant GetInviteRestaurantFromReader(SqlDataReader reader)
+        {
+            InviteRestaurant restaurantInvite = new InviteRestaurant()
+            {
+                YelpRestaurantId = Convert.ToString(reader["sr,yelp_restaurant_id"]),
+                RestaurantName = Convert.ToString(reader["sr.restaurant_name"]),
+                RestaurantStreetAddress = Convert.ToString(reader["sr.restaurant_address"]),
+                RestaurantCity = Convert.ToString(reader["sr.restaurant_city"]),
+                RestaurantState = Convert.ToString(reader["sr.restaurant_state"]),
+                RestaurantZip = Convert.ToString(reader["sr.restaurant_zip_code"]),
+                Category = Convert.ToString(reader["sr.category"]),
+                PhoneNumber = Convert.ToString(reader["sr.phone_number"])
+            };
+
+            return restaurantInvite;
         }
     }
 }

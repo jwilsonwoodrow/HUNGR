@@ -2,24 +2,30 @@
 using Capstone.DAO;
 using Capstone.Models;
 using Capstone.Security;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Capstone.Controllers
 {
     [Route("/invites")]
     [ApiController]
-    public class InviteController : ControllerBase
+    public class InviteController : AuthorizedControllerBase
     {
         private readonly IInviteDAO inviteDAO;
+        private readonly IRestaurantDAO restaurantDAO;
+        private readonly IUserDAO userDAO;
 
-        public InviteController(IInviteDAO _inviteDAO)
+        public InviteController(IInviteDAO _inviteDAO, IRestaurantDAO _restaurantDAO, IUserDAO _userDAO)
         {
             inviteDAO = _inviteDAO;
+            restaurantDAO = _restaurantDAO;
+            userDAO = _userDAO;
         }
 
-        [HttpGet("{inviteTitle}/invite")] //use id instead of name
-        public ActionResult<Invite> GetInvite(string title)
+        [HttpGet("/invite/{inviteId}")] //use id instead of name 
+        //Maybe also need to add user id???
+        public ActionResult<Invite> GetInvite(int inviteId)
         {
-           Invite invite = inviteDAO.GetInviteByTitle(title);
+           Invite invite = inviteDAO.GetInviteById(inviteId);
 
             if (invite != null)
             {
@@ -33,11 +39,12 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("save")]
+        [Authorize]
         public IActionResult SaveInvite(Invite inviteForm)
         {
             IActionResult result;
 
-            Invite invite = inviteDAO.AddInvite(inviteForm.InviteId, inviteForm.InviteTitle, inviteForm.UserId, inviteForm.ExpiryDate, inviteForm.EventDate);
+            Invite invite = inviteDAO.AddInvite(inviteForm.InviteTitle, this.UserId, inviteForm.ExpiryDate, inviteForm.EventDate);
             if (invite != null)
             {
                 result = Created(invite.InviteTitle, null);

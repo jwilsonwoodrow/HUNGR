@@ -6,9 +6,8 @@ namespace Capstone.DAO
     public interface IRestaurantDAO
     {
         Restaurant AddRestaurant(string yelpId, string name, string address, string city, string state, string zip, string category, string phoneNum);
-        Restaurant GetRestaurantByName(string name);
+        Restaurant GetRestaurantById(int id);
         Restaurant GetRestaurantByYelpId(string yelpId);
-        List<Restaurant> GetCollectionByUserEmail(string email);
-        List<Restaurant> AddRestaurantToCollection(string email, string restaurantName);
+        List<InviteRestaurant> GetRestaurantsByInviteId(int inviteId);
     }
 }
