@@ -31,18 +31,19 @@ export default {
             let currentRestaurant = {};
             currentRestaurant.restaurantName = restaurant.name;
             currentRestaurant.yelpRestaurantId = restaurant.id;
+            currentRestaurant.restaurantStreetAddress = restaurant.location.address1;
             currentRestaurant.restaurantCity = restaurant.location.city;
             currentRestaurant.restaurantState = restaurant.location.state;
             currentRestaurant.restaurantZip = restaurant.location.zip_code;
-            currentRestaurant.category = restaurant.categories[0];
-            currentRestaurant.phoneNumber = restaurant.displayPhone
+            currentRestaurant.category = restaurant.categories[0].title;
+            currentRestaurant.phoneNumber = restaurant.display_phone
             exportRestaurants.push(currentRestaurant);
         });
         return axios.post(`/restaurants`, exportRestaurants)
     },
 
-    RelateEventRestaurant(invite_restaurants){
-        return axios.post(`/invites/${invite_restaurants.inviteId}/restaurants`, invite_restaurants.restaurantIds)
+    RelateEventRestaurant(inviteId, restaurantIds){
+        return axios.post(`/invites/${inviteId}/restaurants`, restaurantIds)
     }
     // need invite id, title, current user id, rsvp datetime, event datetime
 }

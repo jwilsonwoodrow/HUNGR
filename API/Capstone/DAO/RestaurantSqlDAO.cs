@@ -112,6 +112,7 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand("Select count(yelp_restaurant_id) from saved_restaurants where yelp_restaurant_id = @yelpId", conn);
+                    cmd.Parameters.AddWithValue("@yelpId", yelpId);
                     int restCheck = Convert.ToInt32(cmd.ExecuteScalar());
                     Restaurant newRestaurant = this.GetRestaurantByYelpId(yelpId);
 
@@ -122,15 +123,15 @@ namespace Capstone.DAO
                     else
                     {
                         SqlCommand cmd2 = new SqlCommand("INSERT INTO saved_restaurants (yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number) VALUES (@yelpId, @name, @address, @city, @state, @zip, @category, @phoneNum)", conn);
-                        cmd.Parameters.AddWithValue("@yelpId", yelpId);
-                        cmd.Parameters.AddWithValue("@name", name);
-                        cmd.Parameters.AddWithValue("@address", address);
-                        cmd.Parameters.AddWithValue("@city", city);
-                        cmd.Parameters.AddWithValue("@state", state);
-                        cmd.Parameters.AddWithValue("@zip", zip);
-                        cmd.Parameters.AddWithValue("@category", category);
-                        cmd.Parameters.AddWithValue("@phoneNum", phoneNum);
-                        identity = Convert.ToInt32(cmd.ExecuteScalar());
+                        cmd2.Parameters.AddWithValue("@yelpId", yelpId);
+                        cmd2.Parameters.AddWithValue("@name", name);
+                        cmd2.Parameters.AddWithValue("@address", address);
+                        cmd2.Parameters.AddWithValue("@city", city);
+                        cmd2.Parameters.AddWithValue("@state", state);
+                        cmd2.Parameters.AddWithValue("@zip", zip);
+                        cmd2.Parameters.AddWithValue("@category", category);
+                        cmd2.Parameters.AddWithValue("@phoneNum", phoneNum);
+                        identity = Convert.ToInt32(cmd2.ExecuteScalar());
                     }
                 }
             }
