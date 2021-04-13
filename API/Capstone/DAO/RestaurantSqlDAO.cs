@@ -53,7 +53,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("Select sr.yelp_restaurant_id, sr.restaurant_name, sr.restaurant_address, sr.restaurant_city, " +
+                    SqlCommand cmd = new SqlCommand("Select sr.photo_url, sr.restaurant_name, sr.restaurant_address, sr.restaurant_city, " +
                         "sr.restaurant_state, sr.restaurant_zip_code, sr.category, sr.phone_number" +
                         "FROM saved_restaurants sr" +
                         "JOIN invite_restaurants ir ON ir.restaurant_id = sr.restaurant_id" +
@@ -165,7 +165,7 @@ namespace Capstone.DAO
         {
             InviteRestaurant restaurantInvite = new InviteRestaurant()
             {
-                YelpRestaurantId = Convert.ToString(reader["sr,yelp_restaurant_id"]),
+                PhotoUrl = Convert.ToString(reader["sr.photo_url"]),
                 RestaurantName = Convert.ToString(reader["sr.restaurant_name"]),
                 RestaurantStreetAddress = Convert.ToString(reader["sr.restaurant_address"]),
                 RestaurantCity = Convert.ToString(reader["sr.restaurant_city"]),

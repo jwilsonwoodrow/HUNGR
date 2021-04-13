@@ -26,6 +26,7 @@ CREATE TABLE users (
 )
 CREATE TABLE saved_restaurants (
 	restaurant_id int IDENTITY(1,1) NOT NULL,
+	photo_url varchar(200) NULL,
 	yelp_restaurant_id varchar(200) NOT NULL,
 	restaurant_name varchar(200) NOT NULL,
 	restaurant_address varchar(200) NOT NULL,
@@ -38,6 +39,7 @@ CREATE TABLE saved_restaurants (
 )
 CREATE TABLE invites (
 	invite_id int IDENTITY(1,1) NOT NULL,
+	user_id int NOT NULL,
 	invite_title varchar(200) NOT NULL,
 	expiry_date datetime NOT NULL,
 	event_date datetime NOT NULL,

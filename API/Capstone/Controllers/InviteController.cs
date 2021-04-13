@@ -22,8 +22,7 @@ namespace Capstone.Controllers
             userDAO = _userDAO;
         }
 
-        [HttpGet("/invite/{inviteId}")] //use id instead of name 
-        //Maybe also need to add user id???
+        [HttpGet("{inviteId}")]
         public ActionResult<Invite> GetInvite(int inviteId)
         {
            Invite invite = inviteDAO.GetInviteById(inviteId);
@@ -35,16 +34,38 @@ namespace Capstone.Controllers
             {
                 return NotFound();
             }
+        }
+        [HttpGet("/{userId}/invites")]
+        [Authorize]
+        public IActionResult GetInviteTitlesByUserId(int userId)
+        {
+            List<string> listOfInviteTitles = inviteDAO.GetInvitesByUserId(this.UserId);
 
-            
+            return Ok(listOfInviteTitles);
+        }
+
+        [HttpGet("{inviteId}")]
+        [Authorize]
+        public IActionResult GetInviteDetailsByInviteId(int inviteId)
+        {
+            Invite invite = inviteDAO.GetInviteById(inviteId);
+            return Ok(invite);
+
+        }
+
+        [HttpGet("{inviteId}/restaurants")]
+        [Authorize]
+        public IActionResult GetRestaurantsByInviteId(int inviteId)
+        {
+            List<InviteRestaurant> restaurants = restaurantDAO.GetRestaurantsByInviteId(inviteId);
+            return Ok(restaurants);
+
         }
 
         [HttpPost("save")]
         [Authorize]
         public IActionResult SaveInvite(Invite inviteForm)
         {
-            IActionResult result;
-
             try
             {
                 inviteForm.InviteId = inviteDAO.AddInvite(inviteForm.InviteTitle, this.UserId, inviteForm.ExpiryDate, inviteForm.EventDate);

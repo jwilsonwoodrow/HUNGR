@@ -25,7 +25,7 @@ namespace Capstone.Models
     }
     public class InviteRestaurant
     {
-        public string YelpRestaurantId { get; set; }
+        public string PhotoUrl { get; set; }
         public string RestaurantName { get; set; }
         public string RestaurantStreetAddress { get; set; }
         public string RestaurantCity { get; set; }
