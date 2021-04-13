@@ -15,7 +15,7 @@
 export default {
   name: "invite-confirmation",
   methods: {
-    GenerateLink(){
+    CreateInvitation(){
       //generate event id 
       //save event info 
       //save restaurants with event id as FK 

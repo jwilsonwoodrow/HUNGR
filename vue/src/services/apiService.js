@@ -28,8 +28,10 @@ export default {
 
     RemoveFromCollection(restaurant) { },
 
-    CreateEvent() { }
-    // need invite id, title, current user id, rsvp datetime, event datetime, collection
+    CreateEvent(invite) {
+        return axios.post(`/invites/save`, invite);
+     }
+    // need invite id, title, current user id, rsvp datetime, event datetime
 }
 
 
