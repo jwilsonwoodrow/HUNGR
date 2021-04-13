@@ -30,7 +30,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@userId", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.HasRows && reader.Read())
+                    while (reader.HasRows && reader.Read())
                     {
                         listOfInvites.Add(Convert.ToString(reader["invite_title"]));
                     }
