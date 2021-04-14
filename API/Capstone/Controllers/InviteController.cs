@@ -62,10 +62,13 @@ namespace Capstone.Controllers
         }
         [HttpPost("/restaurants/{restId}")]
         [Authorize]
-        public IActionResult SaveRestaurantLikesDislikesByRestId(int restId, int numOfLikes, int numOfDislikes)
+        public IActionResult SaveRestaurantLikesDislikesByRestId(List<int> restaurantIds, int numOfLikes, int numOfDislikes)
         {
-            bool result = restLikesDislikesDAO.SaveRestaurantLikesDislikesByRestId(restId, numOfLikes, numOfDislikes);
-
+            bool result = false;
+            foreach (int restId in restaurantIds)
+            {
+                result = restLikesDislikesDAO.SaveRestaurantLikesDislikesByRestId(restId, numOfLikes, numOfDislikes);
+            }
             return Ok(result);
         }
         //[HttpGet("{inviteId}")]
