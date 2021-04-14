@@ -5,7 +5,7 @@ namespace Capstone.DAO
 {
     public interface IRestaurantsOfInvitesSqlDAO
     {
-        List<RestaurantsOfInvites> GetInvitesByUserId(int userId);
+        List<Invite> GetInvitesByUserId(int userId);
         List<RestaurantsOfInvites> GetInvitesByInviteId(int inviteId)
     }
 }

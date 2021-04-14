@@ -15,9 +15,9 @@ namespace Capstone.DAO
         {
             connectionString = dbConnectionString;
         }
-        public List<RestaurantsOfInvites> GetInvitesByUserId(int userId)
+        public List<Invite> GetInvitesByUserId(int userId)
         {
-            List<RestaurantsOfInvites> listOfInvites = new List<RestaurantsOfInvites>();
+            List<Invite> listOfInvites = new List<Invite>();
 
             try
             {
@@ -25,18 +25,13 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("Select invites.invite_id, invites.invite_title, invites.expiry_date, invites.event_date, saved_restaurants.restaurant_id, saved_restaurants.yelp_restaurant_id, saved_restaurants.restaurant_name, saved_restaurants.restaurant_address, saved_restaurants.restaurant_city, " +
-                        " saved_restaurants.restaurant_state, saved_restaurants.restaurant_zip_code, saved_restaurants.category, saved_restaurants.phone_number" +
-                        " FROM saved_restaurants" +
-                        " JOIN invite_restaurants ON invite_restaurants.restaurant_id = saved_restaurants.restaurant_id" +
-                        " JOIN invites ON invites.invite_id = invite_restaurants.invite_id" +
-                        " where invites.user_id = @userId", conn);
+                    SqlCommand cmd = new SqlCommand("Select user_id, invite_id, invite_title, expiry_date, event_date FROM invites WHERE user_id = @userId ORDER BY invites.invite_title", conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.HasRows && reader.Read())
                     {
-                        listOfInvites.Add(GetFullInviteFromReader(reader));
+                        listOfInvites.Add(GetInviteFromReader(reader));
                     }
                 }
             }
@@ -100,6 +95,19 @@ namespace Capstone.DAO
             };
 
             return fullInvite;
+        }
+        private Invite GetInviteFromReader(SqlDataReader reader)
+        {
+            Invite invite = new Invite()
+            {
+                InviteId = Convert.ToInt32(reader["invite_id"]),
+                UserId = Convert.ToInt32(reader["user_id"]),
+                ExpiryDate = Convert.ToDateTime(reader["expiry_date"]),
+                EventDate = Convert.ToDateTime(reader["event_date"]),
+                InviteTitle = Convert.ToString(reader["invite_title"]),
+            };
+
+            return invite;
         }
         //private RestaurantsOfInvites GetFullInviteFromReader(SqlDataReader reader)
         //{

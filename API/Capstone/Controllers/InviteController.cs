@@ -41,7 +41,7 @@ namespace Capstone.Controllers
         [Authorize]
         public IActionResult GetInviteTitlesByUserId()
         {
-            List<RestaurantsOfInvites> listOfInvites = restInvitesDAO.GetInvitesByUserId(this.UserId);
+            List<Invite> listOfInvites = restInvitesDAO.GetInvitesByUserId(this.UserId);
 
             return Ok(listOfInvites);
         }
@@ -54,7 +54,7 @@ namespace Capstone.Controllers
             return Ok(listOfInvites);
         }
 
-        //[HttpGet("{inviteId}")]
+        //[HttpGet]
         //[Authorize]
         //public IActionResult GetInviteDetailsByInviteId(int inviteId)
         //{
