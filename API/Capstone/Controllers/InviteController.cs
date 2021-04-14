@@ -14,12 +14,14 @@ namespace Capstone.Controllers
         private readonly IInviteDAO inviteDAO;
         private readonly IRestaurantDAO restaurantDAO;
         private readonly IUserDAO userDAO;
+        private readonly IRestaurantsOfInvitesSqlDAO restInvitesDAO;
 
-        public InviteController(IInviteDAO _inviteDAO, IRestaurantDAO _restaurantDAO, IUserDAO _userDAO)
+        public InviteController(IInviteDAO _inviteDAO, IRestaurantDAO _restaurantDAO, IUserDAO _userDAO, IRestaurantsOfInvitesSqlDAO _restInvitesDAO)
         {
             inviteDAO = _inviteDAO;
             restaurantDAO = _restaurantDAO;
             userDAO = _userDAO;
+            restInvitesDAO = _restInvitesDAO;
         }
 
         [HttpGet("{inviteId}")]
@@ -39,9 +41,9 @@ namespace Capstone.Controllers
         [Authorize]
         public IActionResult GetInviteTitlesByUserId()
         {
-            List<string> listOfInviteTitles = inviteDAO.GetInvitesByUserId(this.UserId);
+            List<RestaurantsOfInvites> listOfInvites = restInvitesDAO.GetInvitesByUserId(this.UserId);
 
-            return Ok(listOfInviteTitles);
+            return Ok(listOfInvites);
         }
 
         [HttpGet("{inviteId}")]

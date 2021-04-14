@@ -16,9 +16,9 @@ namespace Capstone.DAO
         {
             connectionString = dbConnectionString;
         }
-        public List<string> GetInvitesByUserId(int userId)
+        public List<Invite> GetInvitesByUserId(int userId)
         {
-            List<string> listOfInvites = new List<string>();
+            List<Invite> listOfInvites = new List<Invite>();
 
             try
             {
@@ -30,9 +30,9 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@userId", userId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    while (reader.HasRows && reader.Read())
+                    while(reader.HasRows && reader.Read())
                     {
-                        listOfInvites.Add(Convert.ToString(reader["invite_title"]));
+                            listOfInvites.Add(GetInviteFromReader(reader));
                     }
                 }
             }
@@ -43,39 +43,6 @@ namespace Capstone.DAO
 
             return listOfInvites;
         }
-        //public List<UserInvite> GetInvitesByUserId(int userId)
-        //{
-        //    List<UserInvite> listOfInvites = new List<UserInvite>();
-
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
-
-        //            SqlCommand cmd = new SqlCommand("Select i.invite_title, sr.yelp_restaurant_id, sr.restaurant_name, sr.restaurant_address, sr.restaurant_city, " +
-        //                "sr.restaurant_state, sr.restaurant_zip_code, sr.category, sr.phone_number" +
-        //                "FROM saved_restaurants sr" +
-        //                "JOIN invite_restaurants ir ON ir.restaurant_id = sr.restaurant_id" +
-        //                "JOIN invites i ON i.invite_id = ir.invite_id" +
-        //                "JOIN user_invite ur ON ur.invite_id = ir.invite_id" +
-        //                "where ur.user_id = @userId", conn);
-        //            cmd.Parameters.AddWithValue("@userId", userId);
-        //            SqlDataReader reader = cmd.ExecuteReader();
-
-        //            if (reader.HasRows && reader.Read())
-        //            {
-        //                listOfInvites.Add(GetUserInviteFromReader(reader));
-        //            }
-        //        }
-        //    }
-        //    catch (SqlException)
-        //    {
-        //        throw;
-        //    }
-
-        //    return listOfInvites;
-        //}
         public Invite GetInviteById(int id)
         {
             Invite returnInvite = null;
@@ -167,38 +134,5 @@ namespace Capstone.DAO
 
             return invite;
         }
-        //private UserInvite GetUserInviteFromReader(SqlDataReader reader)
-        //{
-        //    UserInvite userInvite = new UserInvite()
-        //    {
-        //        InviteTitle = Convert.ToString(reader["i.invite_title"]),
-        //        YelpRestaurantId = Convert.ToString(reader["sr,yelp_restaurant_id"]),
-        //        RestaurantName = Convert.ToString(reader["sr.restaurant_name"]),
-        //        RestaurantStreetAddress = Convert.ToString(reader["sr.restaurant_address"]),
-        //        RestaurantCity = Convert.ToString(reader["sr.restaurant_city"]),
-        //        RestaurantState = Convert.ToString(reader["sr.restaurant_state"]),
-        //        RestaurantZip = Convert.ToString(reader["sr.restaurant_zip_code"]),
-        //        Category = Convert.ToString(reader["sr.category"]),
-        //        PhoneNumber = Convert.ToString(reader["sr.phone_number"])
-        //    };
-
-        //    return userInvite;
-        //}
-        //private InviteRestaurant GetInviteRestaurantFromReader(SqlDataReader reader)
-        //{
-        //    InviteRestaurant restaurantInvite = new InviteRestaurant()
-        //    {
-        //        YelpRestaurantId = Convert.ToString(reader["sr,yelp_restaurant_id"]),
-        //        RestaurantName = Convert.ToString(reader["sr.restaurant_name"]),
-        //        RestaurantStreetAddress = Convert.ToString(reader["sr.restaurant_address"]),
-        //        RestaurantCity = Convert.ToString(reader["sr.restaurant_city"]),
-        //        RestaurantState = Convert.ToString(reader["sr.restaurant_state"]),
-        //        RestaurantZip = Convert.ToString(reader["sr.restaurant_zip_code"]),
-        //        Category = Convert.ToString(reader["sr.category"]),
-        //        PhoneNumber = Convert.ToString(reader["sr.phone_number"])
-        //    };
-
-        //    return restaurantInvite;
-        //}
     }
 }

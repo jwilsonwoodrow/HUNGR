@@ -59,7 +59,6 @@ export default {
     SaveEvent() {
       apiService.CreateEvent(this.invite).then((response) => {
         if(response.status >= 200 && response.status < 300){
-          console
           let inviteID = response.data.inviteId;
           apiService.CreateRestaurants(this.$store.state.savedRestaurants).then((response) =>{
             if(response.status === 200){
@@ -67,6 +66,7 @@ export default {
               apiService.RelateEventRestaurant(inviteID, restaurantIDs).then((response) => {
                 if(response.status === 200){
                   this.$store.commit("CLEAR_SAVED_RESTAURANTS")
+                  this.$router.push({name: 'events'})
                 }
               })
             }
