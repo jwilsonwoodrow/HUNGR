@@ -47,6 +47,38 @@ namespace Capstone.DAO
 
             return listOfInvites;
         }
+        public List<RestaurantsOfInvites> GetInvitesByInviteId(int inviteId)
+        {
+            List<RestaurantsOfInvites> listOfInvites = new List<RestaurantsOfInvites>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("Select invites.invite_id, invites.invite_title, invites.expiry_date, invites.event_date, saved_restaurants.restaurant_id, saved_restaurants.yelp_restaurant_id, saved_restaurants.restaurant_name, saved_restaurants.restaurant_address, saved_restaurants.restaurant_city, " +
+                        " saved_restaurants.restaurant_state, saved_restaurants.restaurant_zip_code, saved_restaurants.category, saved_restaurants.phone_number" +
+                        " FROM saved_restaurants" +
+                        " JOIN invite_restaurants ON invite_restaurants.restaurant_id = saved_restaurants.restaurant_id" +
+                        " JOIN invites ON invites.invite_id = invite_restaurants.invite_id" +
+                        " where invites.invite_id = @inviteId", conn);
+                    cmd.Parameters.AddWithValue("@inviteId", inviteId);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.HasRows && reader.Read())
+                    {
+                        listOfInvites.Add(GetFullInviteFromReader(reader));
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return listOfInvites;
+        }
         private RestaurantsOfInvites GetFullInviteFromReader(SqlDataReader reader)
         {
             RestaurantsOfInvites fullInvite = new RestaurantsOfInvites()

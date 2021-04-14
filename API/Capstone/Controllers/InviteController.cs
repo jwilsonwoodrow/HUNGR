@@ -45,15 +45,23 @@ namespace Capstone.Controllers
 
             return Ok(listOfInvites);
         }
-
         [HttpGet("{inviteId}")]
         [Authorize]
-        public IActionResult GetInviteDetailsByInviteId(int inviteId)
+        public IActionResult GetInviteTitlesByUserId(int inviteId)
         {
-            Invite invite = inviteDAO.GetInviteById(inviteId);
-            return Ok(invite);
+            List<RestaurantsOfInvites> listOfInvites = restInvitesDAO.GetInvitesByInviteId(inviteId);
 
+            return Ok(listOfInvites);
         }
+
+        //[HttpGet("{inviteId}")]
+        //[Authorize]
+        //public IActionResult GetInviteDetailsByInviteId(int inviteId)
+        //{
+        //    Invite invite = inviteDAO.GetInviteById(inviteId);
+        //    return Ok(invite);
+
+        //}
 
         //Do we want to change this to GetRestaurantLikesDislikesByInviteId?
         //What to do about updating Likes and Dislikes?
