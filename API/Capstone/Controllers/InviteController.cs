@@ -13,15 +13,15 @@ namespace Capstone.Controllers
     {
         private readonly IInviteDAO inviteDAO;
         private readonly IRestaurantDAO restaurantDAO;
-        private readonly IUserDAO userDAO;
         private readonly IRestaurantsOfInvitesSqlDAO restInvitesDAO;
+        private readonly IRestaurantFavoritesSqlDAO restLikesDislikesDAO;
 
-        public InviteController(IInviteDAO _inviteDAO, IRestaurantDAO _restaurantDAO, IUserDAO _userDAO, IRestaurantsOfInvitesSqlDAO _restInvitesDAO)
+        public InviteController(IInviteDAO _inviteDAO, IRestaurantDAO _restaurantDAO, IRestaurantsOfInvitesSqlDAO _restInvitesDAO, IRestaurantFavoritesSqlDAO _restLikesDislikesDAO)
         {
             inviteDAO = _inviteDAO;
             restaurantDAO = _restaurantDAO;
-            userDAO = _userDAO;
             restInvitesDAO = _restInvitesDAO;
+            restLikesDislikesDAO = _restLikesDislikesDAO;
         }
 
         [HttpGet("{inviteId}")]
@@ -49,10 +49,26 @@ namespace Capstone.Controllers
         [Authorize]
         public IActionResult GetInviteTitlesByUserId(int inviteId)
         {
-            List<RestaurantsOfInvites> listOfInvites = restInvitesDAO.GetInvitesByInviteId(inviteId);
+            List<RestaurantLikesDislikes> listOfInvites = restLikesDislikesDAO.GetInvitesByInviteId(inviteId);
 
             return Ok(listOfInvites);
         }
+        [HttpPut]
+        [Authorize]
+        public IActionResult UpdateRestLikesDislikes(int restId, int numOfLikes, int numOfDislikes)
+        {
+            bool result = restLikesDislikesDAO.UpdateLikesDislikesByRestId(restId, numOfLikes, numOfDislikes);
+
+            return Ok(result);
+        }
+        //[HttpGet("{inviteId}")]
+        //[Authorize]
+        //public IActionResult GetInviteTitlesByUserId(int inviteId)
+        //{
+        //    List<RestaurantsOfInvites> listOfInvites = restInvitesDAO.GetInvitesByInviteId(inviteId);
+
+        //    return Ok(listOfInvites);
+        //}
 
         //[HttpGet]
         //[Authorize]

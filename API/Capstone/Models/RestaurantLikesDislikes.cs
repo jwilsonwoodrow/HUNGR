@@ -7,6 +7,10 @@ namespace Capstone.Models
 {
     public class RestaurantLikesDislikes
     {
+            public DateTime ExpiryDate { get; set; }
+            public DateTime EventDate { get; set; }
+            public int InviteId { get; set; }
+            public string InviteTitle { get; set; }
             public int RestaurantId { get; set; }
             public string YelpRestaurantId { get; set; }
             public string RestaurantName { get; set; }
@@ -18,7 +22,6 @@ namespace Capstone.Models
             public string PhoneNumber { get; set; }
             public int NumOfLikes { get; set; }
             public int NumOfDislikes { get; set; }
-            public string PhotoUrl { get; set; }
     }
     }
 
