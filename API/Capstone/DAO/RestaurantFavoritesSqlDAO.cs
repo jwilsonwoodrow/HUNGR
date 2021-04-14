@@ -84,7 +84,7 @@ namespace Capstone.DAO
             return inviteRestLikeDislike;
         }
 
-        public bool UpdateLikesByRestId(int restId, int numOfLikes)
+        public bool AddLike(int restId)
         {
             int rowsAffected = 0;
             bool result = false;
@@ -94,9 +94,8 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("UPDATE restaurant_likes_dislikes SET num_of_likes = @numOfLikes WHERE restaurant_id = @restId", conn);
+                    SqlCommand cmd = new SqlCommand("UPDATE restaurant_likes_dislikes SET num_of_likes = num_of_likes + 1 WHERE restaurant_id = @restId", conn);
                     cmd.Parameters.AddWithValue("@restId", restId);
-                    cmd.Parameters.AddWithValue("@numOfLikes", numOfLikes);
                     rowsAffected = cmd.ExecuteNonQuery();
 
                     if(rowsAffected > 0)
@@ -117,7 +116,7 @@ namespace Capstone.DAO
 
             return result;
         }
-        public bool UpdateDislikesByRestId(int restId, int numOfDislikes)
+        public bool AddDislike(int restId)
         {
             int rowsAffected = 0;
             bool result = false;
@@ -127,9 +126,8 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("UPDATE restaurant_likes_dislikes SET num_of_dislikes = @numOfDislikes WHERE restaurant_id = @restId", conn);
+                    SqlCommand cmd = new SqlCommand("UPDATE restaurant_likes_dislikes SET num_of_dislikes = num_of_dislikes + 1 WHERE restaurant_id = @restId", conn);
                     cmd.Parameters.AddWithValue("@restId", restId);
-                    cmd.Parameters.AddWithValue("@numOfLikes", numOfDislikes);
                     rowsAffected = cmd.ExecuteNonQuery();
 
                     if (rowsAffected > 0)

@@ -31,9 +31,13 @@
             }}<br />
           </div>
           <div class="popularity">
-            <button @click="Like(restaurant.restaurantId)">LIKE</button>
+            <button @click="Like(restaurant.restaurantId)" v-show="!voted">
+              LIKE
+            </button>
 
-            <button @click="Dislike(restaurant.restaurantId)">DISLIKE</button>
+            <button @click="Dislike(restaurant.restaurantId)" v-show="!voted">
+              DISLIKE
+            </button>
           </div>
           <!-- call now icon -->
           <a v-bind:href="'tel:' + restaurant.phoneNumber" class="call"></a>
@@ -53,6 +57,7 @@ export default {
       events: [],
       displayDetails: [],
       eventDetails: [],
+      voted: false,
     };
   },
   created() {
@@ -72,9 +77,21 @@ export default {
         }
       });
     },
-    Like(restaurantId){
-      
-    }
+    Like(restaurantId) {
+      console.log(restaurantId)
+      apiService.RestaurantVote(restaurantId, true).then((response) => {
+        if (response.status === 200) {
+          console.log("yes");
+        }
+      });
+    },
+    Dislike(restaurantId) {
+      apiService.RestaurantVote(restaurantId, false).then((response) => {
+        if (response.status === 200) {
+          console.log("yes");
+        }
+      });
+    },
   },
   updated() {
     for (let i = 0; i < this.events.length; i++) {

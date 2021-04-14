@@ -58,9 +58,11 @@ export default {
 
     RelateRestaurantLikes(restaurantIds) {
         return axios.post(`/restaurants/likes`, restaurantIds, 0, 0)
+    },
 
-    }
-
+    RestaurantVote(restaurantId, wasLiked) {
+        return axios.put(`/invites`, {restaurantId, wasLiked})
+    },
 }
 
 

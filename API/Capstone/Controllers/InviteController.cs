@@ -45,6 +45,8 @@ namespace Capstone.Controllers
 
             return Ok(listOfInvites);
         }
+
+
         [HttpGet("{inviteId}/restaurants")]
         public IActionResult GetInviteTitlesByUserId(int inviteId)
         {
@@ -52,20 +54,21 @@ namespace Capstone.Controllers
 
             return Ok(listOfInvites);
         }
+
+
         [HttpPut]
-        public IActionResult UpdateRestLikes(int restId, int numOfLikes)
+        public IActionResult AddLikeOrDislike(RestaurantVote restaurantVote)
         {
-            bool result = restLikesDislikesDAO.UpdateLikesByRestId(restId, numOfLikes);
+            bool result = false;
+            if (restaurantVote.WasLiked == true)   
+            {
+                result = restLikesDislikesDAO.AddLike(restaurantVote.RestaurantId);
+            }
+            else result = restLikesDislikesDAO.AddDislike(restaurantVote.RestaurantId);
 
             return Ok(result);
         }
-        [HttpPut]
-        public IActionResult UpdateRestDislikes(int restId, int numOfDislikes)
-        {
-            bool result = restLikesDislikesDAO.UpdateDislikesByRestId(restId, numOfDislikes);
 
-            return Ok(result);
-        }
         [HttpPost("/restaurants/likes")]
         [Authorize]
         public IActionResult SaveRestaurantLikesDislikesByRestId(List<int> restaurantIds, int numOfLikes, int numOfDislikes)
