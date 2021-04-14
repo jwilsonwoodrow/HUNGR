@@ -45,7 +45,7 @@ namespace Capstone.Controllers
 
             return Ok(listOfInvites);
         }
-        [HttpGet("{inviteId}")]
+        [HttpGet("{inviteId}/restaurants")]
         public IActionResult GetInviteTitlesByUserId(int inviteId)
         {
             List<RestaurantLikesDislikes> listOfInvites = restLikesDislikesDAO.GetInvitesByInviteId(inviteId);
@@ -60,7 +60,7 @@ namespace Capstone.Controllers
 
             return Ok(result);
         }
-        [HttpPost("/restaurants/{restId}")]
+        [HttpPost("/restaurants/likes")]
         [Authorize]
         public IActionResult SaveRestaurantLikesDislikesByRestId(List<int> restaurantIds, int numOfLikes, int numOfDislikes)
         {
@@ -91,14 +91,14 @@ namespace Capstone.Controllers
 
         //Do we want to change this to GetRestaurantLikesDislikesByInviteId?
         //What to do about updating Likes and Dislikes?
-        [HttpGet("{inviteId}/restaurants")]
-        [Authorize]
-        public IActionResult GetRestaurantsByInviteId(int inviteId)
-        {
-            List<InviteRestaurant> restaurants = restaurantDAO.GetRestaurantsByInviteId(inviteId);
-            return Ok(restaurants);
+        //[HttpGet("{inviteId}/restaurants")]
+        //[Authorize]
+        //public IActionResult GetRestaurantsByInviteId(int inviteId)
+        //{
+        //    List<InviteRestaurant> restaurants = restaurantDAO.GetRestaurantsByInviteId(inviteId);
+        //    return Ok(restaurants);
 
-        }
+        //}
 
         [HttpPost("save")]
         [Authorize]

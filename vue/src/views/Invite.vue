@@ -1,6 +1,6 @@
 <template>
   <div>
-        <img
+    <img
       class="backgroundLogo"
       src="https://www.linkpicture.com/q/bg4.png"
     /><br />
@@ -8,37 +8,37 @@
       <strong> go back </strong>
     </button>
     <div class="glass-container">
-    <div class="body">
-      <label for="eventName"> What is the name of your Event? </label><br>
-      <input
-        v-model="invite.inviteTitle"
-        id="eventName"
-        type="text"
-        name="eventName"
-      />
-    </div>
-    <div>
-      <label for="eventDateTime"> What day do you want to meet? </label>
-      <input
-        v-model="invite.eventDate"
-        id="eventDateTime"
-        type="datetime-local"
-        name="eventDate"
-      />
-    </div>
-    <div>
-      <label for="rsvpDateTime"> RSVP by? </label><br>
-      <input
-        v-model="invite.expiryDate"
-        id="rsvpDateTime"
-        type="datetime-local"
-        name="rsvpDate"
-      />
-    </div>
-    <!-- This button will compile selections into a list, that can then be sent as an invite. Routes to "Invite-Confirmation"-->
-    <button class="select" @click.prevent="SaveEvent">
-      <strong> complete </strong></button
-    ><br />
+      <div class="body">
+        <label for="eventName"> What is the name of your Event? </label><br />
+        <input
+          v-model="invite.inviteTitle"
+          id="eventName"
+          type="text"
+          name="eventName"
+        />
+      </div>
+      <div>
+        <label for="eventDateTime"> What day do you want to meet? </label>
+        <input
+          v-model="invite.eventDate"
+          id="eventDateTime"
+          type="datetime-local"
+          name="eventDate"
+        />
+      </div>
+      <div>
+        <label for="rsvpDateTime"> RSVP by? </label><br />
+        <input
+          v-model="invite.expiryDate"
+          id="rsvpDateTime"
+          type="datetime-local"
+          name="rsvpDate"
+        />
+      </div>
+      <!-- This button will compile selections into a list, that can then be sent as an invite. Routes to "Invite-Confirmation"-->
+      <button class="select" @click.prevent="SaveEvent">
+        <strong> complete </strong></button
+      ><br />
     </div>
   </div>
 </template>
@@ -58,19 +58,29 @@ export default {
   methods: {
     SaveEvent() {
       apiService.CreateEvent(this.invite).then((response) => {
-        if(response.status >= 200 && response.status < 300){
+        if (response.status >= 200 && response.status < 300) {
           let inviteID = response.data.inviteId;
-          apiService.CreateRestaurants(this.$store.state.savedRestaurants).then((response) =>{
-            if(response.status === 200){
-              let restaurantIDs = response.data
-              apiService.RelateEventRestaurant(inviteID, restaurantIDs).then((response) => {
-                if(response.status === 200){
-                  //this.$store.commit("CLEAR_SAVED_RESTAURANTS")
-                  this.$router.push({name: 'events'})
-                }
-              })
-            }
-          });
+          apiService
+            .CreateRestaurants(this.$store.state.savedRestaurants)
+            .then((response) => {
+              if (response.status === 200) {
+                let restaurantIDs = response.data;
+                apiService
+                  .RelateRestaurantLikes(restaurantIDs)
+                  .then((response) => {
+                    if (response.status === 200) {
+                      apiService
+                        .RelateEventRestaurant(inviteID, restaurantIDs)
+                        .then((response) => {
+                          if (response.status === 200) {
+                            this.$store.commit("CLEAR_SAVED_RESTAURANTS")
+                            this.$router.push({ name: "events" });
+                          }
+                        });
+                    }
+                  });
+              }
+            });
         }
       });
     },
@@ -131,5 +141,4 @@ export default {
   border: 0;
   padding: 0;
 }
-
 </style>

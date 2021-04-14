@@ -26,10 +26,10 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand("INSERT INTO restaurant_likes_dislikes(restaurant_id, num_of_likes, num_of_dislikes)" +
-                        " VALUES (restaurant_id = @restId, number_of_likes = @numOfLikes, number_of_dislikes = @numOfDislikes);", conn);
+                        " VALUES (@restId, @numOfLikes, @numOfDislikes);", conn);
                     cmd.Parameters.AddWithValue("@restId", restId);
                     cmd.Parameters.AddWithValue("@numOfLikes", numOfLikes);
-                    cmd.Parameters.AddWithValue("@numOfLikes", numOfDislikes);
+                    cmd.Parameters.AddWithValue("@numOfDislikes", numOfDislikes);
                     rowsAffected = cmd.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
@@ -135,8 +135,8 @@ namespace Capstone.DAO
                 RestaurantZip = Convert.ToString(reader["restaurant_zip_code"]),
                 Category = Convert.ToString(reader["category"]),
                 PhoneNumber = Convert.ToString(reader["phone_number"]),
-                NumOfDislikes = Convert.ToInt32(reader["rld.num_of_dislikes"]),
-                NumOfLikes = Convert.ToInt32(reader["rld.num_of_likes"]),
+                NumOfDislikes = Convert.ToInt32(reader["num_of_dislikes"]),
+                NumOfLikes = Convert.ToInt32(reader["num_of_likes"]),
             };
 
             return inviteRestLikeDislike;

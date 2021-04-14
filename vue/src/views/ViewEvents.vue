@@ -30,12 +30,13 @@
             }}, {{ restaurant.restaurantState }} {{ restaurant.restaurantZip
             }}<br />
           </div>
+          <div class="popularity">
+            <button @click="Like(restaurant.restaurantId)">LIKE</button>
+
+            <button @click="Dislike(restaurant.restaurantId)">DISLIKE</button>
+          </div>
           <!-- call now icon -->
-          <a
-            v-bind:href="'tel:' + restaurant.phoneNumber"
-            v-show="!restaurant.is_closed"
-            class="call"
-          ></a>
+          <a v-bind:href="'tel:' + restaurant.phoneNumber" class="call"></a>
           <br />
         </div>
       </div>
@@ -71,6 +72,9 @@ export default {
         }
       });
     },
+    Like(restaurantId){
+      
+    }
   },
   updated() {
     for (let i = 0; i < this.events.length; i++) {

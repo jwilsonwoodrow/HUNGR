@@ -41,19 +41,26 @@ export default {
             exportRestaurants.push(currentRestaurant);
         });
         return axios.post(`/restaurants`, exportRestaurants)
+
     },
 
-    RelateEventRestaurant(inviteId, restaurantIds){
+    RelateEventRestaurant(inviteId, restaurantIds) {
         return axios.post(`/invite/${inviteId}/restaurants`, restaurantIds)
     },
 
-    GetEvents(){
+    GetEvents() {
         return axios.get(`/invites`)
     },
 
-    GetEventDetails(eventId){
+    GetEventDetails(eventId) {
         return axios.get(`/invites/${eventId}/restaurants`)
+    },
+
+    RelateRestaurantLikes(restaurantIds) {
+        return axios.post(`/restaurants/likes`, restaurantIds, 0, 0)
+
     }
+
 }
 
 
