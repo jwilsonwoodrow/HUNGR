@@ -46,7 +46,6 @@ namespace Capstone.Controllers
             return Ok(listOfInvites);
         }
         [HttpGet("{inviteId}")]
-        [Authorize]
         public IActionResult GetInviteTitlesByUserId(int inviteId)
         {
             List<RestaurantLikesDislikes> listOfInvites = restLikesDislikesDAO.GetInvitesByInviteId(inviteId);
