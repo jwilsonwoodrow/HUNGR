@@ -123,7 +123,7 @@ namespace Capstone.DAO
                     else
                     {
                         SqlCommand cmd2 = new SqlCommand("INSERT INTO saved_restaurants (photo_url, yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number) VALUES (@photoUrl, @yelpId, @name, @address, @city, @state, @zip, @category, @phoneNum); select @@identity", conn);
-                        cmd2.Parameters.AddWithValue("@photoUrl", photoUrl;
+                        cmd2.Parameters.AddWithValue("@photoUrl", photoUrl);
                         cmd2.Parameters.AddWithValue("@yelpId", yelpId);
                         cmd2.Parameters.AddWithValue("@name", name);
                         cmd2.Parameters.AddWithValue("@address", address);

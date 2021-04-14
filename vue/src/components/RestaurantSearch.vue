@@ -184,6 +184,7 @@ export default {
 }
 .location-input {
   margin-bottom: 5px;
+  margin-left: 5px;
 }
 .dropdown-input:focus,
 .dropdown-selected:hover {

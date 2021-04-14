@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <label> What is the name of your Event? </label>
     <input type="text" name="EventName" />
     <label> What day do you want to meet?</label>
@@ -16,4 +16,7 @@ export default {
 </script>
 
 <style>
+.body {
+  align-items: center;
+}
 </style>

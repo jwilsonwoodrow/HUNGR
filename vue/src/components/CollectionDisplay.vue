@@ -31,6 +31,7 @@
             alt="No Image Available"
             width="200"
             height="190"
+            class="img"
           />
           <div class="name-category">
             <strong>{{ restaurant.name }}</strong> -
@@ -49,7 +50,7 @@
             v-bind:href="'tel:' + restaurant.phone"
             v-show="!restaurant.is_closed"
           >
-            Call Now</a
+            Call</a
           ><br />
     </div>
     </div>
@@ -61,6 +62,15 @@ export default {
 };
 </script>
 <style scoped>
+a {
+  background-color: rgb(253, 243, 155);
+  color: darkred;
+  padding: 0.2em 1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0px 0px 7px 7px rgba(253, 243, 155, 0.42);
+  font-family: "Montserrat", sans-serif;
+}
 .backgroundLogo {
   min-height: 100%;
   min-width: 1024px;
@@ -73,6 +83,8 @@ export default {
   background-size: cover;
 }
 .glass-container {
+  margin-top: 10px;
+  padding-bottom: 20px;
   text-align: center;
   overflow: auto;
   max-width: 100%; /* or can do fit-content here?? */
@@ -95,5 +107,10 @@ export default {
 }
 .searchLink {
   color: rgb(252,248,200);
+}
+.img {
+  margin-left: 8px;
+  box-shadow: 0px 0px 7px 7px rgba(253, 243, 155, 0.42);
+  border: 2px solid rgba(253, 243, 155, 0.42);
 }
 </style>

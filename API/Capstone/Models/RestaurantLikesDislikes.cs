@@ -21,4 +21,4 @@ namespace Capstone.Models
             public string PhotoUrl { get; set; }
     }
     }
-}
+

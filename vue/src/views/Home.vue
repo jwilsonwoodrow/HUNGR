@@ -92,7 +92,7 @@ export default {
   font-weight: 10;
   width: 140px;
   height: 50px;
-  font-size: 87%;
+  font-size: 80%;
   color: rgb(253, 243, 155);
   border: 0;
   padding: 0;

@@ -20,6 +20,7 @@
             alt="No Image Available"
             width="200"
             height="190"
+            class="img"
           />
           <div class="name-category">
             <strong>{{ restaurant.name }}</strong> -
@@ -33,13 +34,15 @@
             }}<br />
           </div>
           <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
-          <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
+          <div class="is-closed" v-show="restaurant.is_closed">Closed</div><br>
+          <!-- call now icon -->
           <a
             v-bind:href="'tel:' + restaurant.phone"
             v-show="!restaurant.is_closed"
+            class="call"
           >
-            Call Now</a
-          ><br />
+          Call Now</a
+          ><br /><br>
           <button
             class="save-restaurant-button"
             @click="SaveRestaurant(restaurant)"
@@ -117,6 +120,15 @@ export default {
 </script>
 
 <style scoped>
+a {
+  background-color: rgb(253, 243, 155);
+  color: darkred;
+  padding: 0.2em 1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  box-shadow: 0px 0px 7px 7px rgba(253, 243, 155, 0.42);
+  font-family: "Montserrat", sans-serif;
+}
 button:focus {
   outline: 3;
   box-shadow: none;
@@ -165,6 +177,8 @@ button:focus {
   background-size: cover;
 }
 .glass-container {
+  padding-top: 15px;
+  margin-right: 5px;
   text-align: center;
   overflow: auto;
   max-width: 100%; /* or can do fit-content here?? */
@@ -189,6 +203,8 @@ button:focus {
 }
 .img {
   margin-left: 8px;
+  box-shadow: 0px 0px 7px 7px rgba(253, 243, 155, 0.42);
+  border: 2px solid rgba(253, 243, 155, 0.42);
 }
 @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500&display=swap");

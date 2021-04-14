@@ -87,7 +87,7 @@ export default {
       margin-top: 12%;
     }
 .glass-container{
-  margin-left: 28px;
+    margin-left: 35px;
     width: 300px;
     height: 500px;
     color: white;
