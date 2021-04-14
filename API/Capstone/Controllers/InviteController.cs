@@ -53,6 +53,8 @@ namespace Capstone.Controllers
 
         }
 
+        //Do we want to change this to GetRestaurantLikesDislikesByInviteId?
+        //What to do about updating Likes and Dislikes?
         [HttpGet("{inviteId}/restaurants")]
         [Authorize]
         public IActionResult GetRestaurantsByInviteId(int inviteId)
@@ -87,7 +89,7 @@ namespace Capstone.Controllers
 
             foreach(Restaurant restaurant in restaurants)
             {
-                identities.Add(restaurantDAO.AddRestaurant(restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber));
+                identities.Add(restaurantDAO.AddRestaurant(restaurant.PhotoUrl, restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber));
             }
             
             if (identities != null)

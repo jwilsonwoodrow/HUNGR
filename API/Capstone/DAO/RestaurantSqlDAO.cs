@@ -102,7 +102,7 @@ namespace Capstone.DAO
 
             return returnRestaurant;
         }
-        public int AddRestaurant(string yelpId, string name, string address, string city, string state, string zip, string category, string phoneNum)
+        public int AddRestaurant(string photoUrl, string yelpId, string name, string address, string city, string state, string zip, string category, string phoneNum)
         {
             int identity = 0;
             try
@@ -122,7 +122,8 @@ namespace Capstone.DAO
                     }
                     else
                     {
-                        SqlCommand cmd2 = new SqlCommand("INSERT INTO saved_restaurants (yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number) VALUES (@yelpId, @name, @address, @city, @state, @zip, @category, @phoneNum); select @@identity", conn);
+                        SqlCommand cmd2 = new SqlCommand("INSERT INTO saved_restaurants (photo_url, yelp_restaurant_id, restaurant_name, restaurant_address, restaurant_city, restaurant_state, restaurant_zip_code, category, phone_number) VALUES (@photoUrl, @yelpId, @name, @address, @city, @state, @zip, @category, @phoneNum); select @@identity", conn);
+                        cmd2.Parameters.AddWithValue("@photoUrl", photoUrl;
                         cmd2.Parameters.AddWithValue("@yelpId", yelpId);
                         cmd2.Parameters.AddWithValue("@name", name);
                         cmd2.Parameters.AddWithValue("@address", address);
@@ -149,6 +150,7 @@ namespace Capstone.DAO
             {
                 RestaurantId = Convert.ToInt32(reader["restaurant_id"]),
                 YelpRestaurantId = Convert.ToString(reader["yelp_restaurant_id"]),
+                PhotoUrl = Convert.ToString(reader["photo_url"]),
                 RestaurantName = Convert.ToString(reader["restaurant_name"]),
                 RestaurantStreetAddress = Convert.ToString(reader["restaurant_address"]),
                 RestaurantCity = Convert.ToString(reader["restaurant_city"]),

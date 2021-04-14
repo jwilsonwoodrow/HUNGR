@@ -16,12 +16,7 @@ namespace Capstone.Models
         public string RestaurantZip { get; set; }
         public string Category { get; set; }
         public string PhoneNumber { get; set; }
-    }
-    public class RestaurantLikesDislikes
-    {
-        public int RestaurantId { get; set; }
-        public int NumOfLikes { get; set; }
-        public int NumOfDislikes { get; set; }
+        public string PhotoUrl { get; set; }
     }
     public class InviteRestaurant
     {
