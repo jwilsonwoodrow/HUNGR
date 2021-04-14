@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div id="main">
+    <p>My Events</p>
+    <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
     <!-- display list of all events with current user's id -->
     <!-- clicking on list of object will go to invite details -->
     <div
@@ -7,9 +9,10 @@
       v-for="(event, index) in events"
       :key="event.inviteId"
     >
-      <button @click="GetDetails(event.inviteId, index)">
+      <button class="btn" @click="GetDetails(event.inviteId, index)">
         {{ event.inviteTitle }}
       </button>
+      <br>
       <div class="event-details" v-show="displayDetails[index]">
         Event Date: {{ event.eventDate }} <br />
         RSVP Date: {{ event.expiryDate }} <br />
@@ -78,7 +81,7 @@ export default {
       });
     },
     Like(restaurantId) {
-      console.log(restaurantId)
+      console.log(restaurantId);
       apiService.RestaurantVote(restaurantId, true).then((response) => {
         if (response.status === 200) {
           console.log("yes");
@@ -101,5 +104,60 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.btn {
+  font-family: "Montserrat", sans-serif;
+  background: transparent;
+  background-image: url("https://www.linkpicture.com/q/button-1_1.png");
+  background-size: 50px 60px;
+  font-weight: 10;
+  width: 100px;
+  height: 60px;
+  font-size: 85%;
+  color: rgb(253, 243, 155);
+  border: 0;
+  padding: 0;
+}
+p {
+  font-family: "Montserrat", sans-serif;
+  color: rgb(253, 243, 155);
+  background-color: darkred;
+  text-align: center;
+}
+.glass-container {
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  margin-right: 5px;
+  text-align: center;
+  overflow: auto;
+  max-width: 100%; /* or can do fit-content here?? */
+  height: fit-content;
+  color: white;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: left;
+  gap: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 0, 0, 0.131);
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+  border: 4px rgba(0, 0, 0, 0.3) solid;
+  border-bottom: 4px rgba(40, 40, 40, 0.35) solid;
+  border-right: 4px rgba(40, 40, 40, 0.35) solid;
+}
+.backgroundLogo {
+  min-height: 100%;
+  min-width: 400px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-size: cover;
+}
 </style>
