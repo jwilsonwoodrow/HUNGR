@@ -10,15 +10,34 @@
       <button @click="GetDetails(event.inviteId, index)">
         {{ event.inviteTitle }}
       </button>
-      <div
-        class="event-details"
-        v-show="displayDetails[index]"
-        v-for="restaurant in eventDetails"
-        :key="restaurant.restaurantName"
-      >
-        
-        {{ restaurant.restaurantName }}
-
+      <div class="event-details" v-show="displayDetails[index]">
+        Event Date: {{ event.eventDate }} <br />
+        RSVP Date: {{ event.expiryDate }} <br />
+        <br />
+        Restaurant Options: <br />
+        <div
+          class="restaurant-list"
+          v-for="restaurant in eventDetails"
+          :key="restaurant.restaurantName"
+        >
+          <div class="name-category">
+            <strong>{{ restaurant.restaurantName }}</strong> -
+            {{ restaurant.category }}
+          </div>
+          <div class="address">
+            {{ restaurant.restaurantStreetAddress }}<br />{{
+              restaurant.restaurantCity
+            }}, {{ restaurant.restaurantState }} {{ restaurant.restaurantZip
+            }}<br />
+          </div>
+          <!-- call now icon -->
+          <a
+            v-bind:href="'tel:' + restaurant.phoneNumber"
+            v-show="!restaurant.is_closed"
+            class="call"
+          ></a>
+          <br />
+        </div>
       </div>
     </div>
   </div>
@@ -44,8 +63,12 @@ export default {
     GetDetails(inviteId, index) {
       apiService.GetEventDetails(inviteId).then((response) => {
         this.eventDetails = response.data;
-        this.displayDetails.fill(false);
-        this.displayDetails[index] = true;
+        if (this.displayDetails[index] === true) {
+          this.displayDetails[index] = false;
+        } else {
+          this.displayDetails.fill(false);
+          this.displayDetails[index] = true;
+        }
       });
     },
   },
