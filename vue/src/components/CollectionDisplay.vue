@@ -44,7 +44,7 @@
             }}, {{ restaurant.location.state }} {{ restaurant.location.zip_code
             }}<br />
           </div>
-          <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
+          <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div><br>
           <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
           <a
             v-bind:href="'tel:' + restaurant.phone"
@@ -106,7 +106,7 @@ a {
   margin-right: 2.5%;
 }
 .searchLink {
-  color: rgb(252,248,200);
+  color: darkred;
 }
 .img {
   margin-left: 8px;
