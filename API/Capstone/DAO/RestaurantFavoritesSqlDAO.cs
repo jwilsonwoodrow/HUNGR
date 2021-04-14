@@ -84,7 +84,7 @@ namespace Capstone.DAO
             return inviteRestLikeDislike;
         }
 
-        public bool UpdateLikesDislikesByRestId(int restId, int numOfLikes, int numOfDislikes)
+        public bool UpdateLikesByRestId(int restId, int numOfLikes)
         {
             int rowsAffected = 0;
             bool result = false;
@@ -94,13 +94,45 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("UPDATE restaurant_likes_dislikes SET num_of_dislikes = @numOfDislikes, num_of_likes = @numOfLikes WHERE restaurant_id = @restId", conn);
+                    SqlCommand cmd = new SqlCommand("UPDATE restaurant_likes_dislikes SET num_of_likes = @numOfLikes WHERE restaurant_id = @restId", conn);
                     cmd.Parameters.AddWithValue("@restId", restId);
                     cmd.Parameters.AddWithValue("@numOfLikes", numOfLikes);
-                    cmd.Parameters.AddWithValue("@numOfLikes", numOfDislikes);
                     rowsAffected = cmd.ExecuteNonQuery();
 
                     if(rowsAffected > 0)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return result;
+        }
+        public bool UpdateDislikesByRestId(int restId, int numOfDislikes)
+        {
+            int rowsAffected = 0;
+            bool result = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("UPDATE restaurant_likes_dislikes SET num_of_dislikes = @numOfDislikes WHERE restaurant_id = @restId", conn);
+                    cmd.Parameters.AddWithValue("@restId", restId);
+                    cmd.Parameters.AddWithValue("@numOfLikes", numOfDislikes);
+                    rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
                         result = true;
                     }

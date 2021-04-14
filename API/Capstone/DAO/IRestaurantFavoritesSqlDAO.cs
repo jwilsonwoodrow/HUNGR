@@ -6,7 +6,8 @@ namespace Capstone.DAO
     public interface IRestaurantFavoritesSqlDAO
     {
         List<RestaurantLikesDislikes> GetInvitesByInviteId(int inviteId);
-        bool UpdateLikesDislikesByRestId(int restId, int numOfLikes, int numOfDislikes);
+        bool UpdateLikesByRestId(int restId, int numOfLikes);
+        bool UpdateDislikesByRestId(int restId, int numOfDilikes);
         bool SaveRestaurantLikesDislikesByRestId(int restId, int numOfLikes, int numOfDislikes);
     }
 }

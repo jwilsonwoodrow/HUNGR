@@ -53,10 +53,16 @@ namespace Capstone.Controllers
             return Ok(listOfInvites);
         }
         [HttpPut]
-        [Authorize]
-        public IActionResult UpdateRestLikesDislikes(int restId, int numOfLikes, int numOfDislikes)
+        public IActionResult UpdateRestLikes(int restId, int numOfLikes)
         {
-            bool result = restLikesDislikesDAO.UpdateLikesDislikesByRestId(restId, numOfLikes, numOfDislikes);
+            bool result = restLikesDislikesDAO.UpdateLikesByRestId(restId, numOfLikes);
+
+            return Ok(result);
+        }
+        [HttpPut]
+        public IActionResult UpdateRestDislikes(int restId, int numOfDislikes)
+        {
+            bool result = restLikesDislikesDAO.UpdateDislikesByRestId(restId, numOfDislikes);
 
             return Ok(result);
         }
