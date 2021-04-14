@@ -91,7 +91,7 @@ namespace Capstone.Controllers
 
             foreach(Restaurant restaurant in restaurants)
             {
-                identities.Add(restaurantDAO.AddRestaurant(restaurant.PhotoUrl, restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber));
+                identities.Add(restaurantDAO.AddRestaurant(restaurant.YelpRestaurantId, restaurant.RestaurantName, restaurant.RestaurantStreetAddress, restaurant.RestaurantCity, restaurant.RestaurantState, restaurant.RestaurantZip, restaurant.Category, restaurant.PhoneNumber));
             }
             
             if (identities != null)

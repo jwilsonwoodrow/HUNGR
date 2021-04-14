@@ -65,7 +65,7 @@ export default {
               let restaurantIDs = response.data
               apiService.RelateEventRestaurant(inviteID, restaurantIDs).then((response) => {
                 if(response.status === 200){
-                  this.$store.commit("CLEAR_SAVED_RESTAURANTS")
+                  //this.$store.commit("CLEAR_SAVED_RESTAURANTS")
                   this.$router.push({name: 'events'})
                 }
               })

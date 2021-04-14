@@ -47,7 +47,7 @@ export default {
         return axios.post(`/invite/${inviteId}/restaurants`, restaurantIds)
     },
 
-    GetEventTitles(){
+    GetEvents(){
         return axios.get(`/invites`)
     }
 }

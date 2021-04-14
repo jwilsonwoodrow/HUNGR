@@ -16,11 +16,10 @@ namespace Capstone.Models
         public string RestaurantZip { get; set; }
         public string Category { get; set; }
         public string PhoneNumber { get; set; }
-        public string PhotoUrl { get; set; }
     }
     public class InviteRestaurant
     {
-        public string PhotoUrl { get; set; }
+        //public string PhotoUrl { get; set; }
         public string RestaurantName { get; set; }
         public string RestaurantStreetAddress { get; set; }
         public string RestaurantCity { get; set; }
