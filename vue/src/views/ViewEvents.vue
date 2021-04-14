@@ -5,12 +5,22 @@
     <div
       class="event-list"
       v-for="(event, index) in events"
-      :key="event.title"
-      @click="GetDetails(index)"
+      :key="event.inviteId"
     >
-      {{ events.title }}
+      <button @click="GetDetails(event.inviteId, index)">
+        {{ event.inviteTitle }}
+      </button>
+      <div
+        class="event-details"
+        v-show="displayDetails[index]"
+        v-for="restaurant in eventDetails"
+        :key="restaurant.restaurantName"
+      >
+        
+        {{ restaurant.restaurantName }}
+
+      </div>
     </div>
-    <div class="event-details" v-show="displayDetails[index]"></div>
   </div>
 </template>
 
@@ -22,23 +32,21 @@ export default {
     return {
       events: [],
       displayDetails: [],
+      eventDetails: [],
     };
   },
   created() {
     apiService.GetEvents().then((response) => {
-      for (let i = 0; i < response.data.length; i++) {
-        if (this.events.titles.indexOf(response.data.inviteTitle) === -1) {
-          this.events.titles.push(response.data.inviteTitle);
-          this.events.id.push(response.data.inviteId);
-        }
-      }
-
-      this.events.eventTitles = response.data;
+      this.events = response.data;
     });
   },
   methods: {
-    GetDetails(index) {
-      this.displayDetails[index] = true;
+    GetDetails(inviteId, index) {
+      apiService.GetEventDetails(inviteId).then((response) => {
+        this.eventDetails = response.data;
+        this.displayDetails.fill(false);
+        this.displayDetails[index] = true;
+      });
     },
   },
   updated() {

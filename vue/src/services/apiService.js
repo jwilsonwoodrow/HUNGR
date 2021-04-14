@@ -49,6 +49,10 @@ export default {
 
     GetEvents(){
         return axios.get(`/invites`)
+    },
+
+    GetEventDetails(eventId){
+        return axios.get(`/invites/${eventId}/restaurants`)
     }
 }
 

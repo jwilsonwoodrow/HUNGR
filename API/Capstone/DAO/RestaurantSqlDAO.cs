@@ -54,15 +54,15 @@ namespace Capstone.DAO
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand("Select sr.photo_url, sr.restaurant_name, sr.restaurant_address, sr.restaurant_city, " +
-                        "sr.restaurant_state, sr.restaurant_zip_code, sr.category, sr.phone_number" +
-                        "FROM saved_restaurants sr" +
-                        "JOIN invite_restaurants ir ON ir.restaurant_id = sr.restaurant_id" +
-                        "JOIN invites i ON i.invite_id = ir.invite_id" +
-                        "where i.invite_id = @inviteId", conn);
+                        " sr.restaurant_state, sr.restaurant_zip_code, sr.category, sr.phone_number" +
+                        " FROM saved_restaurants sr" +
+                        " JOIN invite_restaurants ir ON ir.restaurant_id = sr.restaurant_id" +
+                        " JOIN invites i ON i.invite_id = ir.invite_id" +
+                        " where i.invite_id = @inviteId", conn);
                     cmd.Parameters.AddWithValue("@inviteId", inviteId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.HasRows && reader.Read())
+                    while (reader.HasRows && reader.Read())
                     {
                         restaurants.Add(GetInviteRestaurantFromReader(reader));
                     }
@@ -167,14 +167,14 @@ namespace Capstone.DAO
         {
             InviteRestaurant restaurantInvite = new InviteRestaurant()
             {
-                //PhotoUrl = Convert.ToString(reader["sr.photo_url"]),
-                RestaurantName = Convert.ToString(reader["sr.restaurant_name"]),
-                RestaurantStreetAddress = Convert.ToString(reader["sr.restaurant_address"]),
-                RestaurantCity = Convert.ToString(reader["sr.restaurant_city"]),
-                RestaurantState = Convert.ToString(reader["sr.restaurant_state"]),
-                RestaurantZip = Convert.ToString(reader["sr.restaurant_zip_code"]),
-                Category = Convert.ToString(reader["sr.category"]),
-                PhoneNumber = Convert.ToString(reader["sr.phone_number"])
+                //PhotoUrl = Convert.ToString(reader["photo_url"]),
+                RestaurantName = Convert.ToString(reader["restaurant_name"]),
+                RestaurantStreetAddress = Convert.ToString(reader["restaurant_address"]),
+                RestaurantCity = Convert.ToString(reader["restaurant_city"]),
+                RestaurantState = Convert.ToString(reader["restaurant_state"]),
+                RestaurantZip = Convert.ToString(reader["restaurant_zip_code"]),
+                Category = Convert.ToString(reader["category"]),
+                PhoneNumber = Convert.ToString(reader["phone_number"])
             };
 
             return restaurantInvite;
