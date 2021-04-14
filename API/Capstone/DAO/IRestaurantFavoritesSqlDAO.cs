@@ -7,5 +7,6 @@ namespace Capstone.DAO
     {
         List<RestaurantLikesDislikes> GetInvitesByInviteId(int inviteId);
         bool UpdateLikesDislikesByRestId(int restId, int numOfLikes, int numOfDislikes);
+        bool SaveRestaurantLikesDislikesByRestId(int restId, int numOfLikes, int numOfDislikes);
     }
 }

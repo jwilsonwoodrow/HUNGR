@@ -15,6 +15,41 @@ namespace Capstone.DAO
         {
             connectionString = dbConnectionString;
         }
+        public bool SaveRestaurantLikesDislikesByRestId(int restId, int numOfLikes, int numOfDislikes)
+        {
+            int rowsAffected = 0;
+            bool result = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO restaurant_likes_dislikes(restaurant_id, num_of_likes, num_of_dislikes)" +
+                        " VALUES (restaurant_id = @restId, number_of_likes = @numOfLikes, number_of_dislikes = @numOfDislikes);", conn);
+                    cmd.Parameters.AddWithValue("@restId", restId);
+                    cmd.Parameters.AddWithValue("@numOfLikes", numOfLikes);
+                    cmd.Parameters.AddWithValue("@numOfLikes", numOfDislikes);
+                    rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+
+            return result;
+        }
         public List<RestaurantLikesDislikes> GetInvitesByInviteId(int inviteId)
         {
             List<RestaurantLikesDislikes> inviteRestLikeDislike = new List<RestaurantLikesDislikes>();
