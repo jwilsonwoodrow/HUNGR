@@ -53,7 +53,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT invite_title, expiry_date, event_date FROM invites WHERE invite_id = @id", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT invite_title, user_id, invite_id, expiry_date, event_date FROM invites WHERE invite_id = @id", conn);
                     cmd.Parameters.AddWithValue("@id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
 
