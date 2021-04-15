@@ -155,6 +155,7 @@ export default {
   /* margin: 0 auto; */
   margin-right: 22.5%;
 }
+
 .dropdown-input,
 .location-input,
 .dropdown-selected {

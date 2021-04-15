@@ -1,21 +1,21 @@
 <template>
   <div id="main">
     <p>My Events</p>
-     <img
+    <!-- <img
       class="backgroundLogo"
-      src="https://www.linkpicture.com/q/bg4.png"
-    />
+      src="https://www.linkpicture.com/q/bg4.png" 
+    />-->
     <!-- display list of all events with current user's id -->
     <!-- clicking on list of object will go to invite details -->
-    <div class="glass-container">
+    <!-- <div class="glass-container"> -->
     <div
       class="event-list"
       v-for="(event, index) in events"
       :key="event.inviteId"
     >
-      <button @click="GetDetails(event.inviteId, index)" class="btn">
-        {{ event.inviteTitle }}
-      </button><br>
+      <button @click="GetDetails(event.inviteId, index)">
+        {{ event.inviteTitle }}</button
+      ><br />
       <div class="event-details" v-show="displayDetails[index]">
         Event Date: {{ event.eventDate }} <br />
         RSVP Date: {{ event.expiryDate }} <br />
@@ -36,28 +36,31 @@
             }}, {{ restaurant.restaurantState }} {{ restaurant.restaurantZip
             }}<br />
           </div>
-          <!-- call now icon -->
-          <a
-            v-bind:href="'tel:' + restaurant.phoneNumber"
-            v-show="!restaurant.is_closed"
-            class="call"
-          ></a>
-          <br />
-        </div>
-      </div>
           <div class="popularity">
-            <button @click="Like(restaurant.restaurantId)" v-show="!voted">
+            <button
+              @click="Like(restaurant.restaurantId, event.inviteId, index)"
+              v-show="!voted"
+              class="Like"
+            >
               LIKE
             </button>
-            <button @click="Dislike(restaurant.restaurantId)" v-show="!voted">
+            <h4 class="Popularity">
+              {{
+                GetPopularity(restaurant.numOfLikes, restaurant.numOfDislikes)
+              }}
+            </h4>
+            <button
+              @click="Dislike(restaurant.restaurantId, event.inviteId, index)"
+              v-show="!voted"
+              class="Dislike"
+            >
               DISLIKE
             </button>
           </div>
-          <!-- call now icon -->
-          <a v-bind:href="'tel:' + restaurant.phoneNumber" class="call"></a>
           <br />
         </div>
       </div>
+      <br />
     </div>
   </div>
 </template>
@@ -78,32 +81,43 @@ export default {
       this.events = response.data;
     });
   },
+  computed: {},
   methods: {
     GetDetails(inviteId, index) {
-      apiService.GetEventDetails(inviteId).then((response) => {
-        this.eventDetails = response.data;
-        if (this.displayDetails[index] === true) {
-          this.displayDetails[index] = false;
-        } else {
-          this.displayDetails.fill(false);
+      if (this.displayDetails[index] === true) {
+        this.displayDetails[index] = false;
+      } else {     
+        this.displayDetails.fill(false);
+        apiService.GetEventDetails(inviteId).then((response) => {
+          this.eventDetails = response.data;
+
           this.displayDetails[index] = true;
-        }
-      });
+        });
+      }
     },
-    Like(restaurantId) {
-      console.log(restaurantId)
+    Like(restaurantId, inviteId, index) {
       apiService.RestaurantVote(restaurantId, true).then((response) => {
         if (response.status === 200) {
-          console.log("yes");
+          apiService.GetEventDetails(inviteId).then((response) => {
+            this.eventDetails = response.data;
+            this.displayDetails[index] = true; //only the finest spaghetti
+          });
         }
       });
     },
-    Dislike(restaurantId) {
+    Dislike(restaurantId, inviteId, index) {
+      apiService.GetEventDetails(inviteId);
       apiService.RestaurantVote(restaurantId, false).then((response) => {
         if (response.status === 200) {
-          console.log("yes");
+          apiService.GetEventDetails(inviteId).then((response) => {
+            this.eventDetails = response.data;
+            this.displayDetails[index] = true; //only the finest spaghetti
+          });
         }
       });
+    },
+    GetPopularity(likes, dislikes, inviteId, index) {
+      return likes - dislikes;
     },
   },
   updated() {
@@ -115,7 +129,7 @@ export default {
 </script>
 <style scoped>
 .btn {
-    font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif;
   background: transparent;
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
   background-size: 50px 60px;
@@ -135,13 +149,14 @@ p {
 }
 .glass-container {
   padding-top: 20px;
+  z-index: -1;
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
   margin-right: 5px;
   text-align: center;
   overflow: auto;
-  max-width: 100%; /* or can do fit-content here?? */
+  max-width: 100%;
   height: fit-content;
   color: white;
   display: flex;
@@ -169,3 +184,4 @@ p {
   z-index: -1;
   background-size: cover;
 }
+</style>

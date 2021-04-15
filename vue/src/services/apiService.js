@@ -63,6 +63,10 @@ export default {
     RestaurantVote(restaurantId, wasLiked) {
         return axios.put(`/invites`, {restaurantId, wasLiked})
     },
+
+    GetEventById(eventId){
+        return axios.get(`/invites/${eventId}`)
+    }
 }
 
 

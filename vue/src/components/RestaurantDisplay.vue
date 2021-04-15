@@ -48,14 +48,14 @@
             @click="SaveRestaurant(restaurant)"
             v-show="!ExistsInCollection(restaurant)"
           >
-            SAVE TO EVENT LIST
+            ADD TO COLLECTION
           </button>
           <button
             class="save-restaurant-button"
             @click="UnsaveRestaurant(restaurant)"
             v-show="ExistsInCollection(restaurant)"
           >
-            REMOVE FROM EVENT LIST
+            REMOVE FROM COLLECTION
           </button>
           <br />
           <br />
@@ -146,9 +146,9 @@ select {
   font-family: "Montserrat", sans-serif;
   background: transparent;
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
-  background-size: 100px 60px;
+  background-size: 140px 60px;
   font-weight: 10;
-  width: 100px;
+  width: 140px;
   height: 60px;
   font-size: 85%;
   color: rgb(253, 243, 155);
