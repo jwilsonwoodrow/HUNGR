@@ -22,7 +22,10 @@
       <div class="event-details" v-show="displayDetails[index]">
         Event Date: {{ event.eventDate }} <br />
         RSVP Date: {{ event.expiryDate }} <br />
-        <br />
+        Shareable Link:
+        <input type="text" name="event-link" id="event-link" v-bind:value='`http://localhost:8081/invite/${event.inviteId}`' readonly>
+        <br>
+        <br>
         <em class="options">Restaurant Options:</em> <br />
         <div
           class="restaurant-list"
