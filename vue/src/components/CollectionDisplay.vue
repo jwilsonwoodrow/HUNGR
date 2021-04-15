@@ -1,9 +1,7 @@
 <template>
   <div>
     <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
-             <button class="go-back" @click="$router.push('/invite')">
-      <strong> Create Event </strong></button
-    ><br />
+
         <div class="glass-container">
     <!-- <h4>Current Restaurant Options:</h4> -->
     <div

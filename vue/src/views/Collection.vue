@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="nav">
     <button class="go-back" @click="$router.push('/home')">
       <strong> go back </strong>
     </button> <br/>
@@ -11,6 +12,9 @@
       <strong>Clear Collection </strong>
     </button>
     <br />
+                 <button class="go-back" @click="$router.push('/invite')">
+      <strong> Create Event </strong></button
+    ></div><br />
     <collection-display />
     <br />
   </div>
@@ -27,6 +31,12 @@ export default {
 };
 </script>
 <style scoped>
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
 .go-back {
   color: darkred;
   border: 3px solid darkred;
