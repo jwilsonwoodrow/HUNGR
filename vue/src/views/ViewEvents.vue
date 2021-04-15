@@ -20,8 +20,8 @@
         <strong>{{ event.inviteTitle.toUpperCase() }}</strong></button
       ><br />
       <div class="event-details" v-show="displayDetails[index]">
-        Event Date: {{ event.eventDate.toLocaleString() }} <br />
-        RSVP Date: {{ event.expiryDate }} <br />
+        Event Date: {{ formatEvent(event) }} <br />
+        RSVP Date: {{ formatRSVP(event) }} <br />
         <h2>shareable link</h2>
         <input type="text" name="event-link" id="event-link" v-bind:value='`http://localhost:8080/invite/${event.inviteId}`' readonly>
         <br /><br>
@@ -87,12 +87,6 @@ export default {
       this.events = response.data;
     });
   },
-  //     computed: {
-  //   displayHumanTime() {
-  //     let dt = new Date();
-  //     return dt.toLocaleString();
-  //   },
-  // },
   methods: {
     GetDetails(inviteId, index) {
       if (this.displayDetails[index] === true) {
@@ -130,13 +124,33 @@ export default {
     GetPopularity(likes, dislikes, inviteId, index) {
       return likes - dislikes;
     },
+    formatRSVP(event) {
+      console.log(event);
+      let d = Date.parse(event.expiryDate);
+      let dt = new Date(d);
+      let month = dt.getMonth() +1;
+      let day = dt.getDate();
+      let year = dt.getFullYear();
+      let time = event.expiryDate.slice(12, 16);
+      return `${month}/${day}/${year} - ${time}`;
+    },
+    formatEvent(event) {
+      let d = Date.parse(event.eventDate);
+      let dt = new Date(d);
+      let month = dt.getMonth() +1;
+      let day = dt.getDate();
+      let year = dt.getFullYear();
+      let time = event.eventDate.slice(12, 16);
+      return `${month}/${day}/${year} - ${time}`;
+    }
+  },
   updated() {
     for (let i = 0; i < this.events.length; i++) {
       this.displayDetails[i] = false;
     }
   },
+  
 }
-};
 </script>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
