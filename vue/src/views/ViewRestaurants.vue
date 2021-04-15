@@ -1,8 +1,14 @@
 <template>
   <div>
-    <button class="go-back" @click="$router.push('/home')">
-      <strong> go back </strong></button
-    ><br />
+    <div class="nav">
+      <button class="go-back" @click="$router.push('/home')">
+        <strong> go back </strong>
+      </button>
+      <button class="go-back" @click="$router.push('/collection')">
+        <strong> create event </strong>
+      </button>
+    </div>
+    <br />
     <restaurant-search />
     <restaurant-display />
   </div>
@@ -23,8 +29,14 @@ export default {
   color: darkred;
   border: 3px solid darkred;
   border-radius: 25px;
-  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
+  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.74);
   background: white;
   padding: 5px;
+}
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }
 </style>

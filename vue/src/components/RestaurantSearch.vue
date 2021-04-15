@@ -147,7 +147,7 @@ export default {
   color: rgb(253, 243, 155);
   border: 0;
   padding: 0;
-  margin-left: 60px;
+  margin-left: 50px;
   justify-content: center;
 }
 .dropdown {
@@ -166,6 +166,7 @@ export default {
   border: 1px solid transparent;
   background: rgb(252, 248, 200);
   line-height: 1.5em;
+  margin-left: -10px;
   outline: none;
   border-radius: 8px;
   position: relative;
@@ -176,6 +177,7 @@ export default {
   width: 125%;
   max-height: 500px;
   margin-top: 4px;
+  overflow-y: auto;
   background: #ffffff;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     0 4px 6px -2px rgba(0, 0, 0, 0.05);

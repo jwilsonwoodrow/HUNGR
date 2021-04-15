@@ -1,20 +1,23 @@
 <template>
   <div>
     <div class="nav">
-    <button class="go-back" @click="$router.push('/home')">
-      <strong> go back </strong>
-    </button> <br/>
-    <button
-      class="go-back"
-      v-show="!$store.state.savedRestaurants == ''"
-      @click="ClearCollection"
-    >    
-      <strong>Clear Collection </strong>
-    </button>
+      <button class="go-back" @click="$router.push('/home')">
+        <strong> go back </strong>
+      </button>
+      <br />
+      <button
+        class="go-back"
+        v-show="!$store.state.savedRestaurants == ''"
+        @click="ClearCollection"
+      >
+        <strong>Clear Collection </strong>
+      </button>
+      <br />
+      <button class="go-back" @click="$router.push('/invite')">
+        <strong> Create Event </strong>
+      </button>
+    </div>
     <br />
-                 <button class="go-back" @click="$router.push('/invite')">
-      <strong> Create Event </strong></button
-    ></div><br />
     <collection-display />
     <br />
   </div>
@@ -41,7 +44,7 @@ export default {
   color: darkred;
   border: 3px solid darkred;
   border-radius: 25px;
-  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
+  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.74);
   background: white;
   padding: 5px;
   margin-bottom: 5px;

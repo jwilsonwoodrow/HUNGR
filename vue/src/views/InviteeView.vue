@@ -1,17 +1,16 @@
 <template>
   <div>
     <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
-    <button class="go-back" @click="$router.push('/invite')">
-      <strong> go back </strong></button
-    ><br /><br>
+    <br /><br />
     <div class="glass-container">
       <!-- list preselected restaurants (from database?) with up/down vote options -->
       <div class="event-details">
         <h3>
-          <div class="title">{{ event.inviteTitle }} </div><br>
-          Event Time:<br> {{ formatEvent }}
-          <br /><br>
-          RSVP By: <br>{{ formatRSVP }} <br />
+          <div class="title">{{ event.inviteTitle }}</div>
+          <br />
+          Event Time:<br />
+          {{ formatEvent }} <br /><br />
+          RSVP By: <br />{{ formatRSVP }} <br />
         </h3>
 
         <!-- <br />
@@ -31,7 +30,8 @@
               restaurant.restaurantCity
             }}, {{ restaurant.restaurantState }} {{ restaurant.restaurantZip
             }}<br />
-          </div><br>
+          </div>
+          <br />
           <div class="popularity">
             <button
               @click="Like(restaurant.restaurantId, $route.params.id, index)"
@@ -71,7 +71,7 @@ export default {
       let d = Date.parse(this.event.expiryDate);
       let dt = new Date(d);
       console.log(typeof dt);
-      let month = dt.getMonth() +1;
+      let month = dt.getMonth() + 1;
       let day = dt.getDate();
       let year = dt.getFullYear();
       let time = this.event.expiryDate.slice(12, 16);
@@ -83,12 +83,12 @@ export default {
       let d = Date.parse(this.event.eventDate);
       let dt = new Date(d);
       console.log(typeof dt);
-      let month = dt.getMonth() +1;
+      let month = dt.getMonth() + 1;
       let day = dt.getDate();
       let year = dt.getFullYear();
       let time = this.event.eventDate.slice(12, 16);
       return `${month}/${day}/${year} - ${time}`;
-    }
+    },
   },
   data() {
     return {
@@ -145,18 +145,18 @@ export default {
   color: darkred;
   border: 3px solid darkred;
   border-radius: 25px;
-  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
+  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.74);
   background: white;
   padding: 5px;
 }
 .title {
-  font-family: 'Anton', sans-serif;
-letter-spacing: 3.75px;
+  font-family: "Anton", sans-serif;
+  letter-spacing: 3.75px;
   background: darkred;
   border: 5px solid darkred;
   border-radius: 22px;
   margin-left: -10px;
-  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
+  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.74);
   background-size: 50px 60px;
   padding-bottom: -50px;
   align-content: center;
@@ -166,10 +166,8 @@ letter-spacing: 3.75px;
   font-size: 110%;
   color: rgb(253, 243, 155);
 
-  text-shadow: -1px 3px 0 #000,
-                          1px 2px 0 #000,
-                         2px -1px 0 #000,
-                        -1px -2px 0 #000;
+  text-shadow: -1px 3px 0 #000, 1px 2px 0 #000, 2px -1px 0 #000,
+    -1px -2px 0 #000;
 }
 .glass-container {
   padding-top: 20px;
