@@ -4,7 +4,7 @@
       class="backgroundLogo"
       src="https://www.linkpicture.com/q/bg4.png"
     /><br />
-    <button class="back" @click="$router.push('/collection')">
+    <button class="go-back" @click="$router.push('/collection')">
       <strong> go back </strong>
     </button>
     <div class="glass-container">
@@ -19,7 +19,7 @@
       </div>
       <div>
         <label for="eventDateTime"> Event Time and Date </label>
-        <br>
+        <br />
         <input
           v-model="invite.eventDate"
           id="eventDateTime"
@@ -38,7 +38,7 @@
       </div>
       <!-- This button will compile selections into a list, that can then be sent as an invite. Routes to "Invite-Confirmation"-->
       <button class="select" @click.prevent="SaveEvent">
-        <strong> Complete </strong></button
+        <strong> Create </strong></button
       ><br />
     </div>
   </div>
@@ -49,6 +49,7 @@ import apiService from "../services/apiService";
 // import CollectionDisplay from "../components/CollectionDisplay.vue";
 
 export default {
+
   name: "invite",
   data() {
     return {
@@ -74,7 +75,7 @@ export default {
                         .RelateEventRestaurant(inviteID, restaurantIDs)
                         .then((response) => {
                           if (response.status === 200) {
-                            this.$store.commit("CLEAR_SAVED_RESTAURANTS")
+                            this.$store.commit("CLEAR_SAVED_RESTAURANTS");
                             this.$router.push({ name: "events" });
                           }
                         });
@@ -94,6 +95,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+input {
+  background-color: rgb(253, 243, 155);
 }
 .backgroundLogo {
   min-height: 100%;
@@ -141,5 +145,13 @@ export default {
   color: rgb(253, 243, 155);
   border: 0;
   padding: 0;
+}
+.go-back {
+  color: darkred;
+  border: 3px solid darkred;
+  border-radius: 25px;
+  box-shadow: 2px 2px 8px 4px rgba(0, 0, 0, 0.74);
+  background: white;
+  padding: 5px;
 }
 </style>

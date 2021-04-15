@@ -1,9 +1,9 @@
 <template>
   <div id="main">
-    <button class="select" @click="$router.push('/home')">
+    <button class="go-back" @click="$router.push('/home')">
       <strong> go back </strong></button
     ><br />
-    <p>My Events</p>
+    <p>MY EVENTS</p>
     <img
       class="backgroundLogo"
       src="https://www.linkpicture.com/q/bg4.png" 
@@ -17,16 +17,15 @@
       :key="event.inviteId"
     >
       <button class="btn" @click="GetDetails(event.inviteId, index)">
-        {{ event.inviteTitle }}</button
+        <strong>{{ event.inviteTitle.toUpperCase() }}</strong></button
       ><br />
       <div class="event-details" v-show="displayDetails[index]">
-        Event Date: {{ event.eventDate }} <br />
+        Event Date: {{ event.eventDate.toLocaleString() }} <br />
         RSVP Date: {{ event.expiryDate }} <br />
-        Shareable Link:
-        <input type="text" name="event-link" id="event-link" v-bind:value='`http://localhost:8081/invite/${event.inviteId}`' readonly>
-        <br>
-        <br>
-        <em class="options">Restaurant Options:</em> <br />
+        <h2>shareable link</h2>
+        <input type="text" name="event-link" id="event-link" v-bind:value='`http://localhost:8080/invite/${event.inviteId}`' readonly>
+        <br /><br>
+        <!-- <em class="options">Restaurant Options</em> <br /> -->
         <div
           class="restaurant-list"
           v-for="restaurant in eventDetails"
@@ -88,7 +87,12 @@ export default {
       this.events = response.data;
     });
   },
-  computed: {},
+  //     computed: {
+  //   displayHumanTime() {
+  //     let dt = new Date();
+  //     return dt.toLocaleString();
+  //   },
+  // },
   methods: {
     GetDetails(inviteId, index) {
       if (this.displayDetails[index] === true) {
@@ -126,35 +130,57 @@ export default {
     GetPopularity(likes, dislikes, inviteId, index) {
       return likes - dislikes;
     },
-  },
   updated() {
     for (let i = 0; i < this.events.length; i++) {
       this.displayDetails[i] = false;
     }
   },
+}
 };
 </script>
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+.go-back {
+  color: darkred;
+  border: 3px solid darkred;
+  border-radius: 25px;
+  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
+  background: white;
+  padding: 5px;
+}
 .btn {
-  font-family: "Montserrat", sans-serif;
+font-family: 'Anton', sans-serif;
+letter-spacing: 3.75px;
   background: darkred;
   border: 5px solid darkred;
   border-radius: 22px;
   box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
   background-size: 50px 60px;
-  font-weight: 10;
-  width: 100px;
+  width: 300px;
   height: 60px;
-  font-size: 85%;
+  font-size: 110%;
   color: rgb(253, 243, 155);
   border: 0;
-  padding: 0;
+  text-shadow: -1px 3px 0 #000,
+                          1px 2px 0 #000,
+                         2px -1px 0 #000,
+                        -1px -2px 0 #000;
+  /* padding-left: 30px;
+  padding-right: 30px; */
 }
 p {
-  font-family: "Montserrat", sans-serif;
-  color: rgb(253, 243, 155);
-  background-color: darkred;
+font-family: 'Rammetto One', cursive;
+text-shadow: -1px 1px 0 #000,
+                          1px 1px 0 #000,
+                         1px -1px 0 #000,
+                        -1px -1px 0 #000;
+  color: white;
+  padding: 5px;
+  font-size: 48px;
   text-align: center;
+
 }
 .glass-container {
   padding-top: 20px;
@@ -195,28 +221,31 @@ p {
 }
 .popularity {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-items: center;
   align-items: center;
+  margin-left: 30%;
 }
 .Like {
-  margin-top: 25px;
-  margin-bottom: -20px;
   background-color: green;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  margin-right: 9px;
 }
 .Dislike {
-  margin-top: -20px;
   background-color: firebrick;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  margin-left: 9px;
 }
 .event-details {
  margin-top: 10px;
 }
 .name-category {
   color: rgb(253, 243, 155);
+}
+.event-list {
+  margin-bottom: -20px;
 }
 
 </style>

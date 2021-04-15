@@ -1,22 +1,22 @@
 <template>
   <div>
     <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
-    <button class="select" @click="$router.push('/invite')">
+    <button class="go-back" @click="$router.push('/invite')">
       <strong> go back </strong></button
     ><br />
     <div class="glass-container">
       <!-- list preselected restaurants (from database?) with up/down vote options -->
       <div class="event-details">
         <h3>
-          Event Name: {{ event.inviteTitle }} <br />
+          {{ event.inviteTitle }} <br />
           <br />
           Event Time: {{ event.eventDate }}
           <br />
-          RSVP By: {{ event.expiryDate }} <br />
+          RSVP By: {{ moment().format('MMMM Do YYYY').event.expiryDate }} <br />
         </h3>
 
-        <br />
-        Restaurant Options: <br />
+        <!-- <br />
+        Restaurant Options: <br /> -->
         <div
           class="restaurant-list"
           v-for="(restaurant, index) in eventDetails"
@@ -32,7 +32,7 @@
               restaurant.restaurantCity
             }}, {{ restaurant.restaurantState }} {{ restaurant.restaurantZip
             }}<br />
-          </div>
+          </div><br>
           <div class="popularity">
             <button
               @click="Like(restaurant.restaurantId, $route.params.id, index)"
@@ -41,7 +41,7 @@
             >
               👍</button
             ><br />
-            <p class="Popularity" v-show="voted[index]">
+            <p class="thanks" v-show="voted[index]">
               Thanks for voting! Restaurant Score:
               {{
                 GetPopularity(restaurant.numOfLikes, restaurant.numOfDislikes)
@@ -114,6 +114,17 @@ export default {
 };
 </script>
 <style scoped>
+.thanks {
+  margin-left: -70px;
+}
+.go-back {
+  color: darkred;
+  border: 3px solid darkred;
+  border-radius: 25px;
+  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
+  background: white;
+  padding: 5px;
+}
 .glass-container {
   padding-top: 20px;
   z-index: 0;
@@ -153,21 +164,22 @@ export default {
 }
 .popularity {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-items: center;
   align-items: center;
+  margin-left: 30%;
 }
 .Like {
-  margin-top: 25px;
-
   background-color: green;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  margin-right: 9px;
 }
 .Dislike {
   background-color: firebrick;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
+  margin-left: 9px;
 }
 .event-details {
   margin-top: 10px;

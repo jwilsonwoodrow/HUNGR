@@ -189,7 +189,8 @@ export default {
 }
 .location-input {
   margin-bottom: 5px;
-  margin-left: 5px;
+  width: 100%;
+  padding-right: 29px;
 }
 .dropdown-input:focus,
 .dropdown-selected:hover {

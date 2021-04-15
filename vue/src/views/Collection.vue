@@ -1,10 +1,10 @@
 <template>
   <div>
-    <button class="select" @click="$router.push('/home')">
+    <button class="go-back" @click="$router.push('/home')">
       <strong> go back </strong>
     </button> <br/>
     <button
-      class="clear-collection"
+      class="go-back"
       v-show="!$store.state.savedRestaurants == ''"
       @click="ClearCollection"
     >    
@@ -27,6 +27,15 @@ export default {
 };
 </script>
 <style scoped>
+.go-back {
+  color: darkred;
+  border: 3px solid darkred;
+  border-radius: 25px;
+  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
+  background: white;
+  padding: 5px;
+  margin-bottom: 5px;
+}
 .backgroundLogo {
   min-height: 100%;
   min-width: 1024px;

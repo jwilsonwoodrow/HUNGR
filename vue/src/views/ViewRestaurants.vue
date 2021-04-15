@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="select" @click="$router.push('/home')">
+    <button class="go-back" @click="$router.push('/home')">
       <strong> go back </strong></button
     ><br />
     <restaurant-search />
@@ -19,4 +19,12 @@ export default {
 </script>
 
 <style>
+.go-back {
+  color: darkred;
+  border: 3px solid darkred;
+  border-radius: 25px;
+  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
+  background: white;
+  padding: 5px;
+}
 </style>
