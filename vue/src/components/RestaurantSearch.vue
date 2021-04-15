@@ -46,7 +46,9 @@
       <div class="dropdown">
     <input type="text" v-model="searchText" />
     <pre>{{ matches.displayValue }}</pre>  </div> -->
-    <button class="search-button" @click="getRestaurants()">Search</button>
+    <div>
+      <button class="search-button" @click="getRestaurants()">Search</button>
+    </div>
   </div>
 </template>
 <script>

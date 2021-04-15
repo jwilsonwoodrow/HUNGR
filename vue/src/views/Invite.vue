@@ -9,7 +9,7 @@
     </button>
     <div class="glass-container">
       <div class="body">
-        <label for="eventName"> What is the name of your Event? </label><br />
+        <label for="eventName"> Your Event Name </label>
         <input
           v-model="invite.inviteTitle"
           id="eventName"
@@ -18,7 +18,8 @@
         />
       </div>
       <div>
-        <label for="eventDateTime"> What day do you want to meet? </label>
+        <label for="eventDateTime"> Event Time and Date </label>
+        <br>
         <input
           v-model="invite.eventDate"
           id="eventDateTime"
@@ -27,7 +28,7 @@
         />
       </div>
       <div>
-        <label for="rsvpDateTime"> RSVP by? </label><br />
+        <label for="rsvpDateTime"> RSVP Deadline </label><br />
         <input
           v-model="invite.expiryDate"
           id="rsvpDateTime"
@@ -107,15 +108,15 @@ export default {
 }
 .glass-container {
   padding-top: 15px;
-  margin-right: 5px;
   margin-top: 15px;
+  margin-left: 5px;
   text-align: center;
   overflow: auto;
-  max-width: 100%; /* or can do fit-content here?? */
+  max-width: 90%; /* or can do fit-content here?? */
   height: fit-content;
   color: white;
   display: flex;
-  position: absolute;
+  position: relative;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
