@@ -4,8 +4,6 @@
       class="backgroundLogo"
       src="https://www.linkpicture.com/q/bg4.png"
     /><br />
-
-    <!--  -->
     <div class="glass-container">
       <div v-if="$store.state.returnedRestaurants.businesses">
         <div
@@ -18,12 +16,15 @@
           <img
             v-bind:src="restaurant.image_url"
             alt="No Image Available"
-            width="200"
-            height="190"
+            width="225"
+            height="175"
             class="img"
           />
-          <div class="name-category">
-            <strong>{{ restaurant.name }}</strong> -
+          <div class="name">
+            <strong>{{ restaurant.name }}</strong>
+            <br />
+          </div>
+          <div class="category">
             {{ restaurant.categories[0].title }}
           </div>
           <br />
@@ -34,15 +35,16 @@
             }}<br />
           </div>
           <div class="is-closed" v-show="!restaurant.is_closed">Open Now</div>
-          <div class="is-closed" v-show="restaurant.is_closed">Closed</div><br>
+          <div class="is-closed" v-show="restaurant.is_closed">Closed</div>
+          <br />
           <!-- call now icon -->
           <a
             v-bind:href="'tel:' + restaurant.phone"
             v-show="!restaurant.is_closed"
             class="call"
           >
-          Call Now</a
-          ><br /><br>
+            Call📞Now </a
+          ><br /><br />
           <button
             class="save-restaurant-button"
             @click="SaveRestaurant(restaurant)"
@@ -57,6 +59,9 @@
           >
             REMOVE FROM COLLECTION
           </button>
+          <div class="divide-line">
+            ___________________________________________
+          </div>
           <br />
           <br />
         </div>
@@ -141,6 +146,16 @@ select {
   background-color: rgb(253, 243, 155);
   font-family: "Montserrat", sans-serif;
 }
+
+.divide-line {
+  opacity: 70%;
+  color: rgb(253, 243, 155);
+  border: 20px
+}
+.name {
+  font-size: 150%;
+  color: rgb(253, 243, 155);
+}
 .details-button,
 .save-restaurant-button {
   font-family: "Montserrat", sans-serif;
@@ -185,7 +200,7 @@ button:focus {
   height: fit-content;
   color: white;
   display: flex;
-  position: absolute;
+  position: relative;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: left;

@@ -159,17 +159,19 @@ export default {
 .dropdown-input,
 .location-input,
 .dropdown-selected {
-  width: 82%;
+  width: 100%;
   padding: 10px 16px;
   border: 1px solid transparent;
   background: rgb(252, 248, 200);
   line-height: 1.5em;
   outline: none;
   border-radius: 8px;
+  position: relative;
+  align-items: center;
 }
 .dropdown-list {
-  position: absolute;
-  width: 55%;
+  position: relative;
+  width: 125%;
   max-height: 500px;
   margin-top: 4px;
   overflow-y: auto;
@@ -214,5 +216,8 @@ export default {
 .body {
   padding-left: 25%;
   display: inline-block;
+  position: relative;
+  justify-content: center;
+  align-content: center;
 }
 </style>

@@ -20,7 +20,7 @@
             <strong> CREATE EVENT </strong></button
           ><br />
           <button class="select" @click="$router.push('/events')">
-            <strong> VIEW EVENTS </strong></button
+            <strong> MY EVENTS </strong></button
           ><br />
           <router-link
             v-bind:to="{ name: 'logout' }"

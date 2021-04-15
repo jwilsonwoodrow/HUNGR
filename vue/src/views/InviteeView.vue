@@ -1,57 +1,63 @@
 <template>
   <div>
-        <img
-      class="backgroundLogo"
-      src="https://www.linkpicture.com/q/bg4.png" 
-    />
+    <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
     <button class="select" @click="$router.push('/invite')">
       <strong> go back </strong></button
     ><br />
-    <div class ='glass-container'>
-    <!-- list preselected restaurants (from database?) with up/down vote options -->
-    <div class="event-details">
-      Event Date: {{ event.eventDate }} <br />
-      RSVP Date: {{ event.expiryDate }} <br />
-      <br />
-      Restaurant Options: <br />
-      <div
-        class="restaurant-list"
-        v-for="(restaurant, index) in eventDetails"
-        :key="restaurant.restaurantName"
-      >
-        <div class="name-category">
-          <strong>{{ restaurant.restaurantName }}</strong>: 
-          {{ restaurant.category }}
-        </div>
-        <div class="address">
-          {{ restaurant.restaurantStreetAddress }}<br />{{
-            restaurant.restaurantCity
-          }}, {{ restaurant.restaurantState }} {{ restaurant.restaurantZip
-          }}<br />
-        </div>
-        <div class="popularity">
-          <button
-            @click="Like(restaurant.restaurantId, $route.params.id, index)"
-            v-show="!voted[index]"
-            class="Like"
-          >
-             👍
-          </button><br>
-          <p class="Popularity" v-show="voted[index]">
-            Thanks for voting!
-            Restaurant Score: {{ GetPopularity(restaurant.numOfLikes, restaurant.numOfDislikes) }}
-          </p>
-          <button
-            @click="Dislike(restaurant.restaurantId, $route.params.id, index)"
-            v-show="!voted[index]"
-            class="Dislike"
-          >
-            👎
-          </button>
-        </div>
+    <div class="glass-container">
+      <!-- list preselected restaurants (from database?) with up/down vote options -->
+      <div class="event-details">
+        <h3>
+          Event Name: {{ event.inviteTitle }} <br />
+          <br />
+          Event Time: {{ event.eventDate }}
+          <br />
+          RSVP By: {{ event.expiryDate }} <br />
+        </h3>
+
         <br />
+        Restaurant Options: <br />
+        <div
+          class="restaurant-list"
+          v-for="(restaurant, index) in eventDetails"
+          :key="restaurant.restaurantName"
+        >
+          <div class="name-category">
+            <strong>{{ restaurant.restaurantName }}</strong
+            >:
+            {{ restaurant.category }}
+          </div>
+          <div class="address">
+            {{ restaurant.restaurantStreetAddress }}<br />{{
+              restaurant.restaurantCity
+            }}, {{ restaurant.restaurantState }} {{ restaurant.restaurantZip
+            }}<br />
+          </div>
+          <div class="popularity">
+            <button
+              @click="Like(restaurant.restaurantId, $route.params.id, index)"
+              v-show="!voted[index]"
+              class="Like"
+            >
+              👍</button
+            ><br />
+            <p class="Popularity" v-show="voted[index]">
+              Thanks for voting! Restaurant Score:
+              {{
+                GetPopularity(restaurant.numOfLikes, restaurant.numOfDislikes)
+              }}
+            </p>
+            <button
+              @click="Dislike(restaurant.restaurantId, $route.params.id, index)"
+              v-show="!voted[index]"
+              class="Dislike"
+            >
+              👎
+            </button>
+          </div>
+          <br />
+        </div>
       </div>
-    </div>
     </div>
     <br />
   </div>
@@ -95,10 +101,9 @@ export default {
   },
   created() {
     console.log(this.$route.params.id);
-    //NEEDS FIXED TO DISPLAY EVENT NAME, DATE, ETC
-    // apiService.GetEventById(this.$route.params.id).then((response) => {
-    //   this.events = response.data;
-    // });
+    apiService.GetEventById(this.$route.params.id).then((response) => {
+      this.event = response.data;
+    });
     apiService.GetEventDetails(this.$route.params.id).then((response) => {
       this.eventDetails = response.data;
       for (let i = 0; i < this.eventDetails.length; i++) {
@@ -160,13 +165,12 @@ export default {
   height: 50px;
 }
 .Dislike {
-  
   background-color: firebrick;
   width: 50px;
   height: 50px;
 }
 .event-details {
- margin-top: 10px;
+  margin-top: 10px;
 }
 .name-category {
   color: rgb(253, 243, 155);
