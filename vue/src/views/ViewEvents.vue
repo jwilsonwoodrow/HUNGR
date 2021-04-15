@@ -1,33 +1,36 @@
 <template>
   <div id="main">
+    <button class="select" @click="$router.push('/home')">
+      <strong> go back </strong></button
+    ><br />
     <p>My Events</p>
-    <!-- <img
+    <img
       class="backgroundLogo"
       src="https://www.linkpicture.com/q/bg4.png" 
-    />-->
+    />
     <!-- display list of all events with current user's id -->
     <!-- clicking on list of object will go to invite details -->
-    <!-- <div class="glass-container"> -->
+    <div class="glass-container">
     <div
       class="event-list"
       v-for="(event, index) in events"
       :key="event.inviteId"
     >
-      <button @click="GetDetails(event.inviteId, index)">
+      <button class="btn" @click="GetDetails(event.inviteId, index)">
         {{ event.inviteTitle }}</button
       ><br />
       <div class="event-details" v-show="displayDetails[index]">
         Event Date: {{ event.eventDate }} <br />
         RSVP Date: {{ event.expiryDate }} <br />
         <br />
-        Restaurant Options: <br />
+        <em class="options">Restaurant Options:</em> <br />
         <div
           class="restaurant-list"
           v-for="restaurant in eventDetails"
           :key="restaurant.restaurantName"
         >
           <div class="name-category">
-            <strong>{{ restaurant.restaurantName }}</strong> -
+            <strong>{{ restaurant.restaurantName }}</strong>:
             {{ restaurant.category }}
           </div>
           <div class="address">
@@ -42,7 +45,7 @@
               v-show="!voted"
               class="Like"
             >
-              LIKE
+              👍
             </button>
             <h4 class="Popularity">
               {{
@@ -54,7 +57,7 @@
               v-show="!voted"
               class="Dislike"
             >
-              DISLIKE
+              👎
             </button>
           </div>
           <br />
@@ -62,6 +65,7 @@
       </div>
       <br />
     </div>
+  </div>
   </div>
 </template>
 <script>
@@ -130,8 +134,10 @@ export default {
 <style scoped>
 .btn {
   font-family: "Montserrat", sans-serif;
-  background: transparent;
-  background-image: url("https://www.linkpicture.com/q/button-1_1.png");
+  background: darkred;
+  border: 5px solid darkred;
+  border-radius: 22px;
+  box-shadow: 2px 2px 8px 4px rgba(0,0,0,0.74);
   background-size: 50px 60px;
   font-weight: 10;
   width: 100px;
@@ -149,7 +155,7 @@ p {
 }
 .glass-container {
   padding-top: 20px;
-  z-index: -1;
+  z-index: 0;
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 30px;
@@ -184,4 +190,30 @@ p {
   z-index: -1;
   background-size: cover;
 }
+.popularity {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.Like {
+  margin-top: 25px;
+  margin-bottom: -20px;
+  background-color: green;
+  width: 50px;
+  height: 50px;
+}
+.Dislike {
+  margin-top: -20px;
+  background-color: firebrick;
+  width: 50px;
+  height: 50px;
+}
+.event-details {
+ margin-top: 10px;
+}
+.name-category {
+  color: rgb(253, 243, 155);
+}
+
 </style>
