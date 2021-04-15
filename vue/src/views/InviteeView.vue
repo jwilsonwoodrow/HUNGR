@@ -1,6 +1,13 @@
 <template>
   <div>
-    <!-- must be inaccessable after deadline -->
+        <img
+      class="backgroundLogo"
+      src="https://www.linkpicture.com/q/bg4.png" 
+    />
+    <button class="select" @click="$router.push('/invite')">
+      <strong> go back </strong></button
+    ><br />
+    <div class ='glass-container'>
     <!-- list preselected restaurants (from database?) with up/down vote options -->
     <div class="event-details">
       Event Date: {{ event.eventDate }} <br />
@@ -13,7 +20,7 @@
         :key="restaurant.restaurantName"
       >
         <div class="name-category">
-          <strong>{{ restaurant.restaurantName }}</strong> -
+          <strong>{{ restaurant.restaurantName }}</strong>: 
           {{ restaurant.category }}
         </div>
         <div class="address">
@@ -28,8 +35,8 @@
             v-show="!voted[index]"
             class="Like"
           >
-            LIKE
-          </button>
+             👍
+          </button><br>
           <p class="Popularity" v-show="voted[index]">
             Thanks for voting!
             Restaurant Score: {{ GetPopularity(restaurant.numOfLikes, restaurant.numOfDislikes) }}
@@ -39,11 +46,12 @@
             v-show="!voted[index]"
             class="Dislike"
           >
-            DISLIKE
+            👎
           </button>
         </div>
         <br />
       </div>
+    </div>
     </div>
     <br />
   </div>
@@ -100,5 +108,67 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
+.glass-container {
+  padding-top: 20px;
+  z-index: 0;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 30px;
+  margin-right: 5px;
+  text-align: center;
+  overflow: auto;
+  max-width: 100%;
+  height: fit-content;
+  color: white;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: left;
+  gap: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 0, 0, 0.131);
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+  border: 4px rgba(0, 0, 0, 0.3) solid;
+  border-bottom: 4px rgba(40, 40, 40, 0.35) solid;
+  border-right: 4px rgba(40, 40, 40, 0.35) solid;
+}
+.backgroundLogo {
+  min-height: 100%;
+  min-width: 400px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  background-size: cover;
+}
+.popularity {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.Like {
+  margin-top: 25px;
+
+  background-color: green;
+  width: 50px;
+  height: 50px;
+}
+.Dislike {
+  
+  background-color: firebrick;
+  width: 50px;
+  height: 50px;
+}
+.event-details {
+ margin-top: 10px;
+}
+.name-category {
+  color: rgb(253, 243, 155);
+}
 </style>

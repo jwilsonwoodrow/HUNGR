@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^2.6.5",
+    "moment": "^2.29.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vue-select": "^3.11.2",
