@@ -37,7 +37,7 @@
       </div>
       <!-- This button will compile selections into a list, that can then be sent as an invite. Routes to "Invite-Confirmation"-->
       <button class="select" @click.prevent="SaveEvent">
-        <strong> complete </strong></button
+        <strong> Complete </strong></button
       ><br />
     </div>
   </div>
@@ -132,11 +132,11 @@ export default {
   font-family: "Montserrat", sans-serif;
   background: transparent;
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
-  background-size: 50px 60px;
+  background-size: 100px 60px;
   font-weight: 10;
   width: 100px;
   height: 60px;
-  font-size: 85%;
+  font-size: 93%;
   color: rgb(253, 243, 155);
   border: 0;
   padding: 0;

@@ -146,7 +146,7 @@ select {
   font-family: "Montserrat", sans-serif;
   background: transparent;
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
-  background-size: 50px 60px;
+  background-size: 100px 60px;
   font-weight: 10;
   width: 100px;
   height: 60px;

@@ -1,18 +1,21 @@
 <template>
   <div id="main">
     <p>My Events</p>
-    <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
+     <img
+      class="backgroundLogo"
+      src="https://www.linkpicture.com/q/bg4.png"
+    />
     <!-- display list of all events with current user's id -->
     <!-- clicking on list of object will go to invite details -->
+    <div class="glass-container">
     <div
       class="event-list"
       v-for="(event, index) in events"
       :key="event.inviteId"
     >
-      <button class="btn" @click="GetDetails(event.inviteId, index)">
+      <button @click="GetDetails(event.inviteId, index)" class="btn">
         {{ event.inviteTitle }}
-      </button>
-      <br>
+      </button><br>
       <div class="event-details" v-show="displayDetails[index]">
         Event Date: {{ event.eventDate }} <br />
         RSVP Date: {{ event.expiryDate }} <br />
@@ -33,11 +36,19 @@
             }}, {{ restaurant.restaurantState }} {{ restaurant.restaurantZip
             }}<br />
           </div>
+          <!-- call now icon -->
+          <a
+            v-bind:href="'tel:' + restaurant.phoneNumber"
+            v-show="!restaurant.is_closed"
+            class="call"
+          ></a>
+          <br />
+        </div>
+      </div>
           <div class="popularity">
             <button @click="Like(restaurant.restaurantId)" v-show="!voted">
               LIKE
             </button>
-
             <button @click="Dislike(restaurant.restaurantId)" v-show="!voted">
               DISLIKE
             </button>
@@ -50,7 +61,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import apiService from "../services/apiService";
 export default {
@@ -81,7 +91,7 @@ export default {
       });
     },
     Like(restaurantId) {
-      console.log(restaurantId);
+      console.log(restaurantId)
       apiService.RestaurantVote(restaurantId, true).then((response) => {
         if (response.status === 200) {
           console.log("yes");
@@ -103,10 +113,9 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .btn {
-  font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", sans-serif;
   background: transparent;
   background-image: url("https://www.linkpicture.com/q/button-1_1.png");
   background-size: 50px 60px;
@@ -160,4 +169,3 @@ p {
   z-index: -1;
   background-size: cover;
 }
-</style>
