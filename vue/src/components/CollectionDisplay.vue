@@ -1,7 +1,6 @@
 <template>
   <div>
     <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
-
         <div class="glass-container">
     <!-- <h4>Current Restaurant Options:</h4> -->
     <div

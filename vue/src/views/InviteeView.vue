@@ -1,7 +1,7 @@
 <template>
   <div>
     <img class="backgroundLogo" src="https://www.linkpicture.com/q/bg4.png" />
-    <br /><br />
+    <br><br>
     <div class="glass-container">
       <!-- list preselected restaurants (from database?) with up/down vote options -->
       <div class="event-details">
@@ -172,7 +172,7 @@ export default {
 .glass-container {
   padding-top: 20px;
   z-index: 0;
-  padding-left: 30px;
+  padding-left: 25px;
   padding-right: 30px;
   padding-bottom: 30px;
   margin-right: 5px;
